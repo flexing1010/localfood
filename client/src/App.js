@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+
+  const addUser = (e) => {
+    e.preventDefault();
+    //remember to send req to backend server!!
+    axios.post("http://localhost:3001/create", { name, age }).then(() => {
+      console.log("success");
+    });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form action="">
+        <label>Name</label>
+        <input
+          type="text"
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+        />
+        <label>Age</label>
+        <input
+          type="number"
+          onChange={(event) => {
+            setAge(event.target.value);
+          }}
+        />
+        <button onClick={addUser}>Submit</button>
+      </form>
     </div>
   );
 }
