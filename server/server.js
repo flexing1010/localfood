@@ -1,9 +1,12 @@
 import express from "express";
+import rootRouter from "./routers/rootRouter.js";
 import mysql from "mysql";
 import cors from "cors";
+import "dotenv/config";
 
 const app = express();
-const PORT = 3001;
+
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -20,7 +23,7 @@ db.connect((err) => {
   if (err) {
     throw err;
   } else {
-    console.log("DB connected");
+    console.log("✅DB connected");
   }
 });
 
@@ -41,6 +44,8 @@ app.post("/create", (req, res) => {
     }
   );
 });
+
+app.use("/", rootRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is Listening localhost:${PORT}🚀`);
