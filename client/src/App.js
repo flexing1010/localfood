@@ -6,7 +6,6 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
-import MenuList from "./components/MenuList";
 import Footer from "./components/Footer.js";
 
 function App() {
@@ -53,7 +52,6 @@ function App() {
             <Search />
           </Route>
         </Switch>
-        <MenuList />
       </div>
       <Footer />
     </Router>

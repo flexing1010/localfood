@@ -1,5 +1,11 @@
+import MenuList from "../components/MenuList";
+
 const Home = () => {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <MenuList />
+    </div>
+  );
 };
 
 export default Home;
