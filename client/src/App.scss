@@ -4,6 +4,41 @@
   margin: 0;
 }
 
+html {
+  min-height: 100vh;
+}
+
+body {
+  height: 100%;
+}
+
 .App {
-  // height: ;
+  height: 100%;
+  .body-wrapper {
+    width: 95%;
+    margin: 2rem auto;
+    height: 100%;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+  }
+  // height: 100%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  align-items: center;
+  width: 100%;
+  form {
+    width: 80%;
+    padding: 1rem;
+    input {
+      width: 100%;
+      height: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+  }
 }

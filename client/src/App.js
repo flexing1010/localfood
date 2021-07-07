@@ -1,12 +1,14 @@
 import "./App.scss";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
-import { useState } from "react";
-import axios from "axios";
+// import { useState } from "react";
+// import axios from "axios";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import Footer from "./components/Footer.js";
+import Login from "./pages/Login";
+import Join from "./pages/Join";
 
 function App() {
   // const [name, setName] = useState("");
@@ -41,17 +43,25 @@ function App() {
           <button onClick={addUser}>Submit</button>
         </form> */}
         <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/details">
-            <ProductDetails />
-          </Route>
-          <Route path="/search">
-            <Search />
-          </Route>
-        </Switch>
+        <div className="body-wrapper">
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/details">
+              <ProductDetails />
+            </Route>
+            <Route path="/search">
+              <Search />
+            </Route>
+            <Router path="/join">
+              <Join />
+            </Router>
+            <Router path="/login">
+              <Login />
+            </Router>
+          </Switch>
+        </div>
       </div>
       <Footer />
     </Router>

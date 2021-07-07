@@ -13,10 +13,13 @@ const Navbar = () => {
           <Link to="/search">검색</Link>
         </li>
         <li>
-          <Link>로그인</Link>
+          <Link to="/login">로그인</Link>
         </li>
         <li>
-          <Link>장바구니</Link>
+          <Link to="/join">회원가입</Link>
+        </li>
+        <li>
+          <Link to="/cart">장바구니</Link>
         </li>
       </ul>
     </nav>
