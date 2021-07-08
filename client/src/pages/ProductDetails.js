@@ -14,7 +14,7 @@ const ProductDetails = () => {
         </div>
         <div className="product__reservation">
           <span>20,000원</span>
-          <Button />
+          <Button text={"예약하기"} />
         </div>
       </div>
     </div>

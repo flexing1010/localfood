@@ -9,6 +9,7 @@ import Search from "./pages/Search";
 import Footer from "./components/Footer.js";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
+import Cart from "./pages/Cart";
 
 function App() {
   // const [name, setName] = useState("");
@@ -59,6 +60,9 @@ function App() {
             </Router>
             <Router path="/login">
               <Login />
+            </Router>
+            <Router path="/cart">
+              <Cart />
             </Router>
           </Switch>
         </div>

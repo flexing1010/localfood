@@ -1,0 +1,13 @@
+.horizontalDisplay {
+  display: flex;
+  width: 70%;
+  height: 100%;
+  .cart__img {
+    width: 15%;
+    height: 100%;
+    margin-right: 2rem;
+    img {
+      width: 100%;
+    }
+  }
+}
