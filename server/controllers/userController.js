@@ -2,17 +2,17 @@ import { db } from "../db.js";
 import bcrypt from "bcrypt";
 
 export const postJoin = async (req, res) => {
-  const { name, username, email, password, passwordConfirm } = req.body;
-  // bcrypt.hash(passwordCo)
+  let { name, username, email, password, passwordConfirm } = req.body;
+
   if (password != passwordConfirm) {
     return res.status(400).send({
       errorMessage: "비밀번호가 다릅니다",
     });
   }
-
+  const encryptedPassword = await bcrypt.hash(password, 5);
   await db.query(
     "INSERT INTO user (name, username, email, password) VALUES(?,?,?,?)",
-    [name, username, email, password],
+    [name, username, email, encryptedPassword],
     (err, result) => {
       if (err) {
         console.log(err);
