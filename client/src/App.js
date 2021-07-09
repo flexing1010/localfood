@@ -26,23 +26,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <form action="">
-          <label>Name</label>
-          <input
-            type="text"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-          <label>Age</label>
-          <input
-            type="number"
-            onChange={(event) => {
-              setAge(event.target.value);
-            }}
-          />
-          <button onClick={addUser}>Submit</button>
-        </form> */}
         <Navbar />
         <div className="body-wrapper">
           <Switch>
@@ -55,15 +38,15 @@ function App() {
             <Route path="/search">
               <Search />
             </Route>
-            <Router path="/join">
+            <Route path="/join">
               <Join />
-            </Router>
-            <Router path="/login">
+            </Route>
+            <Route path="/login">
               <Login />
-            </Router>
-            <Router path="/cart">
+            </Route>
+            <Route path="/cart">
               <Cart />
-            </Router>
+            </Route>
           </Switch>
         </div>
       </div>

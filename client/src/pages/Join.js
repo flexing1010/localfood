@@ -1,6 +1,7 @@
 import "./Join.scss";
 import { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Join = () => {
   const [name, setName] = useState("");
@@ -8,7 +9,10 @@ const Join = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  let errorMessage;
+
+  const [errorMessage, setErrorMessage] = useState("");
+  let history = useHistory();
+
   const postJoin = (e) => {
     e.preventDefault();
     axios
@@ -19,18 +23,20 @@ const Join = () => {
         password,
         passwordConfirm,
       })
-      .then(() => {
-        console.log("success");
+      .then((response) => {
+        console.log("success77", history);
+        history.push("/login");
       })
       .catch((err) => {
-        errorMessage = err.response.data.errorMessage;
-        console.log(errorMessage);
+        if (err.response) {
+          setErrorMessage(err.response.data.errorMessage);
+        }
       });
   };
 
   return (
     <div className="form-container">
-      {errorMessage ? <span>{errorMessage} </span> : ""}
+      {errorMessage && <span>{errorMessage}</span>}
       <form action="">
         <input
           name="name"
