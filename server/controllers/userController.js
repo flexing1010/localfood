@@ -1,7 +1,8 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
+import { response } from "express";
 
-export const postJoin = async (req, res) => {
+export const postJoinController = async (req, res) => {
   let { name, username, email, password, passwordConfirm } = req.body;
 
   if (password != passwordConfirm) {
@@ -28,6 +29,28 @@ export const postJoin = async (req, res) => {
   );
 };
 
+export const postLoginController = async (req, res) => {
+  let { username, password } = req.body;
+
+  const encryptedPassword = await bcrypt.hash(password, 5);
+  if (username && encryptedPassword) {
+    //* grabs evert column from the table
+    await db.query(
+      "Select * from user where username = ? and password = ?",
+      [username, encryptedPassword],
+      (err, result) => {
+        if (result.length > 0) {
+          console.log("logged in");
+        } else {
+          res.send("잘못된 닉네임/비밀번호 입니다");
+        }
+        // response.end();
+      }
+    );
+  } else {
+    res.send("닉네임과 비밀번호를 입력해주세요");
+  }
+};
 // app.post("/join", (req, res) => {
 //     // const { body: name, age } = req;
 //     const name = req.body.name;

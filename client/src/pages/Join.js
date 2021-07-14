@@ -24,7 +24,7 @@ const Join = () => {
         passwordConfirm,
       })
       .then((response) => {
-        console.log("success77", history);
+        console.log("success");
         history.push("/login");
       })
       .catch((err) => {
@@ -37,7 +37,11 @@ const Join = () => {
   return (
     <div className="form-container">
       {errorMessage && <span>{errorMessage}</span>}
-      <form action="">
+      <form
+        action="http://localhost:3001/join"
+        method="POST"
+        onSubmit={postJoin}
+      >
         <input
           name="name"
           placeholder="이름"
@@ -83,7 +87,7 @@ const Join = () => {
           }}
           required
         />
-        <input type="submit" value="Join" onClick={postJoin} />
+        <input type="submit" value="Join" />
       </form>
     </div>
   );
