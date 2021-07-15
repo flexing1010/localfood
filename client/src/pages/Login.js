@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   let history = useHistory();
 
@@ -14,12 +15,19 @@ const Login = () => {
       .post("http://localhost:3001/login", { username, password })
       .then((res) => {
         console.log("success");
+        console.log(res);
         history.push("/");
+      })
+      .catch((err) => {
+        if (err.response) {
+          setErrorMessage(err.response.data.errorMessage);
+        }
       });
   };
 
   return (
     <div className="form-container">
+      {errorMessage && <span>{errorMessage}</span>}
       <form action="" onSubmit={postLogin}>
         <input
           name="username"

@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
-import { response } from "express";
+// import { sign } from "jsonwebtoken";
 
 export const postJoinController = async (req, res) => {
   let { name, username, email, password, passwordConfirm } = req.body;
@@ -31,24 +31,37 @@ export const postJoinController = async (req, res) => {
 
 export const postLoginController = async (req, res) => {
   let { username, password } = req.body;
-
-  const encryptedPassword = await bcrypt.hash(password, 5);
-  if (username && encryptedPassword) {
-    //* grabs evert column from the table
+  if (username && password) {
+    //* grabs every column from the table
     await db.query(
-      "Select * from user where username = ? and password = ?",
-      [username, encryptedPassword],
-      (err, result) => {
-        if (result.length > 0) {
-          console.log("logged in");
-        } else {
-          res.send("잘못된 닉네임/비밀번호 입니다");
+      "Select * from user where username = ?",
+      [username],
+      // "Select * from user where username = ? and password = ?",
+      // [username, encryptedPassword],
+      async (err, result) => {
+        const user = await Object.values(JSON.parse(JSON.stringify(result)));
+        if (err) {
+          return res.send(console.log(err));
         }
-        // response.end();
+        console.log(user);
+        if (user.length === 0) {
+          return res
+            .status(400)
+            .send({ errorMessage: "존재하지 않는 아이디입니다" });
+        }
+
+        const match = await bcrypt.compare(password, user[0].password);
+        // else if(result.length > 0) {
+        if (!match) {
+          return res
+            .status(400)
+            .send({ errorMessage: "잘못된 비밀번호 입니다" });
+        }
+        res.redirect("/");
       }
     );
   } else {
-    res.send("닉네임과 비밀번호를 입력해주세요");
+    res.send({ errorMessage: "잘못된 비밀번호 입니다" });
   }
 };
 // app.post("/join", (req, res) => {
