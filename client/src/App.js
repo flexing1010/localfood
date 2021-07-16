@@ -1,57 +1,75 @@
 import "./App.scss";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
-// import { useState } from "react";
-// import axios from "axios";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import Footer from "./components/Footer.js";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Cart from "./pages/Cart";
+import { AuthContext } from "./AuthContext";
+// import { useHistory } from "react-router-dom";
 
 function App() {
-  // const [name, setName] = useState("");
-  // const [age, setAge] = useState(0);
+  const [authState, setAuthState] = useState(false);
 
-  // const addUser = (e) => {
-  //   e.preventDefault();
-  //   //remember to send req to backend server!!
-  //   axios.post("http://localhost:3001/create", { name, age }).then(() => {
-  //     console.log("success");
-  //   });
-  // };
+  //  let history = useHistory();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        if (res.data.errorMessage) {
+          setAuthState(false);
+        } else {
+          console.log(res);
+          setAuthState(true);
+        }
+      });
+  }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="body-wrapper">
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/details">
-              <ProductDetails />
-            </Route>
-            <Route path="/search">
-              <Search />
-            </Route>
-            <Route path="/join">
-              <Join />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/cart">
-              <Cart />
-            </Route>
-          </Switch>
-        </div>
-      </div>
-      <Footer />
-    </Router>
+    <div className="App">
+      <AuthContext.Provider value={{ authState, setAuthState }}>
+        <Router>
+          <Navbar />
+          <div className="body-wrapper">
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/details">
+                <ProductDetails />
+              </Route>
+              <Route path="/search">
+                <Search />
+              </Route>
+              {!authState && (
+                <>
+                  <Route path="/join">
+                    <Join />
+                  </Route>
+                  <Route path="/login">
+                    <Login />
+                  </Route>
+                </>
+              )}
+              <Route path="/cart">
+                <Cart />
+              </Route>
+            </Switch>
+          </div>
+          <Footer />
+        </Router>
+      </AuthContext.Provider>
+    </div>
   );
 }
 

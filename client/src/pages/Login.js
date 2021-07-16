@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { setAuthState } = useContext(AuthContext);
 
   let history = useHistory();
 
@@ -14,8 +16,11 @@ const Login = () => {
     axios
       .post("http://localhost:3001/login", { username, password })
       .then((res) => {
-        console.log("success");
-        console.log(res);
+        if (res.data.errorMessage) {
+          alert(res.data.errorMessage);
+        }
+        localStorage.setItem("accessToken", res.data);
+        setAuthState(true);
         history.push("/");
       })
       .catch((err) => {

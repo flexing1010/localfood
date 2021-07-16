@@ -1,6 +1,9 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
-// import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+
+// import { Router } from "express";
+const { sign } = jwt;
 
 export const postJoinController = async (req, res) => {
   let { name, username, email, password, passwordConfirm } = req.body;
@@ -43,13 +46,11 @@ export const postLoginController = async (req, res) => {
         if (err) {
           return res.send(console.log(err));
         }
-        console.log(user);
         if (user.length === 0) {
           return res
             .status(400)
             .send({ errorMessage: "존재하지 않는 아이디입니다" });
         }
-
         const match = await bcrypt.compare(password, user[0].password);
         // else if(result.length > 0) {
         if (!match) {
@@ -57,26 +58,23 @@ export const postLoginController = async (req, res) => {
             .status(400)
             .send({ errorMessage: "잘못된 비밀번호 입니다" });
         }
-        res.redirect("/");
+        const accessToken = sign(
+          {
+            username: user[0].username,
+            id: user[0].id,
+          },
+          "xlSWyC0Jw2"
+        );
+
+        res.json(accessToken);
       }
     );
   } else {
     res.send({ errorMessage: "잘못된 비밀번호 입니다" });
   }
 };
-// app.post("/join", (req, res) => {
-//     // const { body: name, age } = req;
-//     const name = req.body.name;
-//     const age = req.body.age;
-//     db.query(
-//       "INSERT INTO user (name, age) VALUES (?,?)",
-//       [name, age],
-//       (err, result) => {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           res.send("Values Inserted");
-//         }
-//       }
-//     );
-//   });
+
+export const getAuth = (req, res) => {
+  console.log(req.user);
+  res.json(req.user);
+};
