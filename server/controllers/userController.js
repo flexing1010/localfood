@@ -66,7 +66,11 @@ export const postLoginController = async (req, res) => {
           "xlSWyC0Jw2"
         );
 
-        res.json(accessToken);
+        res.json({
+          token: accessToken,
+          username: user[0].username,
+          id: user[0].id,
+        });
       }
     );
   } else {
@@ -75,6 +79,5 @@ export const postLoginController = async (req, res) => {
 };
 
 export const getAuth = (req, res) => {
-  console.log(req.user);
   res.json(req.user);
 };

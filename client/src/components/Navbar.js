@@ -4,7 +4,16 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
 
 const Navbar = () => {
-  const { authState } = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({
+      username: "",
+      id: 0,
+      status: false,
+    });
+  };
 
   return (
     <nav>
@@ -16,7 +25,7 @@ const Navbar = () => {
         <li>
           <Link to="/search">검색</Link>
         </li>
-        {!authState && (
+        {!authState.status && (
           <>
             <li>
               <Link to="/login">로그인</Link>
@@ -29,6 +38,16 @@ const Navbar = () => {
         <li>
           <Link to="/cart">장바구니</Link>
         </li>
+        {authState.status && (
+          <>
+            <li>
+              <div>{authState.username}</div>
+            </li>
+            <li>
+              <button onClick={logout}>로그아웃</button>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

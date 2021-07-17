@@ -19,8 +19,12 @@ const Login = () => {
         if (res.data.errorMessage) {
           alert(res.data.errorMessage);
         }
-        localStorage.setItem("accessToken", res.data);
-        setAuthState(true);
+        localStorage.setItem("accessToken", res.data.token);
+        setAuthState({
+          username: res.data.username,
+          id: res.data.id,
+          status: true,
+        });
         history.push("/");
       })
       .catch((err) => {
