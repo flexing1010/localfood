@@ -14,6 +14,9 @@ import { AuthContext } from "./AuthContext";
 // import { useHistory } from "react-router-dom";
 
 function App() {
+  // const cancelToken = axios.CancelToken
+  // const source = cancelToken.source
+
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
@@ -39,9 +42,9 @@ function App() {
             id: res.data.id,
             status: true,
           });
-          console.log(authState);
         }
       });
+
     // eslint-disable-next-line
   }, []);
 
@@ -58,10 +61,10 @@ function App() {
               <Route path="/search" component={Search} />
               <Route path="/cart" component={Cart} />
               {!authState.status && (
-                <>
+                <Switch>
                   <Route path="/join" component={Join} />
                   <Route path="/login" component={Login} />
-                </>
+                </Switch>
               )}
             </Switch>
           </div>
