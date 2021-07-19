@@ -10,13 +10,13 @@ import Footer from "./components/Footer.js";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Cart from "./pages/Cart";
-import { AuthContext } from "./AuthContext";
+import { AuthContext, ProductContext } from "./Context";
 // import { useHistory } from "react-router-dom";
 
 function App() {
   // const cancelToken = axios.CancelToken
   // const source = cancelToken.source
-
+  const [products, setProducts] = useState([]);
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
@@ -27,13 +27,19 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
+      .all(
+        [
+          axios.get("http://localhost:3001/auth"),
+          axios.get("http://localhost:3001/"),
+        ],
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
       .then((res) => {
-        if (res.data.errorMessage) {
+        if (res[0].data.errorMessage) {
           setAuthState({ ...authState, status: false });
         } else {
           console.log(res);
@@ -43,33 +49,36 @@ function App() {
             status: true,
           });
         }
+        setProducts(res[1].data);
       });
-
+    console.log(products);
     // eslint-disable-next-line
   }, []);
 
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
-          <Navbar />
-          <div className="body-wrapper">
-            {/* 버그 authState때문에 에러가 생기는 듯 */}
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/details" component={ProductDetails} />
-              <Route path="/search" component={Search} />
-              <Route path="/cart" component={Cart} />
-              {!authState.status && (
-                <Switch>
-                  <Route path="/join" component={Join} />
-                  <Route path="/login" component={Login} />
-                </Switch>
-              )}
-            </Switch>
-          </div>
-          <Footer />
-        </Router>
+        <ProductContext.Provider value={{ products }}>
+          <Router>
+            <Navbar />
+            <div className="body-wrapper">
+              {/* 버그 authState때문에 에러가 생기는 듯 */}
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/details" component={ProductDetails} />
+                <Route path="/search" component={Search} />
+                <Route path="/cart" component={Cart} />
+                {!authState.status && (
+                  <Switch>
+                    <Route path="/join" component={Join} />
+                    <Route path="/login" component={Login} />
+                  </Switch>
+                )}
+              </Switch>
+            </div>
+            <Footer />
+          </Router>
+        </ProductContext.Provider>
       </AuthContext.Provider>
     </div>
   );

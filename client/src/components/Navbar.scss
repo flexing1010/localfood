@@ -3,12 +3,16 @@ nav {
   position: sticky;
   top: 0;
   justify-content: space-between;
-  background-color: white;
+  background-color: #10af29;
+  z-index: 10;
   ul {
-    width: 50%;
-    font-size: 1.5rem;
+    width: 80%;
+    font-size: 1.2rem;
     list-style-type: none;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+    li {
+      margin-left: 1rem;
+    }
   }
 }
