@@ -1,5 +1,5 @@
 import express from "express";
-import { home } from "../controllers/productController.js";
+import { home, viewProduct } from "../controllers/productController.js";
 import {
   postJoinController,
   postLoginController,
@@ -10,6 +10,8 @@ import { publicOnlyMiddleware, validateToken } from "../middlewares.js";
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
+
+rootRouter.get("/view/:id", viewProduct);
 
 rootRouter.route("/join").post(publicOnlyMiddleware, postJoinController);
 rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);

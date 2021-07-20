@@ -1,16 +1,17 @@
 import "./App.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { AuthContext, ProductContext } from "./Context";
+import axios from "axios";
+
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import Navbar from "./components/Navbar";
 import Search from "./pages/Search";
 import Footer from "./components/Footer.js";
 import Login from "./pages/Login";
 import Join from "./pages/Join";
 import Cart from "./pages/Cart";
-import { AuthContext, ProductContext } from "./Context";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -23,34 +24,30 @@ function App() {
     status: false,
   });
 
+  const getAuth = axios.get("http://localhost:3001/auth", {
+    headers: {
+      accessToken: localStorage.getItem("accessToken"),
+    },
+  });
+
   //  let history = useHistory();
 
   useEffect(() => {
-    axios
-      .all(
-        [
-          axios.get("http://localhost:3001/auth"),
-          axios.get("http://localhost:3001/"),
-        ],
-        {
-          headers: {
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        }
-      )
-      .then((res) => {
-        if (res[0].data.errorMessage) {
-          setAuthState({ ...authState, status: false });
-        } else {
-          console.log(res);
-          setAuthState({
-            username: res.data.username,
-            id: res.data.id,
-            status: true,
-          });
-        }
-        setProducts(res[1].data);
-      });
+    axios.all([getAuth, axios.get("http://localhost:3001/")]).then((res) => {
+      if (res[0].data.errorMessage) {
+        setAuthState({ ...authState, status: false });
+        console.log("d", res);
+      } else {
+        console.log(res);
+        setAuthState({
+          username: res[0].data.username,
+          id: res[0].data.id,
+          status: true,
+        });
+      }
+      console.log(res);
+      setProducts(res[1].data);
+    });
     console.log(products);
     // eslint-disable-next-line
   }, []);
@@ -68,6 +65,8 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
+                <Route path="/productdetails/:id" component={ProductDetails} />
+
                 {!authState.status && (
                   <Switch>
                     <Route path="/join" component={Join} />

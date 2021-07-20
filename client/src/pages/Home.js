@@ -1,7 +1,6 @@
 import "./Home.scss";
 // import axios from "axios";
 // import {  useEffect} from "react";
-import MenuList from "../components/MenuList";
 import VerticalDisplay from "../components/VerticalDisplay";
 
 const Home = () => {
