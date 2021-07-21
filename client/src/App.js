@@ -36,19 +36,17 @@ function App() {
     axios.all([getAuth, axios.get("http://localhost:3001/")]).then((res) => {
       if (res[0].data.errorMessage) {
         setAuthState({ ...authState, status: false });
-        console.log("d", res);
       } else {
-        console.log(res);
         setAuthState({
           username: res[0].data.username,
           id: res[0].data.id,
           status: true,
         });
       }
-      console.log(res);
+
       setProducts(res[1].data);
     });
-    console.log(products);
+
     // eslint-disable-next-line
   }, []);
 

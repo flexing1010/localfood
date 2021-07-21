@@ -2,6 +2,7 @@ import "./Navbar.scss";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const { authState, setAuthState } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const Navbar = () => {
   return (
     <nav>
       <h1>로컬푸드</h1>
+      <SearchBar />
       <ul>
         <li>
           <Link to="/">홈</Link>
