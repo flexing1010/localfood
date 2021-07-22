@@ -16,7 +16,6 @@ const SearchBar = () => {
 
   const search = (e) => {
     e.preventDefault();
-
     axios
       .get("http://localhost:3001/search", {
         params: { keyword },
@@ -27,14 +26,20 @@ const SearchBar = () => {
           console.log(res.data.errorMessage);
         }
 
-        setResult(res.data);
-        history.push(`/search`, { searchResult: result });
+        history.push(`/search`, { searchResult: res.data });
+        // setResult(res.data);
       });
+    setKeyword("");
   };
 
   return (
-    <form method="GET" className="SearchBar" onSubmit={search}>
-      <input type="text" name="keyword" onChange={handleKeyword} />
+    <form className="SearchBar" onSubmit={search}>
+      <input
+        type="text"
+        name="keyword"
+        onChange={handleKeyword}
+        value={keyword}
+      />
       <button>
         <FontAwesomeIcon icon={faSearch} />
       </button>
