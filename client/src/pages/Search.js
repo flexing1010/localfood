@@ -1,10 +1,18 @@
 import { useLocation } from "react-router-dom";
+import DisplayVertical from "../components/DisplayVertical";
+
 const Search = () => {
   const location = useLocation();
-  const result = location.state.searchResult;
+  const results = location.state.searchResult;
   return (
-    // <div onClick={() => console.log(location.state.searchResult)}>asd</div>
-    <div>{result[0].product_name}</div>
+    <section className="search">
+      <ul className="verticalDisplay">
+        {results.map((result) => {
+          console.log(result);
+          return <DisplayVertical product={result} />;
+        })}
+      </ul>
+    </section>
   );
 };
 

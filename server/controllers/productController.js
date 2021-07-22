@@ -40,3 +40,8 @@ export const search = async (req, res) => {
     }
   );
 };
+
+export const postCart = async (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+};
