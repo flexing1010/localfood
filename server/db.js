@@ -6,6 +6,7 @@ export const db = mysql.createConnection({
   password: "password",
   database: "test_db",
   port: "3306",
+  // multipleStatements: true,
 });
 
 db.connect((err) => {

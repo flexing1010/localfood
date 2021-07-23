@@ -4,6 +4,7 @@ import {
   home,
   search,
   viewProduct,
+  getCart,
 } from "../controllers/productController.js";
 import {
   postJoinController,
@@ -23,6 +24,6 @@ rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);
 rootRouter.route("/auth").get(validateToken, getAuth);
 rootRouter.get("/search", search);
 
-rootRouter.route("/cart").post(postCart);
+rootRouter.route("/cart").post(postCart).get(getCart);
 
 export default rootRouter;

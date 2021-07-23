@@ -45,3 +45,36 @@ export const postCart = async (req, res) => {
   const { id } = req.body;
   console.log(id);
 };
+
+export const getCart = async (req, res) => {
+  const { id } = req.query;
+  if (id) {
+    await db.query(
+      "select id from cart where user_id =?",
+      [id],
+      async (err, result) => {
+        if (err) {
+          console.log("aa", result);
+          return res.send(console.log(err));
+        } else if (result.length != 0) {
+          console.log("cc", result);
+          await db.query(
+            "select * from cart_item where cart_id =?",
+            [result[0].id],
+            (err, result) => {
+              if (err) {
+                console.log("dd", result);
+                return res.send(console.log(err));
+              } else if (result.length === 0) {
+                return res.send({
+                  errorMessage: "장바구니에 담긴 상품이 없습니다.",
+                });
+              }
+              res.json(result[0]);
+            }
+          );
+        }
+      }
+    );
+  }
+};

@@ -26,6 +26,9 @@ export const postJoinController = async (req, res) => {
             .send({ errorMessage: "이미 존재하는 닉네임/이메일 입니다" });
         }
       } else {
+        // create cart for a newly joined user
+        db.query("Insert into cart (user_id) values(?)", [result.insertId]);
+        console.log(result.insertId);
         res.send("Values Inserted");
       }
     }
