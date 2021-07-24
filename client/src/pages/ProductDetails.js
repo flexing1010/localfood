@@ -30,7 +30,7 @@ const ProductDetails = () => {
               <span>{product.rating}</span>
               <span>{product.price}</span>
             </div>
-            <Button text={"주문하기"} />
+            <Button productId={product.id} />
           </>
         }
       </div>

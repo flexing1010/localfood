@@ -12,10 +12,11 @@ const Cart = () => {
   let history = useHistory();
   const { authState } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const [cartItem, setCartItem] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
-      alert("장바구니를 사용하려면 로그인 하셔야 합니다");
+      alert("장바구니를 사용하려면 로그인 해주십시오");
       history.push("/login");
     } else {
       axios
@@ -23,6 +24,7 @@ const Cart = () => {
         .then((res) => {
           setErrorMessage(res.data.errorMessage);
           console.log(res.data);
+          setCartItem(res.data);
         });
     }
     // eslint-disable-next-line
@@ -30,7 +32,8 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <span>{errorMessage}</span>
+      {errorMessage ?? <span>{errorMessage}</span>}
+      <div>{cartItem[0].product_name}</div>
       {/* {isWideScreen ? <DisplayVertical /> : <HorizontalDisplay />} */}
     </div>
   );

@@ -10,9 +10,9 @@ const VerticalDisplay = (props) => {
     <li
       className="menu"
       onClick={() => {
-        history.push(`/productdetails/${props.product.product_id}`);
+        history.push(`/productdetails/${props.product.id}`);
       }}
-      key={props.product.product_id}
+      // key={props.product.product_id}
     >
       <div className="menu__img">
         <img src={props.product.imgUrl} alt="menu-imgs" />

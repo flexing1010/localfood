@@ -18,7 +18,7 @@ const Home = () => {
     <section className="home">
       <ul className="verticalDisplay">
         {products.map((product) => {
-          return <DisplayVertical product={product} />;
+          return <DisplayVertical product={product} key={product.id} />;
         })}
       </ul>
     </section>
