@@ -14,6 +14,11 @@ body {
 
 .App {
   height: 100%;
+  &:after {
+    padding-bottom: 8.25%;
+    display: block;
+    content: "";
+  }
   .body-wrapper {
     width: 100%;
     margin: 2rem auto;

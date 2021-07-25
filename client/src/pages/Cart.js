@@ -1,5 +1,5 @@
 import "./Cart.scss";
-import HorizontalDisplay from "../components/HorizontalDisplay";
+import DisplayHorizontal from "../components/DisplayHorizontal";
 import DisplayVertical from "../components/DisplayVertical";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -8,11 +8,11 @@ import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 
 const Cart = () => {
-  // const isWideScreen = useMediaQuery({ query: `(max-width:750px)` });
+  const isSmallScreen = useMediaQuery({ query: `(max-width:750px)` });
   let history = useHistory();
   const { authState } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
-  const [cartItem, setCartItem] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
@@ -24,18 +24,33 @@ const Cart = () => {
         .then((res) => {
           setErrorMessage(res.data.errorMessage);
           console.log(res.data);
-          setCartItem(res.data);
+          setCartItems(res.data);
         });
     }
     // eslint-disable-next-line
   }, [authState]);
 
   return (
-    <div className="cart-container">
+    <section className="cart">
       {errorMessage ?? <span>{errorMessage}</span>}
-      <div>{cartItem[0].product_name}</div>
-      {/* {isWideScreen ? <DisplayVertical /> : <HorizontalDisplay />} */}
-    </div>
+      {/* {cartItems.map((cartItem) => {
+        return <div>{cartItem.product_name}</div>;
+      })} */}
+      <ul className={isSmallScreen ? "verticalDisplay" : "horizontalDisplay"}>
+        {/* {isSmallScreen ? <DisplayVertical product={cartItems}/> : <DisplayHorizontal product={cartItems} />} */}
+        {isSmallScreen ? (
+          cartItems.map((item) => {
+            return <DisplayVertical product={item} key={item.id} />;
+          })
+        ) : (
+          <div></div>
+        )}
+        {!isSmallScreen &&
+          cartItems.map((item) => {
+            return <DisplayHorizontal product={item} key={item.id} />;
+          })}
+      </ul>
+    </section>
   );
 };
 

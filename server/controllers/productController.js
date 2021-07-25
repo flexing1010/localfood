@@ -55,15 +55,15 @@ export const search = async (req, res) => {
 };
 
 export const postCart = async (req, res) => {
-  const { user_id, product_id } = req.body;
+  const { user_id, product_id: productId } = req.body;
 
   cartId(user_id, async (err, cart_id) => {
     const cartId = await cart_id[0].id;
-    await db.query(
+    db.query(
       "insert into cart_item (product_id, cart_id, quantity) values(?,?,?)",
-      [product_id, cartId, 2 + 1],
+      [productId, cartId, 2 + 1],
       (err, result) => {
-        if (err.errno === 1062) {
+        if (err && err.errno === 1062) {
           return res.send({
             errorMessage: "이미 장바구니에 담긴 상품입니다",
           });
@@ -82,11 +82,14 @@ export const getCart = async (req, res) => {
   const { id } = req.query;
 
   cartId(id, async (err, cart_id) => {
-    const cartId = await cart_id[0].id;
+    let cartId;
+    if (cart_id.length != 0) {
+      cartId = await cart_id[0].id;
+    }
     if (err) {
       return console.log(err);
     } else if (cart_id != 0) {
-      await db.query(
+      db.query(
         "select product_id from cart_item where cart_id = ?",
         [cartId],
         async (err, result) => {
@@ -100,7 +103,6 @@ export const getCart = async (req, res) => {
           let productIds = [];
           result.map((product) => {
             productIds.push(product.product_id);
-            console.log(productIds);
           });
           db.query(
             "select * from product where id In (?)",

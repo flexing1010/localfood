@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <section className="home">
-      <ul className="verticalDisplay">
+      <ul className="homeDisplay">
         {products.map((product) => {
           return <DisplayVertical product={product} key={product.id} />;
         })}
