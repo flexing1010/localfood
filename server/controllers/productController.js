@@ -1,20 +1,12 @@
 import { db } from "../db.js";
-
-let cartId = async (user_id, callback) => {
-  return db.query(
-    "select id from cart where user_id = ?",
-    [user_id],
-    (err, result) => {
-      if (err) {
-        callback(err);
-      }
-      callback(null, result);
-    }
-  );
-};
+import {
+  getCartId,
+  checkDuplicateItem,
+  getCartItemInfo,
+} from "../queries/productQuery.js";
 
 export const home = async (req, res) => {
-  await db.query("SELECT * FROM product", async (err, result) => {
+  db.execute("SELECT * FROM product", async (err, result) => {
     const productList = await result;
     if (err) {
       return res.send(console.log(err));
@@ -25,21 +17,17 @@ export const home = async (req, res) => {
 
 export const viewProduct = async (req, res) => {
   const { id } = req.params;
-  await db.query(
-    "select * From product where id =?",
-    [id],
-    async (err, result) => {
-      if (err) {
-        return res.send(console.log(err));
-      }
-      res.json(result);
+  db.execute("select * From product where id =?", [id], async (err, result) => {
+    if (err) {
+      return res.send(console.log(err));
     }
-  );
+    res.json(result);
+  });
 };
 
 export const search = async (req, res) => {
   const { keyword } = req.query;
-  await db.query(
+  db.query(
     "Select * From product where product_name Like ?",
     "%" + keyword + "%",
     async (err, result) => {
@@ -56,94 +44,69 @@ export const search = async (req, res) => {
 
 export const postCart = async (req, res) => {
   const { user_id, product_id: productId } = req.body;
-
-  cartId(user_id, async (err, cart_id) => {
-    const cartId = await cart_id[0].id;
-    db.query(
-      "insert into cart_item (product_id, cart_id, quantity) values(?,?,?)",
-      [productId, cartId, 2 + 1],
-      (err, result) => {
-        if (err && err.errno === 1062) {
-          return res.send({
-            errorMessage: "이미 장바구니에 담긴 상품입니다",
-          });
+  try {
+    //setCartId
+    let cartId = await getCartId(user_id);
+    cartId = cartId[0].id;
+    //Check if item is duplicate
+    let isDuplicate = await checkDuplicateItem(cartId, productId);
+    isDuplicate = Object.values(isDuplicate[0])[0];
+    //if duplicated item
+    if (isDuplicate === 1) {
+      return res.send({
+        errorMessage: "이미 장바구니에 담긴 상품입니다",
+      });
+      //if not duplicated item
+    } else if (isDuplicate === 0) {
+      db.execute(
+        "insert into cart_item (product_id, cart_id, quantity) values(?,?,?)",
+        [productId, cartId, 2 + 1],
+        (err, result) => {
+          if (err) {
+            return console.log(err);
+          }
+          return res.json("장바구니에 추가 되었습니다");
         }
-        return res.json("장바구니에 추가 되었습니다");
-      }
-    );
-  });
-
-  // if (id) {
-  //   await db.query("select");
-  // }
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getCart = async (req, res) => {
   const { id } = req.query;
-
-  cartId(id, async (err, cart_id) => {
-    let cartId;
-    if (cart_id.length != 0) {
-      cartId = await cart_id[0].id;
+  try {
+    let cartId = await getCartId(id);
+    if (cartId[0]) {
+      cartId = cartId[0].id;
     }
-    if (err) {
-      return console.log(err);
-    } else if (cart_id != 0) {
-      db.query(
+
+    if (cartId != 0) {
+      db.execute(
         "select product_id from cart_item where cart_id = ?",
         [cartId],
         async (err, result) => {
           if (err) {
             return console.log(err);
-          } else if (result.length === 0) {
+          }
+          //if no items in cartId
+          else if (result.length === 0) {
             return res.send({
               errorMessage: "장바구니에 담긴 상품이 없습니다",
             });
           }
+          //if items in cartId send data
           let productIds = [];
           result.map((product) => {
             productIds.push(product.product_id);
           });
-          db.query(
-            "select * from product where id In (?)",
-            [productIds],
-            (err, result) => {
-              if (err) {
-                return console.log(err);
-              }
-              res.send(result);
-            }
-          );
+          console.log(productIds);
+          getCartItemInfo(res, productIds);
         }
       );
     }
-  });
+  } catch (err) {
+    console.log(err);
+  }
 };
-// if (id) {
-//   db.query(
-//     "select id from cart where user_id =?",
-//     [id],
-//     async (err, result) => {
-//       if (err) {
-//         console.log("aa", result);
-//         return res.send(console.log(err));
-//       } else if (result.length != 0) {
-//         await db.query(
-//           "select * from cart_item where cart_id =?",
-//           [result[0].id],
-//           (err, result) => {
-//             if (err) {
-//               return res.send(console.log(err));
-//             } else if (result.length === 0) {
-//               return res.send({
-//                 errorMessage: "장바구니에 담긴 상품이 없습니다.",
-//               });
-//             }
-//             res.json(result);
-//           }
-//         );
-//       }
-//     }
-//   );
-// }
-// };
