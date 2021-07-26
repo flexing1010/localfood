@@ -23,7 +23,7 @@ const Cart = () => {
         .get("http://localhost:3001/cart", { params: { id: authState.id } })
         .then((res) => {
           setErrorMessage(res.data.errorMessage);
-          console.log(res.data);
+          console.log(res.data.errorMessage);
           setCartItems(res.data);
         });
     }
@@ -32,24 +32,28 @@ const Cart = () => {
 
   return (
     <section className="cart">
-      {errorMessage ?? <span>{errorMessage}</span>}
-      {/* {cartItems.map((cartItem) => {
-        return <div>{cartItem.product_name}</div>;
-      })} */}
-      <ul className={isSmallScreen ? "verticalDisplay" : "horizontalDisplay"}>
-        {/* {isSmallScreen ? <DisplayVertical product={cartItems}/> : <DisplayHorizontal product={cartItems} />} */}
-        {isSmallScreen ? (
-          cartItems.map((item) => {
-            return <DisplayVertical product={item} key={item.id} />;
-          })
-        ) : (
-          <div></div>
-        )}
-        {!isSmallScreen &&
-          cartItems.map((item) => {
-            return <DisplayHorizontal product={item} key={item.id} />;
-          })}
-      </ul>
+      {!errorMessage ? (
+        <>
+          <ul
+            className={isSmallScreen ? "verticalDisplay" : "horizontalDisplay"}
+          >
+            {isSmallScreen ? (
+              cartItems.map((item) => {
+                return <DisplayVertical product={item} key={item.id} />;
+              })
+            ) : (
+              <div></div>
+            )}
+            {!isSmallScreen &&
+              cartItems.map((item) => {
+                return <DisplayHorizontal product={item} key={item.id} />;
+              })}
+          </ul>
+        </>
+      ) : (
+        <span>{errorMessage}</span>
+      )}
+      {/* {errorMessage ? <span>{errorMessage}</span> : <div></div>} */}
     </section>
   );
 };

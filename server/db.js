@@ -1,6 +1,7 @@
-import mysql from "mysql";
+import mysql from "mysql2";
 
-export const db = mysql.createConnection({
+export const db = mysql.createPool({
+  connectionLimit: 10,
   host: "localhost",
   user: "root",
   password: "password",
@@ -9,10 +10,10 @@ export const db = mysql.createConnection({
   // multipleStatements: true,
 });
 
-db.connect((err) => {
-  if (err) {
-    throw err;
-  } else {
-    console.log("✅DB connected");
-  }
-});
+// db.connect((err) => {
+//   if (err) {
+//     throw err;
+//   } else {
+//     console.log("✅DB connected");
+//   }
+// });

@@ -1,6 +1,7 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { getUserInfo } from "../queries/userQuery.js";
 
 // import { Router } from "express";
 const { sign } = jwt;
@@ -14,7 +15,7 @@ export const postJoinController = async (req, res) => {
     });
   }
   const encryptedPassword = await bcrypt.hash(password, 5);
-  await db.query(
+  await db.execute(
     "INSERT INTO user (name, username, email, password) VALUES(?,?,?,?)",
     [name, username, email, encryptedPassword],
     (err, result) => {
@@ -27,7 +28,7 @@ export const postJoinController = async (req, res) => {
         }
       } else {
         // create cart for a newly joined user
-        db.query("Insert into cart (user_id) values(?)", [result.insertId]);
+        db.execute("Insert into cart (user_id) values(?)", [result.insertId]);
         console.log(result.insertId);
         res.send("Values Inserted");
       }
@@ -37,47 +38,44 @@ export const postJoinController = async (req, res) => {
 
 export const postLoginController = async (req, res) => {
   let { username, password } = req.body;
-  if (username && password) {
-    //* grabs every column from the table
-    await db.query(
-      "Select * from user where username = ?",
-      [username],
-      // "Select * from user where username = ? and password = ?",
-      // [username, encryptedPassword],
-      async (err, result) => {
-        const user = await Object.values(JSON.parse(JSON.stringify(result)));
-        if (err) {
-          return res.send(console.log(err));
-        }
-        if (user.length === 0) {
-          return res
-            .status(400)
-            .send({ errorMessage: "존재하지 않는 아이디입니다" });
-        }
-        const match = await bcrypt.compare(password, user[0].password);
-        // else if(result.length > 0) {
-        if (!match) {
-          return res
-            .status(400)
-            .send({ errorMessage: "잘못된 비밀번호 입니다" });
-        }
-        const accessToken = sign(
-          {
-            username: user[0].username,
-            id: user[0].id,
-          },
-          "xlSWyC0Jw2"
-        );
+  try {
+    if (username && password) {
+      //grab entire row from user table where username is same as username provided by front
+      let user = await getUserInfo(username);
+      user = user[0];
 
-        res.json({
-          token: accessToken,
-          username: user[0].username,
-          id: user[0].id,
-        });
+      //if user info doesn't exist
+      if (!user) {
+        return res
+          .status(400)
+          .send({ errorMessage: "존재하지 않는 아이디입니다" });
       }
-    );
-  } else {
-    res.send({ errorMessage: "잘못된 비밀번호 입니다" });
+
+      //if user does exist compare its password
+      const match = await bcrypt.compare(password, user.password);
+
+      //if provided password doesn't match with pw from db
+      if (!match) {
+        return res.status(401).json({ errorMessage: "잘못된 비밀번호 입니다" });
+      }
+
+      //Create accessToken
+      const accessToken = sign(
+        {
+          username: user.username,
+          id: user.id,
+        },
+        "xlSWyC0Jw2"
+      );
+
+      res.json({
+        token: accessToken,
+        username: user.username,
+        id: user.id,
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
