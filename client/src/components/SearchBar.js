@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("");
-  const [result, setResult] = useState([]);
+  // const [result, setResult] = useState([]);
   let history = useHistory();
 
   const handleKeyword = (e) => {

@@ -1,7 +1,7 @@
 import "./DisplayHorizontal.scss";
 // import { useContext } from "react";
 import Button from "./OrderButton";
-import { ProductContext } from "../Context";
+// import { ProductContext } from "../Context";
 
 const HorizontalDisplay = (props) => {
   // const { products } = useContext(ProductContext);
