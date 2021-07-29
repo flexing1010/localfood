@@ -2,10 +2,16 @@
 
 @media (max-width: $breakpoint-mobile) {
   .cart {
-    width: 90%;
-    margin: 0 auto;
     .cart-items {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      margin: 0 auto;
+      gap: 5rem;
       list-style-type: none;
+      li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
       .img-description {
         display: flex;
         flex-direction: row;

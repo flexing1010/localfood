@@ -1,0 +1,11 @@
+.cart_item {
+  .cart__description {
+    .rating,
+    .item__price {
+      display: flex;
+      :first-child {
+        width: 20%;
+      }
+    }
+  }
+}
