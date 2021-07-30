@@ -12,6 +12,7 @@ const Button = (prop) => {
         .post("http://localhost:3001/cart", {
           user_id: authState.id,
           product_id: prop.productId,
+          quantity: 1,
         })
         .then((res) => {
           if (res.data.errorMessage) {

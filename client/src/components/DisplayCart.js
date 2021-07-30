@@ -13,12 +13,11 @@ const DisplayCart = ({ item, sendTotalToCart }) => {
   };
 
   useEffect(() => {
-    console.log("aa");
     setItemTotal(cartTotal.current.innerText);
     if (itemTotal) {
       sendTotalToCart(item.id, parseInt(itemTotal));
     }
-  }, [quantity]);
+  }, [quantity, itemTotal, item.id]);
 
   // useEffect(() => {
   //   if (itemTotal) {

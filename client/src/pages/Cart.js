@@ -9,20 +9,17 @@ import axios from "axios";
 import DisplayCart from "../components/DisplayCart";
 
 const Cart = () => {
-  const totalRef = useRef({ init: 0 });
+  let history = useHistory();
+  // const totalRef = useRef({ init: 0 });
 
   const { authState } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [cartItems, setCartItems] = useState([]);
   // const [quantity, setQuantity] = useState(1);
   // const isSmallScreen = useMediaQuery({ query: `(max-width:750px)` });
-  let history = useHistory();
-
-  // const [inputNames, setInputNames] = useState([]);
 
   const [itemTotals, setItemTotal] = useState("");
   const [grandTotal, setGrandTotal] = useState("");
-  // const itemRef = useRef("");
   const sendTotalToCart = (id, total) => {
     if (total) {
       setItemTotal({
@@ -44,43 +41,25 @@ const Cart = () => {
             setErrorMessage(res.data.errorMessage);
           }
           setCartItems(res.data);
-
-          const prices = cartItems.map((item) => {
-            return item.price;
-          });
-          if (prices) {
-            let initTotal = prices.reduce((acc, curr) => acc + curr.price);
-            setGrandTotal(initTotal);
-          }
         });
     }
     // eslint-disable-next-line
-  }, [authState, cartItems]);
+  }, [authState]);
 
   useEffect(() => {
+    console.log(cartItems);
     if (itemTotals) {
       const total = Object.values(itemTotals).reduce(
         (accumulator, currentVal) => accumulator + currentVal
       );
       setGrandTotal(total);
-      console.log(total);
     }
   }, [itemTotals, grandTotal]);
-
-  useEffect(() => {
-    // if (cartItems) {
-    //   const prices = cartItems.map((item) => {
-    //     return item.price;
-    //   });
-    // console.log("aaa", prices);
-    // totalRef.current.init = initTotal;
-    // console.log(initTotal);
-  }, [cartItems]);
 
   return (
     <section className="cart">
       <ul className="cart-items">
-        {cartItems.flatMap((item) => {
+        {cartItems.map((item) => {
           return (
             <DisplayCart
               key={item.id}
