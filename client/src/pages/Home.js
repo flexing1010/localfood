@@ -12,7 +12,6 @@ const Home = () => {
     <section className="home">
       <ul className="homeDisplay">
         {products.map((product) => {
-          // return <DisplayVertical product={product} key={product.id} />;
           return (
             <li
               className="menu"

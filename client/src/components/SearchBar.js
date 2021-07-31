@@ -33,7 +33,7 @@ const SearchBar = () => {
   };
 
   return (
-    <form className="SearchBar" onSubmit={search}>
+    <form className="searchBar" onSubmit={search}>
       <input
         type="text"
         name="keyword"

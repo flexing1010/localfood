@@ -18,7 +18,10 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>로컬푸드</h1>
+      <div className="title">
+        <img src={"/images/nav-logo.jpg"} alt="logo" />
+        {/* <h1>Tennis365</h1> */}
+      </div>
       <SearchBar />
       <ul>
         <li>
