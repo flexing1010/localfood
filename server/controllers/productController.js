@@ -60,7 +60,7 @@ export const postCart = async (req, res) => {
     } else if (isDuplicate === 0) {
       db.execute(
         "insert into cart_item (product_id, cart_id, quantity) values(?,?,?)",
-        [productId, cartId, 2 + 1],
+        [productId, cartId, 1],
         (err, result) => {
           if (err) {
             return console.log(err);
@@ -84,7 +84,7 @@ export const getCart = async (req, res) => {
 
     if (cartId != 0) {
       db.execute(
-        "select product_id from cart_item where cart_id = ?",
+        "select * from cart_item where cart_id = ?",
         [cartId],
         async (err, result) => {
           if (err) {
@@ -97,12 +97,23 @@ export const getCart = async (req, res) => {
             });
           }
           //if items in cartId send data
-          let productIds = [];
-          result.map((product) => {
-            productIds.push(product.product_id);
-          });
-          console.log(productIds);
-          getCartItemInfo(res, productIds);
+
+          db.execute(
+            "select product.product_name,product.brand, product.rating, product.price, product.imgUrl, cart_item.quantity, cart_item.cart_id from product join cart_item on product.id = cart_item.product_id ",
+            (err, result) => {
+              const cartItems = result.filter(
+                (item) => item.cart_id === cartId
+              );
+              res.send(cartItems);
+            }
+          );
+
+          // let productIds = [];
+          // result.map((product) => {
+          //   productIds.push(product.product_id);
+          // });
+          // console.log(productIds);
+          // getCartItemInfo(res, productIds);
         }
       );
     }

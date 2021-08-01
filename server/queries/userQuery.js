@@ -14,3 +14,18 @@ export const getUserInfo = (username) => {
     );
   });
 };
+
+// export const getUserCart = (userId) => {
+//   return new Promise((resolve, reject) => {
+//     db.execute(
+//       "select id from cart where user_id = ?",
+//       [userId],
+//       (err, result) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         return resolve(result);
+//       }
+//     );
+//   });
+// };

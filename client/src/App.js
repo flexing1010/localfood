@@ -41,6 +41,7 @@ function App() {
           username: res[0].data.username,
           id: res[0].data.id,
           status: true,
+          // cartId: res[0].data.cartId,
         });
       }
 

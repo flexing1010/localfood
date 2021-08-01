@@ -3,7 +3,7 @@ import "./DisplayCart.scss";
 import React, { useEffect, useRef, useState } from "react";
 
 const DisplayCart = ({ item, sendTotalToCart }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(item.quantity);
   const [itemTotal, setItemTotal] = useState("");
   const cartTotal = useRef(null);
 

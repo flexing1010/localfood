@@ -59,6 +59,9 @@ export const postLoginController = async (req, res) => {
         return res.status(401).json({ errorMessage: "잘못된 비밀번호 입니다" });
       }
 
+      // let cartId = await getUserCart(user.id);
+      // cartId = cartId[0].id;
+
       //Create accessToken
       const accessToken = sign(
         {

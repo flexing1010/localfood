@@ -47,14 +47,14 @@ const Cart = () => {
   }, [authState]);
 
   useEffect(() => {
-    console.log(cartItems);
-    if (itemTotals) {
-      const total = Object.values(itemTotals).reduce(
-        (accumulator, currentVal) => accumulator + currentVal
-      );
-      setGrandTotal(total);
+    if (cartItems) {
+      const init = cartItems.reduce((a, c) => a + c.price, 0);
+      setGrandTotal(init);
+      // const total = Object.values(itemTotals).reduce(
+      //   (accumulator, currentVal) => accumulator + currentVal
+      // );
     }
-  }, [itemTotals, grandTotal]);
+  }, [itemTotals, grandTotal, cartItems]);
 
   return (
     <section className="cart">
@@ -69,7 +69,7 @@ const Cart = () => {
           );
         })}
       </ul>
-      <div className="cart-items__total">{grandTotal}</div>
+      <div className="cart-items__total">{}</div>
 
       {errorMessage && <span>{errorMessage}</span>}
     </section>
