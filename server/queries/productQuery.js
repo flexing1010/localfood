@@ -42,3 +42,20 @@ export const checkDuplicateItem = (cartId, productId) => {
     );
   });
 };
+
+// export const bring
+
+export const deleteItem = (targetId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "delete from cart_item where id = ?",
+      [targetId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

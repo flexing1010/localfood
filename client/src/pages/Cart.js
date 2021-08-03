@@ -1,6 +1,5 @@
 import "./Cart.scss";
-// import DisplayHorizontal from "../components/DisplayHorizontal";
-// import DisplayVertical from "../components/DisplayVertical";
+
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../Context";
@@ -10,23 +9,44 @@ import DisplayCart from "../components/DisplayCart";
 
 const Cart = () => {
   let history = useHistory();
-  // const totalRef = useRef({ init: 0 });
 
   const { authState } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  // const [quantity, setQuantity] = useState(1);
   // const isSmallScreen = useMediaQuery({ query: `(max-width:750px)` });
-
-  const [itemTotals, setItemTotal] = useState("");
   const [grandTotal, setGrandTotal] = useState("");
-  const sendTotalToCart = (id, total) => {
-    if (total) {
-      setItemTotal({
-        ...itemTotals,
-        [id]: total,
-      });
+
+  const handleDelete = (url, product) => {
+    const exist = cartItems.find((item) => item.id === product.id);
+    if (exist) {
+      axios
+        .delete(url, {
+          data: {
+            targetId: exist.id,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setCartItems(cartItems.filter((item) => item.id !== exist.id));
+          alert(res.data);
+        });
     }
+  };
+
+  const handleQuantity = (product, value) => {
+    const exist = cartItems.find((item) => item.id === product.id);
+    if (exist) {
+      console.log("Aa");
+      setCartItems(
+        cartItems.map((item) =>
+          item.id === product.id ? { ...exist, quantity: value } : item
+        )
+      );
+    } else {
+      console.log("Bb");
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    }
+    console.log(exist, cartItems);
   };
 
   useEffect(() => {
@@ -47,31 +67,41 @@ const Cart = () => {
   }, [authState]);
 
   useEffect(() => {
-    if (cartItems) {
-      const init = cartItems.reduce((a, c) => a + c.price, 0);
+    if (!errorMessage) {
+      const init = cartItems.reduce((a, c) => a + c.quantity * c.price, 0);
       setGrandTotal(init);
-      // const total = Object.values(itemTotals).reduce(
-      //   (accumulator, currentVal) => accumulator + currentVal
-      // );
     }
-  }, [itemTotals, grandTotal, cartItems]);
+  }, [grandTotal, cartItems, errorMessage]);
 
   return (
     <section className="cart">
+      {errorMessage || cartItems.length === 0 ? (
+        <span>장바구니에 담긴 상품이 없습니다</span>
+      ) : null}
       <ul className="cart-items">
-        {cartItems.map((item) => {
+        {!errorMessage && (
+          <DisplayCart
+            errorMessage={errorMessage}
+            cartItems={cartItems}
+            handleQuantity={handleQuantity}
+            handleDelete={handleDelete}
+          />
+        )}
+
+        {/* {cartItems.map((item) => {
           return (
             <DisplayCart
               key={item.id}
               item={item}
+              handleQuantity={handleQuantity}
               sendTotalToCart={sendTotalToCart}
             />
           );
-        })}
+        })} */}
       </ul>
-      <div className="cart-items__total">{}</div>
-
-      {errorMessage && <span>{errorMessage}</span>}
+      <div className="cart-items__total">
+        {errorMessage || cartItems.length === 0 ? null : grandTotal}
+      </div>
     </section>
   );
 };

@@ -2,7 +2,8 @@ import { db } from "../db.js";
 import {
   getCartId,
   checkDuplicateItem,
-  getCartItemInfo,
+  deleteItem,
+  // getCartItemInfo,
 } from "../queries/productQuery.js";
 
 export const home = async (req, res) => {
@@ -99,7 +100,7 @@ export const getCart = async (req, res) => {
           //if items in cartId send data
 
           db.execute(
-            "select product.product_name,product.brand, product.rating, product.price, product.imgUrl, cart_item.quantity, cart_item.cart_id from product join cart_item on product.id = cart_item.product_id ",
+            "select product.product_name,product.brand, product.rating, product.price, product.imgUrl, cart_item.quantity, cart_item.cart_id,cart_item.id from product join cart_item on product.id = cart_item.product_id ",
             (err, result) => {
               const cartItems = result.filter(
                 (item) => item.cart_id === cartId
@@ -117,6 +118,19 @@ export const getCart = async (req, res) => {
         }
       );
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateQuantity = async (req, res) => {};
+
+export const deleteCartItem = async (req, res) => {
+  const cartItemId = req.body.targetId;
+
+  try {
+    await deleteItem(cartItemId);
+    res.json("상품이 장바구니에서 삭제되었습니다");
   } catch (err) {
     console.log(err);
   }

@@ -1,68 +1,74 @@
 import "./DisplayCart.scss";
 
 import React, { useEffect, useRef, useState } from "react";
+import ProductImg from "./ProductImg";
 
-const DisplayCart = ({ item, sendTotalToCart }) => {
-  const [quantity, setQuantity] = useState(item.quantity);
-  const [itemTotal, setItemTotal] = useState("");
-  const cartTotal = useRef(null);
-
-  const changeQuantity = (e) => {
-    let [value] = e.target.value;
-    setQuantity(value);
-  };
-
+const DisplayCart = ({
+  cartItems,
+  handleQuantity,
+  errorMessage,
+  handleDelete,
+}) => {
   useEffect(() => {
-    setItemTotal(cartTotal.current.innerText);
-    if (itemTotal) {
-      sendTotalToCart(item.id, parseInt(itemTotal));
-    }
-  }, [quantity, itemTotal, item.id]);
-
-  // useEffect(() => {
-  //   if (itemTotal) {
-  //     sendTotalToCart(item.id, parseInt(itemTotal));
-  //   }
-  //   console.log();
-  // }, []);
+    console.log(cartItems, "dd");
+  }, []);
 
   return (
-    <li className="cart_item">
-      <div className="img-description">
-        <div className="cart__img">
-          <img src={item.imgUrl} alt="menu-imgs" />
-        </div>
-        <div className="cart__description">
-          <h2>{item.product_name}</h2>
-          <span>{item.brand}</span>
-          <div className="rating">
-            <span>평점</span>
-            <span>{item.rating}</span>
-          </div>
-          <div className="item__price">
-            <span>판매가</span>
-            <span>{item.price}</span>
-          </div>
-          <div className="item__quantity">
-            <small>수량</small>
-            <input
-              value={quantity}
-              name={`quantity_id_${item.id}`}
-              onChange={changeQuantity}
-              type="number"
-              placeholder="수량"
-            />
-          </div>
-          <div>
-            <span>합계</span>
-            <span ref={cartTotal} id={item.id}>
-              {quantity * parseInt(item.price)}
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="price-quantity"></div>
-    </li>
+    <>
+      {cartItems.map((item) => {
+        return (
+          <li className="cart_item" key={item.id}>
+            <div
+              onClick={() =>
+                handleDelete("http://localhost:3001/cart/update", item)
+              }
+            >
+              ❎
+            </div>
+            {/* <DeleteButton
+              url={"http://localhost:3001/cart/update"}
+              targetId={item.id}
+            /> */}
+            <div className="img-description">
+              <ProductImg item={item} class={"cart__img"} />
+              <div className="cart__description">
+                <h2>{item.product_name}</h2>
+                <span>{item.brand}</span>
+                <div className="rating">
+                  <span>평점</span>
+                  <span>{item.rating}</span>
+                </div>
+                <div className="item__price">
+                  <span>판매가</span>
+                  <span>{item.price}</span>
+                </div>
+                <div className="item__quantity">
+                  <small>수량</small>
+                  <input
+                    min={1}
+                    value={item.quantity}
+                    name={`quantity_id_${item.id}`}
+                    // onChange={changeQuantity}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      handleQuantity(item, value);
+                    }}
+                    type="number"
+                    placeholder="수량"
+                  />
+                </div>
+                <div>
+                  <span>합계</span>
+                  <span id={item.id}>
+                    {item.quantity * parseInt(item.price)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </>
   );
 };
 
