@@ -1,7 +1,8 @@
+import "./OrderButton.scss";
+
 import { useContext } from "react";
 import axios from "axios";
-import "./OrderButton.scss";
-import { AuthContext } from "../Context";
+import { AuthContext } from "../../Context";
 
 const Button = (prop) => {
   const { authState } = useContext(AuthContext);

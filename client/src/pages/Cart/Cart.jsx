@@ -1,11 +1,11 @@
 import "./Cart.scss";
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../Context";
+import { AuthContext } from "../../Context";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
-import DisplayCart from "../components/DisplayCart";
+import DisplayCart from "../../components/DisplayCart/DisplayCart";
 
 const Cart = () => {
   let history = useHistory();

@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import DisplayVertical from "../components/DisplayVertical";
+import DisplayVertical from "../../components/DisplayVertical/DisplayVertical";
 
 const Search = () => {
   const location = useLocation();

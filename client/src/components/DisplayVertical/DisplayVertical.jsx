@@ -1,5 +1,5 @@
 import "./DisplayVertical.scss";
-import Button from "./OrderButton";
+import Button from "../OrderButton/OrderButton";
 import { useHistory } from "react-router-dom";
 
 //props here gets a object of a single product

@@ -1,14 +1,9 @@
 import "./DisplayCart.scss";
 
 import React, { useEffect, useRef, useState } from "react";
-import ProductImg from "./ProductImg";
+import ProductImg from "../ProductImg/ProductImg";
 
-const DisplayCart = ({
-  cartItems,
-  handleQuantity,
-  errorMessage,
-  handleDelete,
-}) => {
+const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
   useEffect(() => {
     console.log(cartItems, "dd");
   }, []);
@@ -25,10 +20,6 @@ const DisplayCart = ({
             >
               ❎
             </div>
-            {/* <DeleteButton
-              url={"http://localhost:3001/cart/update"}
-              targetId={item.id}
-            /> */}
             <div className="img-description">
               <ProductImg item={item} class={"cart__img"} />
               <div className="cart__description">

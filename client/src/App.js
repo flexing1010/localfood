@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { AuthContext, ProductContext } from "./Context";
 import axios from "axios";
 
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
-import Navbar from "./components/Navbar";
-import Search from "./pages/Search";
-import Footer from "./components/Footer.js";
-import Login from "./pages/Login";
-import Join from "./pages/Join";
-import Cart from "./pages/Cart";
+import Home from "./pages/Home/Home";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Navbar from "./components/Navbar/Navbar";
+import Search from "./pages/Search/Search";
+import Footer from "./components/Footer/Footer.jsx";
+import Login from "./pages/Login/Login";
+import Join from "./pages/Join/Join";
+import Cart from "./pages/Cart/Cart";
 // import { useHistory } from "react-router-dom";
 
 function App() {

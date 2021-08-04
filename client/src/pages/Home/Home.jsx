@@ -1,8 +1,8 @@
 import "./Home.scss";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { ProductContext } from "../Context";
-import ProductImg from "../components/ProductImg";
+import { ProductContext } from "../../Context";
+import ProductImg from "../../components/ProductImg/ProductImg";
 // import DisplayVertical from "../components/DisplayVertical";
 
 const Home = () => {

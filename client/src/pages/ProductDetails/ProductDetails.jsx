@@ -1,8 +1,8 @@
 import "./ProductDetails.scss";
-import Button from "../components/OrderButton";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Button from "../../components/OrderButton/OrderButton";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});

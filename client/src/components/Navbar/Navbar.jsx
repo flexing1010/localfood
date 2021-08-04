@@ -1,8 +1,8 @@
 import "./Navbar.scss";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../Context";
-import SearchBar from "./SearchBar";
+import { AuthContext } from "../../Context";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Navbar = () => {
   const { authState, setAuthState } = useContext(AuthContext);
