@@ -1,13 +1,32 @@
 import "./ProductDetails.scss";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Button from "../../components/OrderButton/OrderButton";
+import { useState, useEffect, useContext } from "react";
+import Button from "../../components/Button/Button";
+import { AuthContext } from "../../Context";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
+  const { authState } = useContext(AuthContext);
 
   let { id } = useParams();
+
+  const addCart = () => {
+    if (authState) {
+      axios
+        .post("http://localhost:3001/cart", {
+          user_id: authState.id,
+          product_id: product.id,
+          quantity: 1,
+        })
+        .then((res) => {
+          if (res.data.errorMessage) {
+            return alert(res.data.errorMessage);
+          }
+          alert(res.data);
+        });
+    }
+  };
 
   useEffect(() => {
     axios
@@ -61,7 +80,7 @@ const ProductDetails = () => {
                 </tbody>
               </table>
             </div>
-            <Button productId={product.id} />
+            <Button handleBtnClick={addCart} text={"장바구니 담기"} />
           </>
         }
       </div>

@@ -3,8 +3,10 @@ import {
   getCartId,
   checkDuplicateItem,
   deleteItem,
+  insertOrderItem,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
+import { getUserInfo } from "../queries/userQuery.js";
 
 export const home = async (req, res) => {
   db.execute("SELECT * FROM product", async (err, result) => {
@@ -123,7 +125,7 @@ export const getCart = async (req, res) => {
   }
 };
 
-export const updateQuantity = async (req, res) => {};
+// export const updateQuantity = async (req, res) => {};
 
 export const deleteCartItem = async (req, res) => {
   const cartItemId = req.body.targetId;
@@ -131,6 +133,60 @@ export const deleteCartItem = async (req, res) => {
   try {
     await deleteItem(cartItemId);
     res.json("상품이 장바구니에서 삭제되었습니다");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getUser = async (req, res) => {
+  const { username } = req.query;
+  try {
+    let user = await getUserInfo(username);
+    user = user[0];
+    if (user.password) {
+      delete user.password;
+    }
+    if (user) {
+      res.json(user);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postOrder = async (req, res) => {
+  const { user_id, grandTotal, orderItems } = req.body;
+  let createdAt = new Date();
+  console.log(orderItems);
+  createdAt =
+    createdAt.getFullYear() +
+    "-" +
+    (createdAt.getMonth() + 1) +
+    "-" +
+    createdAt.getDate();
+
+  try {
+    db.execute(
+      "insert into orders (createdAt, grandTotal, user_id) Values(?,?,?)",
+      [createdAt, grandTotal, user_id],
+      async (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          await orderItems.forEach((item) => {
+            insertOrderItem(
+              result.insertId,
+              item.id,
+              item.quantity,
+              item.price,
+              item.product_name
+            );
+          });
+
+          res.send({ orderId: result.insertId });
+        }
+      }
+    );
   } catch (err) {
     console.log(err);
   }

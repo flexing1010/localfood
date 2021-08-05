@@ -12,6 +12,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import Login from "./pages/Login/Login";
 import Join from "./pages/Join/Join";
 import Cart from "./pages/Cart/Cart";
+import Order from "./pages/Order/Order";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
   //  let history = useHistory();
 
   useEffect(() => {
+    console.log("app", authState);
     axios.all([getAuth, axios.get("http://localhost:3001/")]).then((res) => {
       if (res[0].data.errorMessage) {
         setAuthState({ ...authState, status: false });
@@ -64,6 +66,7 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
+                <Route path="/order/:order_id" component={Order} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 {!authState.status && (

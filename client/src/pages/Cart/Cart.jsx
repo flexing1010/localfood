@@ -3,17 +3,16 @@ import "./Cart.scss";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../Context";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 import DisplayCart from "../../components/DisplayCart/DisplayCart";
+import Button from "../../components/Button/Button";
 
 const Cart = () => {
   let history = useHistory();
-
   const { authState } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [cartItems, setCartItems] = useState([]);
-  // const isSmallScreen = useMediaQuery({ query: `(max-width:750px)` });
   const [grandTotal, setGrandTotal] = useState("");
 
   const handleDelete = (url, product) => {
@@ -73,6 +72,18 @@ const Cart = () => {
     }
   }, [grandTotal, cartItems, errorMessage]);
 
+  const toOrderPage = () => {
+    axios
+      .post("http://localhost:3001/order", {
+        user_id: authState.id,
+        grandTotal,
+        orderItems: cartItems,
+      })
+      .then((res) => {
+        history.push(`/order/${res.data.orderId}`);
+      });
+  };
+
   return (
     <section className="cart">
       {errorMessage || cartItems.length === 0 ? (
@@ -101,6 +112,9 @@ const Cart = () => {
       </ul>
       <div className="cart-items__total">
         {errorMessage || cartItems.length === 0 ? null : grandTotal}
+      </div>
+      <div className="cart-items__orderBtn">
+        <Button handleBtnClick={toOrderPage} text={"주문하기"} />
       </div>
     </section>
   );

@@ -1,5 +1,11 @@
 import express from "express";
-import { home, search, viewProduct } from "../controllers/productController.js";
+import {
+  // getUser,
+  home,
+  // postOrder,
+  search,
+  viewProduct,
+} from "../controllers/productController.js";
 import {
   postJoinController,
   postLoginController,
@@ -17,5 +23,6 @@ rootRouter.route("/join").post(publicOnlyMiddleware, postJoinController);
 rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);
 rootRouter.route("/auth").get(validateToken, getAuth);
 rootRouter.get("/search", search);
+// rootRouter.route("/order").get(getUser).post(postOrder);
 
 export default rootRouter;

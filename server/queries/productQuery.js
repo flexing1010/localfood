@@ -59,3 +59,24 @@ export const deleteItem = (targetId) => {
     );
   });
 };
+
+export const insertOrderItem = (
+  order_id,
+  product_id,
+  quantity,
+  price,
+  product_name
+) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Insert into order_item (order_id, product_id, quantity, price, product_name) values(?,?,?,?,?)",
+      [order_id, product_id, quantity, price, product_name],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
