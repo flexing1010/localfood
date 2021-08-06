@@ -66,7 +66,7 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
-                <Route path="/order/:order_id" component={Order} />
+                <Route path="/order/:id" component={Order} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 {!authState.status && (

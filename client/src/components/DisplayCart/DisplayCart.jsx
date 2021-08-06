@@ -1,13 +1,8 @@
 import "./DisplayCart.scss";
 
-import React, { useEffect, useRef, useState } from "react";
 import ProductImg from "../ProductImg/ProductImg";
 
 const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
-  useEffect(() => {
-    console.log(cartItems, "dd");
-  }, []);
-
   return (
     <>
       {cartItems.map((item) => {

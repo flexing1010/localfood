@@ -1,33 +1,36 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { AuthContext } from "../../Context";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import OrderForm from "../../components/OrderForm/OrderForm";
 
 const Order = () => {
+  const [orderInfo, setOrderInfo] = useState("");
   const [orderItems, setOrderItems] = useState([]);
-
-  const { authState } = useContext(AuthContext);
-  const location = useLocation();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3001/order/${id}`, {
-  //       params: {
-  //         username: authState.username,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log("d", res.data.orderId);
-  //     });
-  // }, [authState]);
+  const [user, setUser] = useState([]);
+  // const { authState } = useContext(AuthContext);
+  // const location = useLocation();
+  let { id } = useParams();
 
   useEffect(() => {
-    if (orderItems.length !== 0) {
-      setOrderItems(location.state.orderItems);
-    }
-  }, [orderItems]);
+    axios.get(`http://localhost:3001/order/${id}`).then((res) => {
+      const { orderInfo, orderItems, user } = res.data;
+      if (res.status === 200) {
+        setOrderInfo(orderInfo);
+        setOrderItems(orderItems);
+        setUser(user);
+      }
+    });
+  }, []);
 
-  return <div>order</div>;
+  useEffect(() => {
+    console.log(orderInfo, orderItems, user);
+  }, [orderItems, orderInfo]);
+
+  return (
+    <section>
+      <OrderForm orderInfo={orderInfo} orderItems={orderItems} user={user} />
+    </section>
+  );
 };
 
 export default Order;

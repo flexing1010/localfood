@@ -7,7 +7,7 @@ export const db = mysql.createPool({
   password: "password",
   database: "test_db",
   port: "3306",
-  // multipleStatements: true,
+  dateStrings: true,
 });
 
 // db.connect((err) => {

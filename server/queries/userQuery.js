@@ -1,17 +1,26 @@
 import { db } from "../db.js";
 
-export const getUserInfo = (username) => {
+export const getUserInfo = (username, userId) => {
   return new Promise((resolve, reject) => {
-    db.execute(
-      "Select * from user where username = ?",
-      [username],
-      (err, result) => {
+    if (username && !userId) {
+      db.execute(
+        "Select * from user where username = ?",
+        [username],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        }
+      );
+    } else {
+      db.execute("Select * from user where id = ?", [userId], (err, result) => {
         if (err) {
           return reject(err);
         }
         return resolve(result);
-      }
-    );
+      });
+    }
   });
 };
 
