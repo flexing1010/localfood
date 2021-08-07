@@ -5,7 +5,11 @@ import "./Button.scss";
 // import { AuthContext } from "../../Context";
 
 const Button = (props) => {
-  return <button onClick={props.handleBtnClick}>{props.text}</button>;
+  return (
+    <button className="button-component" onClick={props.handleBtnClick}>
+      {props.text}
+    </button>
+  );
 };
 
 export default Button;

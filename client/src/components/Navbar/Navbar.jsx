@@ -27,9 +27,7 @@ const Navbar = () => {
         <li>
           <Link to="/">홈</Link>
         </li>
-        <li>
-          <Link to="/search">검색</Link>
-        </li>
+
         {!authState.status && (
           <>
             <li>

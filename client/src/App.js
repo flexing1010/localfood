@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Search from "./pages/Search/Search";
 import Footer from "./components/Footer/Footer.jsx";
 import Login from "./pages/Login/Login";
-import Join from "./pages/Join/Join";
+import Join from "./pages/Join/Join.jsx";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
 // import { useHistory } from "react-router-dom";

@@ -1,16 +1,18 @@
 import "./Join.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-import Postcode from "@actbase/react-daum-postcode";
 import { useHistory } from "react-router-dom";
+import DaumPostcode from "react-daum-postcode";
 import {
   faEnvelope,
   faIdCard,
   faLock,
+  faMapMarkerAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../components/Input/Input";
+import Modal from "../../components/Modal/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Join = () => {
   const initValues = {
@@ -21,6 +23,35 @@ const Join = () => {
     passwordConfirm: "",
   };
   const [values, setValues] = useState(initValues);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [fullAddress, setFullAddress] = useState("");
+
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    setFullAddress(fullAddress);
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,10 +62,7 @@ const Join = () => {
     console.log("dd", values);
   };
 
-  const [errorMessage, setErrorMessage] = useState("");
   let history = useHistory();
-
-  // const [isModal, setModal] = useState(false);
 
   const postJoin = (e) => {
     e.preventDefault();
@@ -100,6 +128,27 @@ const Join = () => {
           inputType={"password"}
           inputOnChange={handleInputChange}
         />
+        <div className="address">
+          <div className="address__icon">
+            <FontAwesomeIcon className="fa-icon" icon={faMapMarkerAlt} />
+          </div>
+          <div className="address__input">
+            <div className="find-address">
+              <input readonly type="text" name="address" value={fullAddress} />
+              <button onClick={openModal}>주소찾기</button>
+              <Modal open={modalOpen} close={closeModal} header="주소찾기">
+                <DaumPostcode
+                  autoClose={true}
+                  onComplete={handleComplete}
+                  style={{ height: 500 }}
+                />
+              </Modal>
+            </div>
+            <div className="detail-address">
+              <input type="text" name="detail-address" placeholder="상세주소" />
+            </div>
+          </div>
+        </div>
 
         <input type="submit" value="회원가입" />
       </form>
