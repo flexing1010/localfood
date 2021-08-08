@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 .searchBar {
-  width: 35%;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,8 +19,9 @@
 @media (max-width: $breakpoint-mobile) {
   .searchBar {
     margin: auto;
+    width: 50%;
     input {
-      width: 70%;
+      width: 100%;
     }
     button {
       font-size: 0.8rem;

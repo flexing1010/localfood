@@ -22,10 +22,10 @@ nav {
   position: sticky;
   top: 0;
   justify-content: space-between;
-  background-color: #00503c;
+  background-color: #193c65;
   z-index: 10;
   ul {
-    width: 80%;
+    width: 70%;
     a {
       text-decoration: none;
       color: white;
@@ -41,6 +41,8 @@ nav {
       button {
         font-size: 1rem;
         font-weight: 600;
+        // background-color: #7c64d2;
+        color: white;
       }
     }
   }

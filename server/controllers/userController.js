@@ -7,7 +7,8 @@ import { getUserInfo } from "../queries/userQuery.js";
 const { sign } = jwt;
 
 export const postJoinController = async (req, res) => {
-  let { name, username, email, password, passwordConfirm } = req.body;
+  let { name, username, email, password, passwordConfirm, address1, address2 } =
+    req.body;
 
   if (password != passwordConfirm) {
     return res.status(400).send({
@@ -16,8 +17,8 @@ export const postJoinController = async (req, res) => {
   }
   const encryptedPassword = await bcrypt.hash(password, 5);
   await db.execute(
-    "INSERT INTO user (name, username, email, password) VALUES(?,?,?,?)",
-    [name, username, email, encryptedPassword],
+    "INSERT INTO user (name, username, email, password,address1,address2) VALUES(?,?,?,?,?,?)",
+    [name, username, email, encryptedPassword, address1, address2],
     (err, result) => {
       if (err) {
         console.log(err);

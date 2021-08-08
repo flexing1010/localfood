@@ -1,7 +1,10 @@
 import "./Join.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import useModal from "../../hooks/useModal";
 import { useHistory } from "react-router-dom";
+import Input from "../../components/Input/Input";
+import Modal from "../../components/Modal/Modal";
 import DaumPostcode from "react-daum-postcode";
 import {
   faEnvelope,
@@ -10,9 +13,9 @@ import {
   faMapMarkerAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Input from "../../components/Input/Input";
-import Modal from "../../components/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import usePostcode from "../../hooks/usePostcode";
 
 const Join = () => {
   const initValues = {
@@ -21,37 +24,14 @@ const Join = () => {
     email: "",
     password: "",
     passwordConfirm: "",
+    address2: "",
   };
   const [values, setValues] = useState(initValues);
+  const [fullAddress, handleComplete] = usePostcode();
+  // const [address2, setAddress2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [fullAddress, setFullAddress] = useState("");
-
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = "";
-
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
-
-    setFullAddress(fullAddress);
-    setModalOpen(false);
-  };
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const [modalOpen, openModal, closeModal] = useModal();
+  let history = useHistory();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -62,8 +42,6 @@ const Join = () => {
     console.log("dd", values);
   };
 
-  let history = useHistory();
-
   const postJoin = (e) => {
     e.preventDefault();
     axios
@@ -73,6 +51,8 @@ const Join = () => {
         email: values.email,
         password: values.password,
         passwordConfirm: values.passwordConfirm,
+        address1: fullAddress,
+        address2: values.address2,
       })
       .then((response) => {
         console.log("success");
@@ -134,18 +114,34 @@ const Join = () => {
           </div>
           <div className="address__input">
             <div className="find-address">
-              <input readonly type="text" name="address" value={fullAddress} />
-              <button onClick={openModal}>주소찾기</button>
+              <input readOnly type="text" name="address1" value={fullAddress} />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  openModal();
+                }}
+              >
+                주소찾기
+              </button>
               <Modal open={modalOpen} close={closeModal} header="주소찾기">
                 <DaumPostcode
-                  autoClose={true}
-                  onComplete={handleComplete}
+                  // autoClose={true}
+                  onComplete={(e) => {
+                    handleComplete(e);
+                    closeModal();
+                  }}
                   style={{ height: 500 }}
                 />
               </Modal>
             </div>
             <div className="detail-address">
-              <input type="text" name="detail-address" placeholder="상세주소" />
+              <input
+                type="text"
+                name="address2"
+                placeholder="상세주소"
+                // value={address2}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
         </div>
