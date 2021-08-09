@@ -13,6 +13,7 @@ import Login from "./pages/Login/Login";
 import Join from "./pages/Join/Join.jsx";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
+import MyPage from "./pages/MyPage/MyPage.jsx";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
                 <Route path="/order/:id" component={Order} />
+                <Route path="/user/:id" component={MyPage} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 {!authState.status && (

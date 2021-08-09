@@ -1,11 +1,9 @@
 import "./Join.scss";
-import { useState } from "react";
 import axios from "axios";
-import useModal from "../../hooks/useModal";
-import { useHistory } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import Modal from "../../components/Modal/Modal";
 import DaumPostcode from "react-daum-postcode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faIdCard,
@@ -13,9 +11,10 @@ import {
   faMapMarkerAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import usePostcode from "../../hooks/usePostcode";
+import useModal from "../../hooks/useModal";
 
 const Join = () => {
   const initValues = {

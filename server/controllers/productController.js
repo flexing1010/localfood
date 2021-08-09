@@ -197,7 +197,7 @@ export const viewOrder = async (req, res) => {
   const { id } = req.params;
 
   try {
-    let orderInfo = await getOrderInfo(id);
+    let orderInfo = await getOrderInfo(id, undefined);
     orderInfo = orderInfo[0];
     let orderItems = await getOrderItems(orderInfo.id);
     let user = await getUserInfo(undefined, orderInfo.user_id);
@@ -208,7 +208,7 @@ export const viewOrder = async (req, res) => {
     }
 
     if (orderInfo && orderItems) {
-      res.send({ orderInfo, orderItems, user });
+      res.json(orderInfo, orderItems, user);
     }
   } catch (err) {
     console.log(err);

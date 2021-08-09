@@ -81,18 +81,31 @@ export const insertOrderItem = (
   });
 };
 
-export const getOrderInfo = (orderId) => {
+export const getOrderInfo = (orderId, userId) => {
   return new Promise((resolve, reject) => {
-    db.execute(
-      "select * from orders where id = ?",
-      [orderId],
-      (err, result) => {
-        if (err) {
-          return reject(err);
+    if (orderId && !userId) {
+      db.execute(
+        "select * from orders where id = ?",
+        [orderId],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
         }
-        return resolve(result);
-      }
-    );
+      );
+    } else {
+      db.execute(
+        "select * from orders where user_id = ?",
+        [userId],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        }
+      );
+    }
   });
 };
 

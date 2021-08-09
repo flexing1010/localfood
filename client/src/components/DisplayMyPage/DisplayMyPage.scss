@@ -1,0 +1,12 @@
+.mypage {
+  .my-info__data {
+    display: flex;
+    gap: 1rem;
+    .my-info__address {
+      display: flex;
+      flex-direction: column;
+    }
+
+    display: flex;
+  }
+}

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import Button from "../../components/Button/Button";
 import { AuthContext } from "../../Context";
+import useAxios from "../../hooks/useAxios";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
@@ -28,11 +29,17 @@ const ProductDetails = () => {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/view/${id}`)
-      .then((res) => setProduct(res.data[0]));
+  const { response, errorMessage } = useAxios({
+    method: "get",
+    url: `/view/${id}`,
   });
+
+  useEffect(() => {
+    // axios
+    //   .get(`http://localhost:3001/view/${id}`)
+    //   .then((res) => setProduct(res.data[0]));
+    if (response) setProduct(response[0]);
+  }, [product, response]);
 
   ////// 왼쪽 사진 오른쪽 기본 정보 밑에 상세 정보 & 리뷰
   return (

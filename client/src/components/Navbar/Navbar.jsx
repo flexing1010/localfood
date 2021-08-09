@@ -1,11 +1,12 @@
 import "./Navbar.scss";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../Context";
 import SearchBar from "../SearchBar/SearchBar";
 
 const Navbar = () => {
   const { authState, setAuthState } = useContext(AuthContext);
+  let history = useHistory();
 
   const logout = () => {
     localStorage.removeItem("accessToken");
@@ -14,6 +15,10 @@ const Navbar = () => {
       id: 0,
       status: false,
     });
+  };
+
+  const toMyPage = () => {
+    history.push(`/user/${authState.id}`);
   };
 
   return (
@@ -44,7 +49,7 @@ const Navbar = () => {
         {authState.status && (
           <>
             <li>
-              <div>{authState.username}</div>
+              <div onClick={toMyPage}>{authState.username}</div>
             </li>
             <li>
               <button onClick={logout}>로그아웃</button>

@@ -2,6 +2,7 @@ import { db } from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUserInfo } from "../queries/userQuery.js";
+import { getOrderInfo, getOrderItems } from "../queries/productQuery.js";
 
 // import { Router } from "express";
 const { sign } = jwt;
@@ -85,4 +86,24 @@ export const postLoginController = async (req, res) => {
 
 export const getAuth = (req, res) => {
   res.json(req.user);
+};
+
+export const viewMypage = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let user = await getUserInfo(undefined, id);
+    user = user[0];
+    if (user.password) {
+      delete user.password;
+    }
+
+    let orders = await getOrderInfo(undefined, id);
+    let orderItems = await Promise.all(
+      orders.map((order) => {
+        return getOrderItems(order.id);
+      })
+    );
+    // let orerItems = await getOrderItems();
+    res.send({ user, orders, orderItems });
+  } catch (err) {}
 };
