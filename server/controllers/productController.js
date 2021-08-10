@@ -159,14 +159,14 @@ export const deleteCartItem = async (req, res) => {
 export const postOrder = async (req, res) => {
   const { user_id, grandTotal, orderItems } = req.body;
   let createdAt = new Date();
-  console.log(orderItems);
+
   createdAt =
     createdAt.getFullYear() +
     "-" +
     (createdAt.getMonth() + 1) +
     "-" +
     createdAt.getDate();
-  console.log(createdAt);
+
   try {
     db.execute(
       "insert into orders (createdAt, grandTotal, user_id) Values(?,?,?)",
@@ -206,9 +206,9 @@ export const viewOrder = async (req, res) => {
     if (user.password) {
       delete user.password;
     }
-
+    console.log(orderInfo, orderItems, user);
     if (orderInfo && orderItems) {
-      res.json(orderInfo, orderItems, user);
+      res.send({ orderInfo, orderItems, user });
     }
   } catch (err) {
     console.log(err);

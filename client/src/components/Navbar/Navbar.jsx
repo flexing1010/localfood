@@ -18,7 +18,10 @@ const Navbar = () => {
   };
 
   const toMyPage = () => {
-    history.push(`/user/${authState.id}`);
+    history.push({
+      pathname: `/user/${authState.id}`,
+      state: { id: authState.id },
+    });
   };
 
   return (

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import Button from "../../components/Button/Button";
 import { AuthContext } from "../../Context";
-import useAxios from "../../hooks/useAxios";
+import { useAxios } from "../../hooks/useAxios.js";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
@@ -13,6 +13,7 @@ const ProductDetails = () => {
   let { id } = useParams();
 
   const addCart = () => {
+    console.log(authState);
     if (authState) {
       axios
         .post("http://localhost:3001/cart", {
@@ -35,6 +36,7 @@ const ProductDetails = () => {
   });
 
   useEffect(() => {
+    console.log(id);
     // axios
     //   .get(`http://localhost:3001/view/${id}`)
     //   .then((res) => setProduct(res.data[0]));

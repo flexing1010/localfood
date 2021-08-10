@@ -1,15 +1,15 @@
 // import axios from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import OrderForm from "../../components/OrderForm/OrderForm";
-import useAxios from "../../hooks/useAxios";
+import { useAxios } from "../../hooks/useAxios.js";
 
 const Order = () => {
   const [orderInfo, setOrderInfo] = useState("");
   const [orderItems, setOrderItems] = useState([]);
   const [user, setUser] = useState([]);
-  // const { authState } = useContext(AuthContext);
-  // const location = useLocation();
+
   let { id } = useParams();
 
   const { response, errorMessage } = useAxios({
@@ -25,8 +25,9 @@ const Order = () => {
   //       setOrderItems(orderItems);
   //       setUser(user);
   //     }
+  //     console.log(orderInfo, user, orderItems);
   //   });
-  // }, []);
+  // }, [orderInfo]);
 
   useEffect(() => {
     if (response) {

@@ -16,7 +16,7 @@ const Login = () => {
   // const [password, setPassword] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const { setAuthState } = useContext(AuthContext);
+  const { authState, setAuthState } = useContext(AuthContext);
 
   let history = useHistory();
 
@@ -46,6 +46,7 @@ const Login = () => {
           id: res.data.id,
           status: true,
         });
+
         history.push("/");
       })
       .catch((err) => {

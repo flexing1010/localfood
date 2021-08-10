@@ -14,6 +14,7 @@ import Join from "./pages/Join/Join.jsx";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
 import MyPage from "./pages/MyPage/MyPage.jsx";
+import PrivateRoute from "./components/PrivateRoute/PrivateOnly";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -35,7 +36,6 @@ function App() {
   //  let history = useHistory();
 
   useEffect(() => {
-    console.log("app", authState);
     axios.all([getAuth, axios.get("http://localhost:3001/")]).then((res) => {
       if (res[0].data.errorMessage) {
         setAuthState({ ...authState, status: false });
@@ -50,7 +50,6 @@ function App() {
 
       setProducts(res[1].data);
     });
-
     // eslint-disable-next-line
   }, []);
 
@@ -68,7 +67,7 @@ function App() {
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
                 <Route path="/order/:id" component={Order} />
-                <Route path="/user/:id" component={MyPage} />
+                <PrivateRoute exact path="/user/:id" component={MyPage} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 {!authState.status && (
