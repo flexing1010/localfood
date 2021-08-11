@@ -14,7 +14,8 @@ import Join from "./pages/Join/Join.jsx";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
 import MyPage from "./pages/MyPage/MyPage.jsx";
-import PrivateRoute from "./components/PrivateRoute/PrivateOnly";
+import PrivateRoute from "./AccessControl/PrivateOnly.jsx";
+import NonMembersOnlyRoute from "./AccessControl/NonMembersOnlyRoute.jsx";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -66,14 +67,14 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
-                <Route path="/order/:id" component={Order} />
+                <PrivateRoute path="/order/:id" component={Order} />
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 {!authState.status && (
                   <Switch>
-                    <Route path="/join" component={Join} />
-                    <Route path="/login" component={Login} />
+                    <NonMembersOnlyRoute path="/join" component={Join} />
+                    <NonMembersOnlyRoute path="/login" component={Login} />
                   </Switch>
                 )}
               </Switch>

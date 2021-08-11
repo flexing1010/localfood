@@ -1,15 +1,16 @@
-// import axios from "axios";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Redirect, useParams } from "react-router-dom";
 import OrderForm from "../../components/OrderForm/OrderForm";
+import { AuthContext } from "../../Context";
 import { useAxios } from "../../hooks/useAxios.js";
 
 const Order = () => {
   const [orderInfo, setOrderInfo] = useState("");
   const [orderItems, setOrderItems] = useState([]);
-  const [user, setUser] = useState([]);
-
+  const [authorized, setAuthorized] = useState(true);
+  const [user, setUser] = useState("");
+  const { authState } = useContext(AuthContext);
   let { id } = useParams();
 
   const { response, errorMessage } = useAxios({
@@ -31,16 +32,27 @@ const Order = () => {
 
   useEffect(() => {
     if (response) {
+      setUser(response.user);
       setOrderInfo(response.orderInfo);
       setOrderItems(response.orderItems);
-      setUser(response.user);
-      console.log(orderInfo, orderItems, user);
     }
-  }, [orderItems, orderInfo, response]);
+  }, [response]);
+
+  useEffect(() => {
+    if (user) {
+      if (authState.id !== user.id) {
+        setAuthorized(false);
+      }
+    }
+  }, [user, authState.id]);
 
   return (
     <section>
-      <OrderForm orderInfo={orderInfo} orderItems={orderItems} user={user} />
+      {authorized ? (
+        <OrderForm orderInfo={orderInfo} orderItems={orderItems} user={user} />
+      ) : (
+        <Redirect to="/" />
+      )}
     </section>
   );
 };

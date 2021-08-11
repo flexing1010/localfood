@@ -35,7 +35,7 @@ const DisplayMyPage = ({ orders, orderItems, user }) => {
               <ul className="my-order__order-list">
                 {orderItems[index].map((item) => {
                   return (
-                    <li>
+                    <li key={item.id}>
                       <span
                         onClick={() =>
                           history.push(`/productdetails/${item.product_id}`)
