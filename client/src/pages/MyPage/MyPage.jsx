@@ -18,15 +18,25 @@ const MyPage = () => {
     url: `/user/${id}`,
   });
   useEffect(() => {
+    console.log(response);
     if (response) {
       setOrders(response.orders);
       setOrderItems(response.orderItems);
       setUser(response.user);
+      // if (parseInt(id) !== authState.id) {
+      //   setAuthorized(false);
+      // }
+    }
+  }, [response, authState.id, id]);
+
+  useEffect(() => {
+    if (authState.id !== 0) {
       if (parseInt(id) !== authState.id) {
+        console.log(id, authState.id);
         setAuthorized(false);
       }
     }
-  }, [response, authState.id, id]);
+  }, [authState, id]);
 
   return (
     <section id="mypage">

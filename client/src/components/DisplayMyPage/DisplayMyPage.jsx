@@ -4,9 +4,7 @@ import "./DisplayMyPage.scss";
 
 const DisplayMyPage = ({ orders, orderItems, user }) => {
   let history = useHistory();
-  useEffect(() => {
-    console.log(orderItems);
-  }, [orders]);
+
   return (
     <div className="mypage__container">
       <div className="my-info">
@@ -27,7 +25,7 @@ const DisplayMyPage = ({ orders, orderItems, user }) => {
 
       {orders.map((itemsArray, index) => {
         return (
-          <div className="my-order">
+          <div className="my-order" key={itemsArray.id}>
             <div className="my-order__order-info">
               <h2 className="my-order__order-info--orderAt">
                 {itemsArray.createdAt}

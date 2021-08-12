@@ -43,7 +43,7 @@ export const postLoginController = async (req, res) => {
   try {
     if (username && password) {
       //grab entire row from user table where username is same as username provided by front
-      let user = await getUserInfo(username);
+      let user = await getUserInfo(username, undefined);
       user = user[0];
 
       //if user info doesn't exist
@@ -63,18 +63,20 @@ export const postLoginController = async (req, res) => {
 
       // let cartId = await getUserCart(user.id);
       // cartId = cartId[0].id;
-
+      console.log(user.isAdmin, user.id);
       //Create accessToken
       const accessToken = sign(
         {
           username: user.username,
           id: user.id,
+          isAdmin: user.isAdmin,
         },
         "xlSWyC0Jw2"
       );
 
-      res.json({
+      res.send({
         token: accessToken,
+        isAdmin: user.isAdmin,
         username: user.username,
         id: user.id,
       });

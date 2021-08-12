@@ -45,6 +45,7 @@ const Login = () => {
           username: res.data.username,
           id: res.data.id,
           status: true,
+          isAdmin: res.data.isAdmin,
         });
 
         history.push("/");

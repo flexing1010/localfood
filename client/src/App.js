@@ -14,8 +14,13 @@ import Join from "./pages/Join/Join.jsx";
 import Cart from "./pages/Cart/Cart";
 import Order from "./pages/Order/Order";
 import MyPage from "./pages/MyPage/MyPage.jsx";
-import PrivateRoute from "./AccessControl/PrivateOnly.jsx";
+import PrivateRoute from "./AccessControl/PrivateOnlyRoute.jsx";
 import NonMembersOnlyRoute from "./AccessControl/NonMembersOnlyRoute.jsx";
+import AdminOnlyRoute from "./AccessControl/AdminOnlyRoute";
+import PostItem from "./pages/Admin/PostItem";
+import ItemList from "./pages/Admin/ItemList";
+import UserList from "./pages/Admin/UserList";
+import ManageOrder from "./pages/Admin/ManageOrder";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -25,6 +30,7 @@ function App() {
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
+    isAdmin: 0,
     status: false,
   });
 
@@ -44,9 +50,11 @@ function App() {
         setAuthState({
           username: res[0].data.username,
           id: res[0].data.id,
+          isAdmin: res[0].data.isAdmin,
           status: true,
           // cartId: res[0].data.cartId,
         });
+        console.log(authState.isAdmin);
       }
 
       setProducts(res[1].data);
@@ -71,12 +79,20 @@ function App() {
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
-                {!authState.status && (
-                  <Switch>
-                    <NonMembersOnlyRoute path="/join" component={Join} />
-                    <NonMembersOnlyRoute path="/login" component={Login} />
-                  </Switch>
-                )}
+                <NonMembersOnlyRoute path="/join" component={Join} />
+                <NonMembersOnlyRoute path="/login" component={Login} />
+
+                <AdminOnlyRoute
+                  exact
+                  path="/admin/post-item"
+                  component={PostItem}
+                />
+                <AdminOnlyRoute path="/admin/item-list" component={ItemList} />
+                <AdminOnlyRoute path="/admin/user-list" component={UserList} />
+                <AdminOnlyRoute
+                  path="/admin/manage-order"
+                  component={ManageOrder}
+                />
               </Switch>
             </div>
             <Footer />

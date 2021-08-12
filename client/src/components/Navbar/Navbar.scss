@@ -3,6 +3,9 @@
 nav {
   height: 80%;
   .title {
+    a {
+      height: 100%;
+    }
     display: flex;
     width: 40%;
     align-items: center;

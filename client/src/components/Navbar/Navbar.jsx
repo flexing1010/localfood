@@ -15,6 +15,7 @@ const Navbar = () => {
       id: 0,
       status: false,
     });
+    history.push("/");
   };
 
   const toMyPage = () => {
@@ -27,15 +28,13 @@ const Navbar = () => {
   return (
     <nav>
       <div className="title">
-        <img src={"/images/nav-logo.jpg"} alt="logo" />
+        <Link to="/">
+          <img src={"/images/nav-logo.jpg"} alt="logo" />
+        </Link>
         {/* <h1>Tennis365</h1> */}
       </div>
       <SearchBar />
       <ul>
-        <li>
-          <Link to="/">홈</Link>
-        </li>
-
         {!authState.status && (
           <>
             <li>
@@ -46,9 +45,26 @@ const Navbar = () => {
             </li>
           </>
         )}
-        <li>
-          <Link to="/cart">장바구니</Link>
-        </li>
+        {authState.isAdmin ? (
+          <>
+            <li>
+              <Link to="/admin/post-item">상품등록</Link>
+            </li>
+            <li>
+              <Link to="/admin/item-list">상품목록</Link>
+            </li>
+            <li>
+              <Link to="/admin/user-list">유저목록</Link>
+            </li>
+            <li>
+              <Link to="/admin/manage-order">주문관리</Link>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link to="/cart">장바구니</Link>
+          </li>
+        )}
         {authState.status && (
           <>
             <li>
