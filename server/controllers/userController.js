@@ -87,6 +87,7 @@ export const postLoginController = async (req, res) => {
 };
 
 export const getAuth = (req, res) => {
+  console.log(req.user);
   res.json(req.user);
 };
 

@@ -59,6 +59,9 @@ function App() {
 
       setProducts(res[1].data);
     });
+    // const token = localStorage.getItem("accessToken");
+    // console.log("asd", JSON.parse(atob(token.split(".")[1])));
+
     // eslint-disable-next-line
   }, []);
 

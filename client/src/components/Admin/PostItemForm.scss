@@ -1,0 +1,12 @@
+.post-item__form {
+  display: flex;
+
+  .item__specs {
+    display: flex;
+    flex-direction: column;
+  }
+  .item__description {
+    display: flex;
+    flex-direction: column;
+  }
+}

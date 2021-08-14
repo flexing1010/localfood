@@ -3,17 +3,15 @@ import { Redirect, Route } from "react-router-dom";
 import { AuthContext } from "../Context";
 
 const AdminOnlyRoute = ({ component: Component, ...restOfProps }) => {
-  const { authState } = useContext(AuthContext);
-  const { isAdmin } = authState;
+  const isAdmins = JSON.parse(
+    atob(localStorage.getItem("accessToken").split(".")[1])
+  ).isAdmin;
 
-  useEffect(() => {
-    console.log("Aa", isAdmin);
-  });
   return (
     <Route
       {...restOfProps}
       render={(props) =>
-        isAdmin === 1 ? <Component {...props} /> : <Redirect to="/" />
+        isAdmins === 1 ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
