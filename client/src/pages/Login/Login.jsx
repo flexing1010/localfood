@@ -5,29 +5,20 @@ import { AuthContext } from "../../Context";
 import Input from "../../components/Input/Input";
 import { faIdCard, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useInputChanges from "../../hooks/useInputChanges";
 
 const Login = () => {
   const initValues = {
     username: "",
     password: "",
   };
-  const [values, setValues] = useState(initValues);
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+
+  const { values, handleInputChange } = useInputChanges(initValues);
 
   const [errorMessage, setErrorMessage] = useState("");
   const { authState, setAuthState } = useContext(AuthContext);
 
   let history = useHistory();
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    console.log("dd", values);
-  };
 
   const postLogin = (e) => {
     e.preventDefault();

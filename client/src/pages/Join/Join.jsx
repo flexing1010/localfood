@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import usePostcode from "../../hooks/usePostcode";
 import useModal from "../../hooks/useModal";
+import useInputChanges from "../../hooks/useInputChanges";
 
 const Join = () => {
   const initValues = {
@@ -25,21 +26,14 @@ const Join = () => {
     passwordConfirm: "",
     address2: "",
   };
-  const [values, setValues] = useState(initValues);
+
+  const { values, handleInputChange } = useInputChanges(initValues);
+
   const [fullAddress, handleComplete] = usePostcode();
   // const [address2, setAddress2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [modalOpen, openModal, closeModal] = useModal();
   let history = useHistory();
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    console.log("dd", values);
-  };
 
   const postJoin = (e) => {
     e.preventDefault();

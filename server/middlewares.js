@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import multer from "multer";
 const { verify } = jwt;
 
 //to validate token before responding to request
@@ -29,3 +30,8 @@ export const publicOnlyMiddleware = (req, res, next) => {
     return res.redirect("/");
   }
 };
+
+export const itemImgUpload = multer({
+  dest: "uploads/images",
+  limits: { fileSize: 5000000 },
+});
