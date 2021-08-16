@@ -50,7 +50,10 @@ const ProductDetails = () => {
         {
           <>
             <div className="detail__img">
-              <img src={product.imgUrl} alt="" />
+              <img
+                src={`http://localhost:3001/admin/${product.imgUrl}`}
+                alt=""
+              />
               <h2>{product.product_name}</h2>
             </div>
             <div className="detail__info">

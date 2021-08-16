@@ -27,7 +27,7 @@ const PostItem = () => {
     e.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
-      formData.append("itemImgs", files[0]);
+      formData.append("itemImgs", files[i]);
     }
     const itemInfo = {
       product_name: values.product_name,
@@ -48,6 +48,7 @@ const PostItem = () => {
 
       formData
     );
+    e.target.reset();
   };
 
   const handleFiles = (e) => {

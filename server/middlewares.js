@@ -32,6 +32,6 @@ export const publicOnlyMiddleware = (req, res, next) => {
 };
 
 export const itemImgUpload = multer({
-  dest: "uploads/images",
+  dest: "uploads",
   limits: { fileSize: 5000000 },
 });

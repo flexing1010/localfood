@@ -63,7 +63,7 @@ function App() {
     // console.log("asd", JSON.parse(atob(token.split(".")[1])));
 
     // eslint-disable-next-line
-  }, []);
+  }, [products]);
 
   return (
     <div className="App">
