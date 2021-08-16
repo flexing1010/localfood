@@ -54,16 +54,13 @@ function App() {
           status: true,
           // cartId: res[0].data.cartId,
         });
-        console.log(authState.isAdmin);
+        // console.log(authState.isAdmin);
       }
 
       setProducts(res[1].data);
     });
-    // const token = localStorage.getItem("accessToken");
-    // console.log("asd", JSON.parse(atob(token.split(".")[1])));
-
     // eslint-disable-next-line
-  }, [products]);
+  }, []);
 
   return (
     <div className="App">

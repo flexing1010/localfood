@@ -49,6 +49,7 @@ const PostItem = () => {
       formData
     );
     e.target.reset();
+    setFiles("");
   };
 
   const handleFiles = (e) => {

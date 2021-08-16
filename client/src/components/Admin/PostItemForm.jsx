@@ -1,11 +1,6 @@
 import "./PostItemForm.scss";
 
 const PostItemForm = ({ handleInputChange, handleItemSubmit, handleFiles }) => {
-  // const files = (e) => {
-  //   console.log(e.target.files);
-  //   // console.log()
-  // };
-
   return (
     <form
       encType="multipart/form-data"
