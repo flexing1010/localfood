@@ -42,3 +42,14 @@ export const insertItemImgs = (imgFile, insertedItem) => {
     );
   });
 };
+
+export const getAllItems = () => {
+  return new Promise((resolve, reject) => {
+    db.execute("select * from product", (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};

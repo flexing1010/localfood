@@ -1,4 +1,8 @@
-import { insertItem, insertItemImgs } from "../queries/adminQuery.js";
+import {
+  getAllItems,
+  insertItem,
+  insertItemImgs,
+} from "../queries/adminQuery.js";
 
 export const postItem = async (req, res) => {
   const itemInfo = JSON.parse(req.body.itemInfo);
@@ -18,3 +22,12 @@ export const postItem = async (req, res) => {
   }
   // res.send({img:req.files[0].path})
 };
+
+// export const getItemList = async (req, res) => {
+//   try {
+//     const allItems = await getAllItems();
+//     res.json(allItems);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

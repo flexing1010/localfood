@@ -1,0 +1,22 @@
+.post-item__edit {
+  display: flex;
+  flex-direction: row;
+  .item__specs {
+    display: flex;
+    flex-direction: column;
+  }
+  .item__description {
+    display: flex;
+    flex-direction: column;
+  }
+  .edit-img {
+    .img-preview {
+      margin: 0 auto;
+      width: 90%;
+      img {
+        max-width: 220px;
+        width: 100%;
+      }
+    }
+  }
+}
