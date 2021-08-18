@@ -31,3 +31,10 @@ export const postItem = async (req, res) => {
 //     console.log(err);
 //   }
 // };
+
+export const updateItem = async (req, res) => {
+  console.log(req.body);
+  const imgFile = req.file;
+  const editInfo = JSON.parse(req.body.editInfo);
+  console.log(imgFile, editInfo);
+};
