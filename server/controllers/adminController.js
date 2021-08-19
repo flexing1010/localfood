@@ -1,7 +1,9 @@
 import {
-  getAllItems,
+  deleteItem,
+  // getAllItems,
   insertItem,
   insertItemImgs,
+  updateItemInfo,
 } from "../queries/adminQuery.js";
 
 export const postItem = async (req, res) => {
@@ -33,8 +35,25 @@ export const postItem = async (req, res) => {
 // };
 
 export const updateItem = async (req, res) => {
-  console.log(req.body);
-  const imgFile = req.file;
+  const editImg = req.file;
   const editInfo = JSON.parse(req.body.editInfo);
-  console.log(imgFile, editInfo);
+  const itemId = req.body.itemId;
+  console.log(editImg, editInfo, req.body.itemId);
+  try {
+    await updateItemInfo(itemId, editInfo, editImg);
+    res.send({ success: "수정되었습니다" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteAdminItem = async (req, res) => {
+  const { targetId } = req.body;
+  try {
+    await deleteItem(targetId);
+    console.log("item deleted");
+    res.send({ success: "삭제되었습니다" });
+  } catch (err) {
+    console.log(err);
+  }
 };

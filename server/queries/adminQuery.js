@@ -53,3 +53,73 @@ export const getAllItems = () => {
     });
   });
 };
+
+export const updateItemInfo = (itemId, newItemInfo, newImg) => {
+  return new Promise((resolve, reject) => {
+    if (newImg) {
+      db.execute(
+        "Update product set product_name = ?,brand = ?,weight = ?,head_size = ?,string_pattern = ?,balance = ?,length = ?,grip_size = ?,price = ?,stock = ?,description = ?,imgUrl = ? where id = ?",
+        [
+          newItemInfo.product_name,
+          newItemInfo.brand,
+          newItemInfo.weight,
+          newItemInfo.head_size,
+          newItemInfo.string_pattern,
+          newItemInfo.balance,
+          newItemInfo.length,
+          newItemInfo.grip_size,
+          newItemInfo.price,
+          newItemInfo.stock,
+          newItemInfo.description,
+          newImg.filename,
+          itemId,
+        ],
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(result);
+        }
+      );
+    }
+    //no newImg
+    db.execute(
+      "Update product set product_name = ?,brand = ?,weight = ?,head_size = ?,string_pattern = ?,balance = ?,length = ?,grip_size = ?,price = ?,stock = ?,description = ? where id = ?",
+      [
+        newItemInfo.product_name,
+        newItemInfo.brand,
+        newItemInfo.weight,
+        newItemInfo.head_size,
+        newItemInfo.string_pattern,
+        newItemInfo.balance,
+        newItemInfo.length,
+        newItemInfo.grip_size,
+        newItemInfo.price,
+        newItemInfo.stock,
+        newItemInfo.description,
+        itemId,
+      ],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const deleteItem = (targetId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "delete from product where id = ?",
+      [targetId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

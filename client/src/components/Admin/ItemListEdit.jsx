@@ -3,8 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../../Context";
 // import { useAxios } from "../../hooks/useAxios";
 import axios from "axios";
+import DeleteItem from "../../pages/Admin/DeleteItem";
 
-const ItemListEdit = ({ itemId }) => {
+const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
   const { products } = useContext(ProductContext);
   const [targetItem, setTargetItem] = useState("");
   const [previewImg, setPreviewImg] = useState("");
@@ -27,7 +28,13 @@ const ItemListEdit = ({ itemId }) => {
     const formData = new FormData();
     formData.append("imgUrl", file[0]);
     formData.append("editInfo", JSON.stringify(values));
-    axios.patch("http://localhost:3001/admin/item-list", formData);
+    formData.append("itemId", itemId);
+    axios
+      .patch("http://localhost:3001/admin/item-list", formData)
+      .then((res) => {
+        // console.log(res);
+        alert(res.data.success);
+      });
   };
 
   useEffect(() => {
@@ -80,7 +87,7 @@ const ItemListEdit = ({ itemId }) => {
             type="text"
             name="product_name"
             id="상품명"
-            value={values.product_name}
+            value={values.product_name || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -91,7 +98,7 @@ const ItemListEdit = ({ itemId }) => {
             type="text"
             name="brand"
             id="브랜드"
-            value={values.brand}
+            value={values.brand || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -104,7 +111,7 @@ const ItemListEdit = ({ itemId }) => {
             max="400"
             name="weight"
             id="무게"
-            value={values.weight}
+            value={values.weight || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -118,7 +125,7 @@ const ItemListEdit = ({ itemId }) => {
             onChange={(e) => inputChange(e)}
             required
           >
-            <option value={values.balance}>{values.balance}</option>
+            <option value={values.balance || ""}>{values.balance}</option>
             <option value="헤드 라이트">헤드 라이트</option>
             <option value="헤드 헤비">헤드 헤비</option>
             <option value="이븐(Even)">이븐</option>
@@ -134,7 +141,7 @@ const ItemListEdit = ({ itemId }) => {
             required
           >
             <option value={values.string_pattern}>
-              {values.string_pattern}
+              {values.string_pattern || ""}
             </option>
             <option value="16x19">16x19</option>
             <option value="16x18">16x18</option>
@@ -149,7 +156,7 @@ const ItemListEdit = ({ itemId }) => {
             max="120"
             name="head_size"
             id="헤드사이즈"
-            value={values.head_size}
+            value={values.head_size || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -162,7 +169,7 @@ const ItemListEdit = ({ itemId }) => {
             max="30"
             name="length"
             id="길이"
-            value={values.length}
+            value={values.length || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -173,7 +180,7 @@ const ItemListEdit = ({ itemId }) => {
             type="text"
             name="grip_size"
             id="그립사이즈"
-            value={values.grip_size}
+            value={values.grip_size || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -184,7 +191,7 @@ const ItemListEdit = ({ itemId }) => {
             type="number"
             name="price"
             id="가격"
-            value={values.price}
+            value={values.price || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -195,7 +202,7 @@ const ItemListEdit = ({ itemId }) => {
             type="number"
             name="stock"
             id="수량"
-            value={values.stock}
+            value={values.stock || ""}
             onChange={(e) => inputChange(e)}
             required
           />
@@ -221,11 +228,16 @@ const ItemListEdit = ({ itemId }) => {
           id="설명"
           cols="30"
           rows="10"
-          value={values.description}
+          value={values.description || ""}
           onChange={(e) => inputChange(e)}
           required
         ></textarea>
-
+        <DeleteItem
+          closeModal={closeModal}
+          filterItemList={filterItemList}
+          targetId={itemId}
+          url={"http://localhost:3001/admin/item-list"}
+        />
         <button>등록</button>
       </div>
     </form>
