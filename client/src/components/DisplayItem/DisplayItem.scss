@@ -1,0 +1,53 @@
+@import "../../variables.scss";
+
+#display-item {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  max-width: 1250px;
+  gap: 1px;
+  //   background-color: black;
+  .item {
+    margin: 0 auto;
+    width: 48%;
+    max-width: 600px;
+    list-style-type: none;
+    // border: 1px solid black;
+    .item__img {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    .item__descriptions {
+      display: flex;
+      flex-direction: column;
+      .item__descriptions-desc {
+        color: #757575;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-pc) {
+  #display-item {
+    .item {
+      display: flex;
+
+      .item__img {
+        width: 40%;
+
+        img {
+          width: 100%;
+          //   max-width: 200px;
+        }
+      }
+      .item__descriptions {
+        width: 60%;
+      }
+      //   width: 30%;
+    }
+  }
+}

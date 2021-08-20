@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
-        <ProductContext.Provider value={{ products }}>
+        <ProductContext.Provider value={{ products, setProducts }}>
           <Router>
             <Navbar />
             <div className="body-wrapper">

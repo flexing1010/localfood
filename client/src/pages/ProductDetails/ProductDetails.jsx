@@ -30,16 +30,12 @@ const ProductDetails = () => {
     }
   };
 
-  const { response, errorMessage } = useAxios({
+  const { response } = useAxios({
     method: "get",
     url: `/view/${id}`,
   });
 
   useEffect(() => {
-    console.log(id);
-    // axios
-    //   .get(`http://localhost:3001/view/${id}`)
-    //   .then((res) => setProduct(res.data[0]));
     if (response) setProduct(response[0]);
   }, [product, response]);
 
@@ -59,7 +55,7 @@ const ProductDetails = () => {
             <div className="detail__info">
               <h3>판매가 {product.price}원</h3>
 
-              <table className="spec" cellspacing="0">
+              <table className="spec" cellSpacing="0">
                 <tbody>
                   <tr>
                     <th>상품명</th>

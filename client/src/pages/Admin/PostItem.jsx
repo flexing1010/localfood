@@ -1,34 +1,18 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PostItemForm from "../../components/Admin/PostItemForm";
-import { useAxios } from "../../hooks/useAxios";
+import { ProductContext } from "../../Context";
+
 import useInputChanges from "../../hooks/useInputChanges";
 
 const PostItem = () => {
-  const initValues = {
-    product_name: "",
-    brand: "",
-    weight: "",
-    head_size: "",
-    string_pattern: "",
-    balance: "",
-    length: "",
-    grip_size: "",
-    price: "",
-    stock: "",
-    description: "",
-    itemImg: "",
-  };
-  // const[itemInfo, setItemInfo] = useState(initValues)
-  const { values, handleInputChange } = useInputChanges(initValues);
+  const { setProducts } = useContext(ProductContext);
+
+  const { values, handleInputChange } = useInputChanges({});
   const [files, setFiles] = useState("");
 
   const handleItemSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("itemImgs", files[i]);
-    }
     const itemInfo = {
       product_name: values.product_name,
       brand: values.brand,
@@ -42,12 +26,21 @@ const PostItem = () => {
       stock: values.stock,
       description: values.description,
     };
-    formData.append("itemInfo", JSON.stringify(itemInfo));
-    axios.post(
-      "http://localhost:3001/admin/post-item",
 
-      formData
-    );
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("itemImgs", files[i]);
+    }
+    formData.append("itemInfo", JSON.stringify(itemInfo));
+    axios
+      .post(
+        "http://localhost:3001/admin/post-item",
+
+        formData
+      )
+      .then((res) => {
+        setProducts(res.data);
+      });
     e.target.reset();
     setFiles("");
   };

@@ -1,5 +1,5 @@
 import "./MyPage.scss";
-import axios from "axios";
+
 import { useContext, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import DisplayMyPage from "../../components/DisplayMyPage/DisplayMyPage";
@@ -13,19 +13,17 @@ const MyPage = () => {
   const [authorized, setAuthorized] = useState(true);
   const { authState } = useContext(AuthContext);
   let { id } = useParams();
-  const { response, errorMessage } = useAxios({
+  const { response } = useAxios({
     method: "get",
     url: `/user/${id}`,
   });
+
   useEffect(() => {
     console.log(response);
     if (response) {
       setOrders(response.orders);
       setOrderItems(response.orderItems);
       setUser(response.user);
-      // if (parseInt(id) !== authState.id) {
-      //   setAuthorized(false);
-      // }
     }
   }, [response, authState.id, id]);
 
@@ -45,7 +43,6 @@ const MyPage = () => {
       ) : (
         <Redirect to="/" />
       )}
-      {/* <div>{orders[0].id}</div> */}
     </section>
   );
 };

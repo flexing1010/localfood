@@ -1,5 +1,16 @@
 import { db } from "../db.js";
 
+export const getAllProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.execute("SELECT * FROM product", (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};
+
 export const getCartId = (userId) => {
   return new Promise((resolve, reject) => {
     db.query(

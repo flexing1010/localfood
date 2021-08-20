@@ -1,30 +1,22 @@
 import "./ItemListEdit.scss";
 import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../../Context";
-// import { useAxios } from "../../hooks/useAxios";
 import axios from "axios";
-import DeleteItem from "../../pages/Admin/DeleteItem";
+import DeleteItem from "./DeleteItem";
 
 const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
-  const { products } = useContext(ProductContext);
+  const { products, setProducts } = useContext(ProductContext);
   const [targetItem, setTargetItem] = useState("");
   const [previewImg, setPreviewImg] = useState("");
   const [values, setValues] = useState({});
   const [file, setFile] = useState("");
-  // const{response,errorMessage} = useAxios({
-  //   method:'patch',
-  //   url:`/admin/item-list`,
-  //   data:{values}
-  // })
+
   const handleFile = (e) => {
     setFile(e.target.files);
-    console.log(e.target.file, "dd", e.target.files);
   };
 
   const requestUpdate = (e) => {
     e.preventDefault();
-    console.log("submit", values);
-    console.log("data", file[0]);
     const formData = new FormData();
     formData.append("imgUrl", file[0]);
     formData.append("editInfo", JSON.stringify(values));
@@ -32,7 +24,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
     axios
       .patch("http://localhost:3001/admin/item-list", formData)
       .then((res) => {
-        // console.log(res);
+        setProducts(res.data.allItems);
         alert(res.data.success);
       });
   };
@@ -40,7 +32,6 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
   useEffect(() => {
     if (itemId) {
       setTargetItem(products.find((item) => item.id === parseInt(itemId)));
-      console.log(targetItem);
     }
   }, [itemId]);
 
@@ -70,7 +61,6 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
       ...values,
       [name]: value,
     });
-    console.log(values);
   };
 
   return (
@@ -118,7 +108,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
         </div>
         <div>
           <label htmlFor="밸런스">밸런스</label>
-          {/* <input type="text" name="헤드사이즈" id="헤드사이즈" /> */}
+
           <select
             name="balance"
             id="밸런스"

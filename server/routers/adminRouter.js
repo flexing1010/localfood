@@ -1,6 +1,7 @@
 import express from "express";
 import {
   deleteAdminItem,
+  getAllUser,
   postItem,
   updateItem,
 } from "../controllers/adminController.js";
@@ -13,5 +14,7 @@ adminRouter
   .route("/item-list")
   .patch(itemImgUpload.single("imgUrl"), updateItem)
   .delete(deleteAdminItem);
+
+adminRouter.route("/user-list").get(getAllUser);
 
 export default adminRouter;

@@ -24,6 +24,20 @@ export const getUserInfo = (username, userId) => {
   });
 };
 
+export const getAlluserInfo = () => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select name,username,email,address1,address2,isAdmin from user",
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
 // export const getUserCart = (userId) => {
 //   return new Promise((resolve, reject) => {
 //     db.execute(

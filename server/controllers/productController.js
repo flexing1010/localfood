@@ -6,18 +6,25 @@ import {
   insertOrderItem,
   getOrderInfo,
   getOrderItems,
+  getAllProducts,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
 import { getUserInfo } from "../queries/userQuery.js";
 
 export const home = async (req, res) => {
-  db.execute("SELECT * FROM product", async (err, result) => {
-    const productList = await result;
-    if (err) {
-      return res.send(console.log(err));
-    }
+  try {
+    const productList = await getAllProducts();
     res.json(productList);
-  });
+  } catch (err) {
+    console.log(err);
+  }
+  // db.execute("SELECT * FROM product",  (err, result) => {
+  //   const productList = result;
+  //   if (err) {
+  //     return res.send(console.log(err));
+  //   }
+  //   res.json(productList);
+  // });
 };
 
 export const viewProduct = async (req, res) => {

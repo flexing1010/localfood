@@ -1,6 +1,4 @@
-import { useContext, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { AuthContext } from "../Context";
 
 const AdminOnlyRoute = ({ component: Component, ...restOfProps }) => {
   const isAdmins = JSON.parse(

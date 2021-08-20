@@ -11,7 +11,7 @@ const ItemListDisplay = () => {
   const [itemId, setItemId] = useState([]);
   // const [targetItem, setTargetItem] = useState("");
 
-  const OnClickModal = (e) => {
+  const onClickModal = (e) => {
     setItemId(e.target.closest("tr").id);
     openModal();
   };
@@ -41,7 +41,7 @@ const ItemListDisplay = () => {
             itemList.map((item) => {
               return (
                 <tr
-                  onClick={(e) => OnClickModal(e)}
+                  onClick={(e) => onClickModal(e)}
                   className="item"
                   key={item.id}
                   id={item.id}
