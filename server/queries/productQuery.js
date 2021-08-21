@@ -11,6 +11,36 @@ export const getAllProducts = () => {
   });
 };
 
+export const getAProduct = (productId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select * From product where id =?",
+      [productId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const getProductImgs = (productId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select * From images where product_id = ?",
+      [productId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
 export const getCartId = (userId) => {
   return new Promise((resolve, reject) => {
     db.query(

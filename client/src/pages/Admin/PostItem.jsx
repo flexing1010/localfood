@@ -10,6 +10,7 @@ const PostItem = () => {
 
   const { values, handleInputChange } = useInputChanges({});
   const [files, setFiles] = useState("");
+  const [coverImg, setCoverImg] = useState("");
 
   const handleItemSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +32,7 @@ const PostItem = () => {
     for (let i = 0; i < files.length; i++) {
       formData.append("itemImgs", files[i]);
     }
+    formData.append("coverImg", coverImg);
     formData.append("itemInfo", JSON.stringify(itemInfo));
     axios
       .post(
@@ -49,6 +51,10 @@ const PostItem = () => {
     setFiles(e.target.files);
   };
 
+  const handleCoverImg = (e) => {
+    setCoverImg(e.target.files[0]);
+  };
+
   useEffect(() => {
     console.log(values);
   }, [values]);
@@ -58,6 +64,7 @@ const PostItem = () => {
         handleInputChange={handleInputChange}
         handleItemSubmit={handleItemSubmit}
         handleFiles={handleFiles}
+        handleCoverImg={handleCoverImg}
       />
     </section>
   );

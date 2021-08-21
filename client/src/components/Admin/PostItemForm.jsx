@@ -1,6 +1,11 @@
 import "./PostItemForm.scss";
 
-const PostItemForm = ({ handleInputChange, handleItemSubmit, handleFiles }) => {
+const PostItemForm = ({
+  handleInputChange,
+  handleItemSubmit,
+  handleFiles,
+  handleCoverImg,
+}) => {
   return (
     <form
       encType="multipart/form-data"
@@ -135,6 +140,15 @@ const PostItemForm = ({ handleInputChange, handleItemSubmit, handleFiles }) => {
           onChange={handleInputChange}
           required
         ></textarea>
+        <label htmlFor="coverImg">커버 이미지</label>
+        <input
+          type="file"
+          name="coverImg"
+          accept="image/*"
+          onChange={handleCoverImg}
+          required
+        />
+        <label htmlFor="itemImgs">상품 이미지</label>
         <input
           type="file"
           name="itemImgs"

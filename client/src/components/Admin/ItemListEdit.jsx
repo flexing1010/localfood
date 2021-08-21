@@ -9,18 +9,29 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
   const [targetItem, setTargetItem] = useState("");
   const [previewImg, setPreviewImg] = useState("");
   const [values, setValues] = useState({});
-  const [file, setFile] = useState("");
+  const [coverImg, setCoverImg] = useState("");
+  const [itemImgs, setItemImgs] = useState("");
 
-  const handleFile = (e) => {
-    setFile(e.target.files);
+  const handleCoverImgEdit = (e) => {
+    setCoverImg(e.target.files);
+    console.log(coverImg);
+  };
+  const handleItemImgsEdit = (e) => {
+    setItemImgs(e.target.files);
+    console.log(itemImgs);
   };
 
   const requestUpdate = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("imgUrl", file[0]);
+    for (let i = 0; i < itemImgs.length; i++) {
+      formData.append("editedImgs", itemImgs[i]);
+    }
+    formData.append("imgUrl", coverImg[0]);
     formData.append("editInfo", JSON.stringify(values));
     formData.append("itemId", itemId);
+    console.log(coverImg);
+    console.log(itemImgs);
     axios
       .patch("http://localhost:3001/admin/item-list", formData)
       .then((res) => {
@@ -209,7 +220,16 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
             accept="image/*"
             onChange={(e) => {
               setPreviewImg(window.URL.createObjectURL(e.target.files[0]));
-              handleFile(e);
+              handleCoverImgEdit(e);
+            }}
+          />
+          <input
+            type="file"
+            name="editedImgs"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              handleItemImgsEdit(e);
             }}
           />
         </div>

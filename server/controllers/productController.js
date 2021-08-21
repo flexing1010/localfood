@@ -7,6 +7,8 @@ import {
   getOrderInfo,
   getOrderItems,
   getAllProducts,
+  getAProduct,
+  getProductImgs,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
 import { getUserInfo } from "../queries/userQuery.js";
@@ -29,12 +31,14 @@ export const home = async (req, res) => {
 
 export const viewProduct = async (req, res) => {
   const { id } = req.params;
-  db.execute("select * From product where id =?", [id], async (err, result) => {
-    if (err) {
-      return res.send(console.log(err));
-    }
-    res.json(result);
-  });
+  try {
+    const product = await getAProduct(id);
+    const productImgs = await getProductImgs(id);
+    // console.log(productImgs[0]);
+    res.send({ product, productImgs });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const search = async (req, res) => {
