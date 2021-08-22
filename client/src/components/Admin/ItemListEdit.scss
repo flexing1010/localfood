@@ -8,11 +8,13 @@
   .item__description {
     display: flex;
     flex-direction: column;
+    width: 50%;
   }
   .edit-img {
     .img-preview {
+      width: 70%;
       margin: 0 auto;
-      width: 90%;
+      text-align: center;
       img {
         max-width: 220px;
         width: 100%;

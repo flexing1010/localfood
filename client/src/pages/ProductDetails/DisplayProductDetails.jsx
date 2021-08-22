@@ -11,7 +11,7 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
   });
   return (
     <div className="product__display">
-      <Carousel width="100%">
+      <Carousel width="85%" showStatus={false}>
         {productImgs.map((img) => {
           return (
             <div>
@@ -38,7 +38,7 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
         </div> */}
       <div className="detail__info">
         <h2>{product.product_name}</h2>
-        <h3>판매가 {product.price}원</h3>
+        <h2>판매가 {product.price}원</h2>
 
         <table className="spec" cellSpacing="0">
           <tbody>
