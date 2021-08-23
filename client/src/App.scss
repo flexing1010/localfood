@@ -14,16 +14,21 @@ body {
 
 .App {
   height: 100%;
+  // width: 90%;
+  // max-width: 1500px;
+  // margin: 0 auto;
   &:after {
     padding-bottom: 18.25%;
     display: block;
     content: "";
   }
   .body-wrapper {
-    width: 100%;
+    width: 90%;
+    // padding-top: 5rem;
     margin: 2rem auto;
     height: 100%;
     display: flex;
+    position: relative;
     // justify-content: center;
     // align-items: center;
   }

@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+#sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+  ul {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    margin: 5rem 30px;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 1rem;
+
+    li {
+      margin: 20px 0;
+      list-style-type: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.show-sidebar {
+  transform: translateX(200px);
+}
+
+@media (min-width: 1650px) {
+  #sidebar {
+    position: absolute;
+    // left: 6rem;
+    left: 0;
+    top: 0;
+    // width: 250px;
+  }
+}

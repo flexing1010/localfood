@@ -21,6 +21,8 @@ import PostItem from "./pages/Admin/PostItem";
 import ItemList from "./pages/Admin/ItemList";
 import UserList from "./pages/Admin/UserList";
 import ManageOrder from "./pages/Admin/ManageOrder";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -67,8 +69,10 @@ function App() {
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <ProductContext.Provider value={{ products, setProducts }}>
           <Router>
-            <Navbar />
+            <Header />
             <div className="body-wrapper">
+              {/* <Navbar /> */}
+              <Sidebar />
               {/* 버그 authState때문에 에러가 생기는 듯 */}
               <Switch>
                 <Route exact path="/" component={Home} />

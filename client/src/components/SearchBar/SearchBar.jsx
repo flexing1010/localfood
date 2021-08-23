@@ -33,17 +33,19 @@ const SearchBar = () => {
   };
 
   return (
-    <form className="searchBar" onSubmit={search}>
-      <input
-        type="text"
-        name="keyword"
-        onChange={handleKeyword}
-        value={keyword}
-      />
-      <button>
-        <FontAwesomeIcon icon={faSearch} />
-      </button>
-    </form>
+    <li className="search-box">
+      <form className="searchBar" onSubmit={search}>
+        <input
+          type="text"
+          name="keyword"
+          onChange={handleKeyword}
+          value={keyword}
+        />
+        <button>
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+      </form>
+    </li>
   );
 };
 
