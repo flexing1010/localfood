@@ -2,15 +2,16 @@
 
 #sidebar {
   position: absolute;
-  top: 0;
+  top: 10;
   left: 0;
-  width: 200px;
+  width: 250px;
   height: 100%;
-  background-color: white;
-  z-index: 1;
-  transform: translateX(-100%);
+  z-index: 2;
+  // transform: translateX(-100%);
   transition: transform 0.5s ease-in-out;
+  background-color: white;
   ul {
+    // height: 100%;
     // display: flex;
     // flex-direction: column;
     // align-items: center;
@@ -28,15 +29,17 @@
 }
 
 .show-sidebar {
-  transform: translateX(200px);
+  transform: translateX(-250px);
 }
 
 @media (min-width: 1650px) {
   #sidebar {
     position: absolute;
     // left: 6rem;
-    left: 0;
-    top: 0;
-    // width: 250px;
+    left: 100px;
+    top: 10;
+  }
+  .show-sidebar {
+    transform: unset;
   }
 }

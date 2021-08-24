@@ -21,42 +21,57 @@ const Header = () => {
   return (
     <header>
       <div className="top-nav">
-        <div className="title">
-          <Link to="/">
-            <img src={"/images/nav-logo.jpg"} alt="logo" />
-          </Link>
-        </div>
         <ul>
+          <li className="title">
+            <Link to="/">
+              <img src={"/images/nav-logo.jpg"} alt="logo" />
+              <span>Tennis 365</span>
+            </Link>
+          </li>
+          {authState.isAdmin ? (
+            <li className="links-container admin-menu">
+              <div>
+                <Link to="/admin/post-item">
+                  <span className="header-link">상품등록</span>
+                </Link>
+              </div>
+              <div>
+                <Link to="/admin/item-list">
+                  <span className="header-link">상품목록</span>
+                </Link>
+              </div>
+              <div>
+                <Link to="/admin/user-list">
+                  <span className="header-link">유저목록</span>
+                </Link>
+              </div>
+              <div>
+                <Link to="/admin/manage-order">
+                  <span className="header-link">주문관리</span>
+                </Link>
+              </div>
+            </li>
+          ) : null}
           {!authState.status ? (
-            <>
-              <li>
-                <Link to="/login">로그인</Link>
-              </li>
-              <li>
-                <Link to="/join">회원가입</Link>
-              </li>
-            </>
+            <li className="links-container">
+              <div>
+                <Link to="/login">
+                  <span className="header-link">로그인</span>
+                </Link>
+              </div>
+              <div>
+                <Link to="/join">
+                  <span className="header-link">회원가입</span>
+                </Link>
+              </div>
+            </li>
           ) : (
-            <li>
-              <button onClick={logout}>로그아웃</button>
+            <li className="logout-btn">
+              <button onClick={logout}>
+                <span className="header-link">로그아웃</span>
+              </button>
             </li>
           )}
-          {authState.isAdmin ? (
-            <>
-              <li>
-                <Link to="/admin/post-item">상품등록</Link>
-              </li>
-              <li>
-                <Link to="/admin/item-list">상품목록</Link>
-              </li>
-              <li>
-                <Link to="/admin/user-list">유저목록</Link>
-              </li>
-              <li>
-                <Link to="/admin/manage-order">주문관리</Link>
-              </li>
-            </>
-          ) : null}
         </ul>
       </div>
       <Navbar />

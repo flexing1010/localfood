@@ -1,7 +1,7 @@
 import "./App.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { AuthContext, ProductContext } from "./Context";
+import { AuthContext, ProductContext, SidebarContext } from "./Context";
 import axios from "axios";
 
 import Home from "./pages/Home/Home";
@@ -29,6 +29,7 @@ function App() {
   // const cancelToken = axios.CancelToken
   // const source = cancelToken.source
   const [products, setProducts] = useState([]);
+  const [isShowing, setIsShowing] = useState("false");
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,
@@ -69,10 +70,12 @@ function App() {
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <ProductContext.Provider value={{ products, setProducts }}>
           <Router>
-            <Header />
+            <SidebarContext.Provider value={{ isShowing, setIsShowing }}>
+              <Header />
+              <Sidebar />
+            </SidebarContext.Provider>
             <div className="body-wrapper">
               {/* <Navbar /> */}
-              <Sidebar />
               {/* 버그 authState때문에 에러가 생기는 듯 */}
               <Switch>
                 <Route exact path="/" component={Home} />
