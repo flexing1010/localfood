@@ -98,23 +98,22 @@ const Cart = () => {
             handleDelete={handleDelete}
           />
         )}
-
-        {/* {cartItems.map((item) => {
-          return (
-            <DisplayCart
-              key={item.id}
-              item={item}
-              handleQuantity={handleQuantity}
-              sendTotalToCart={sendTotalToCart}
-            />
-          );
-        })} */}
       </ul>
-      <div className="cart-items__total">
-        {errorMessage || cartItems.length === 0 ? null : grandTotal}
-      </div>
-      <div className="cart-items__orderBtn">
-        <Button handleBtnClick={toOrderPage} text={"주문하기"} />
+      <div className="cart_bottom">
+        <div className="empty-div"></div>
+        <div className="order-summary">
+          <div className="total">
+            <span>합계</span>
+            <span>
+              {errorMessage || cartItems.length === 0
+                ? null
+                : `${grandTotal.toLocaleString()}원`}
+            </span>
+          </div>
+          <div className="cart__orderBtn">
+            <Button handleBtnClick={toOrderPage} text={"주문하기"} />
+          </div>
+        </div>
       </div>
     </section>
   );

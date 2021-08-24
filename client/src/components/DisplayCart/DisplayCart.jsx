@@ -8,28 +8,22 @@ const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
       {cartItems.map((item) => {
         return (
           <li className="cart_item" key={item.id}>
-            <div
-              onClick={() =>
-                handleDelete("http://localhost:3001/cart/update", item)
-              }
-            >
-              ❎
-            </div>
             <div className="img-description">
               <ProductImg item={item} class={"cart__img"} />
+
               <div className="cart__description">
-                <h2>{item.product_name}</h2>
+                <strong className="item-name">{item.product_name}</strong>
                 <span>{item.brand}</span>
-                <div className="rating">
+                {/* <div className="rating">
                   <span>평점</span>
                   <span>{item.rating}</span>
-                </div>
+                </div> */}
                 <div className="item__price">
-                  <span>판매가</span>
-                  <span>{item.price}</span>
+                  <span className="info-title">판매가</span>
+                  <span>{`${item.price.toLocaleString()}원`}</span>
                 </div>
                 <div className="item__quantity">
-                  <small>수량</small>
+                  <div className="info-title">수량</div>
                   <input
                     min={1}
                     value={item.quantity}
@@ -43,11 +37,19 @@ const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
                     placeholder="수량"
                   />
                 </div>
-                <div>
-                  <span>합계</span>
+                <div className="item__total">
+                  <span className="info-title">합계</span>
                   <span id={item.id}>
                     {item.quantity * parseInt(item.price)}
                   </span>
+                </div>
+                <div
+                  className="delete-btn"
+                  onClick={() =>
+                    handleDelete("http://localhost:3001/cart/update", item)
+                  }
+                >
+                  삭제하기
                 </div>
               </div>
             </div>
