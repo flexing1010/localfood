@@ -164,3 +164,18 @@ export const getOrderItems = (orderId) => {
     );
   });
 };
+
+export const getItemsByBrand = (brandId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select product_id from category_item where category_id = ?",
+      [brandId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

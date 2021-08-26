@@ -9,6 +9,7 @@ import {
   getAllProducts,
   getAProduct,
   getProductImgs,
+  getItemsByBrand,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
 import { getUserInfo } from "../queries/userQuery.js";
@@ -224,4 +225,13 @@ export const viewOrder = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const viewByBrand = async (req, res) => {
+  const { id } = req.params;
+  const brandItemsId = await getItemsByBrand(id);
+  console.log(brandItemsId);
+  // brandItemsId.map((brandItem) => {
+  //   getAProduct(brandItem.product_id);
+  // });
 };

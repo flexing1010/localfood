@@ -4,6 +4,7 @@ import {
   home,
   // postOrder,
   search,
+  viewByBrand,
   viewProduct,
 } from "../controllers/productController.js";
 import {
@@ -16,6 +17,8 @@ import { publicOnlyMiddleware, validateToken } from "../middlewares.js";
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
+
+rootRouter.get("/by-brand/:id", viewByBrand);
 
 rootRouter.get("/view/:id", viewProduct);
 

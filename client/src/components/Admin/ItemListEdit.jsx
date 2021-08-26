@@ -72,6 +72,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
       ...values,
       [name]: value,
     });
+    console.log(values);
   };
 
   return (
@@ -95,14 +96,24 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
         </div>
         <div>
           <label htmlFor="브랜드">브랜드</label>
-          <input
+          <select
             type="text"
             name="brand"
             id="브랜드"
             value={values.brand || ""}
             onChange={(e) => inputChange(e)}
             required
-          />
+          >
+            <option value={values.brand || ""}>{values.brand}</option>
+            <option value="1">1.Babolat</option>
+            <option value="2">2.Wilson</option>
+            <option value="3">3.Head</option>
+            <option value="4">4.Yonex</option>
+            <option value="5">5.Dunlop</option>
+            <option value="6">6.Prince</option>
+            <option value="7">7.TecniFibre</option>
+            <option value="8">8.ProKennex</option>
+          </select>
         </div>
         <div>
           <label htmlFor="무게">무게</label>

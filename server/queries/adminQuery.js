@@ -28,7 +28,22 @@ export const insertItem = (itemInfo, coverImg) => {
   });
 };
 
-export const insertItemImgs = (imgFile, insertedItem, itemId) => {
+export const insertCategory = (brandId, itemId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Insert into category_item (category_id,product_id) values(?,?)",
+      [brandId, itemId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const insertItemImgs = (imgFile, insertedItem) => {
   return new Promise((resolve, reject) => {
     db.execute(
       "Insert Into images (img_url,product_id) values(?,?)",
