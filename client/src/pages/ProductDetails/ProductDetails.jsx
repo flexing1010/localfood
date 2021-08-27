@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../Context";
 import { useAxios } from "../../hooks/useAxios.js";
 import DisplayProductDetails from "./DisplayProductDetails";
+import Reviews from "./Reviews";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
@@ -52,7 +53,7 @@ const ProductDetails = () => {
         addCart={addCart}
         productImgs={productImgs}
       />
-      <div className="product__reviews"></div>
+      <Reviews />
     </section>
   );
 };

@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { ProductContext } from "../../Context";
+import { useParams, useRouteMatch } from "react-router-dom";
 import DisplayItem from "../../components/DisplayItem/DisplayItem";
 import { useAxios } from "../../hooks/useAxios";
 
 const ByBrand = () => {
+  const { products } = useContext(ProductContext);
   const [itemByBrand, setItemByBrand] = useState([]);
   let { id } = useParams();
-  const { response } = useAxios({
-    method: "get",
-    url: `/by-brand/${id}`,
-  });
+  let match = useRouteMatch();
+  // const { response } = useAxios({
+  //   method: "get",
+  //   url: `/by-brand/${id}`,
+  // });
 
   useEffect(() => {
-    if (response) {
-      console.log(response);
-      setItemByBrand(itemByBrand);
-    }
-  }, [response]);
+    console.log(match.params);
+    // if (response) {
+    //   console.log(response);
+    //   setItemByBrand(itemByBrand);
+    // }
+    setItemByBrand(products.filter((brandItem) => brandItem.brand === id));
+    console.log(itemByBrand);
+  }, [products, match.params]);
   return (
-    <section>
-      <div>displayItem{id}</div>
+    <section style={{ width: "100%" }}>
       <DisplayItem items={itemByBrand} />
     </section>
   );

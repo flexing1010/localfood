@@ -15,14 +15,10 @@ const Sidebar = () => {
     <div id="sidebar" className={isShowing ? "show-sidebar" : ""}>
       <ul>
         <li onClick={() => history.push("/")}>전체보기</li>
-        <li onClick={() => handleBrandClick(1)}>
-          <Link to="/by-brand/1">Babolat</Link>
-        </li>
+        <li onClick={() => handleBrandClick(1)}>Babolat</li>
         <li onClick={() => handleBrandClick(2)}>Wilson</li>
         <li onClick={() => handleBrandClick(3)}>Head</li>
-        <li onClick={() => handleBrandClick(4)}>
-          <Link to="/by-brand/4">Yonex</Link>
-        </li>
+        <li onClick={() => handleBrandClick(4)}>Yonex</li>
         <li onClick={() => handleBrandClick(5)}>Dunlop</li>
         <li onClick={() => handleBrandClick(6)}>Prince</li>
         <li onClick={() => handleBrandClick(7)}>TecniFibre</li>

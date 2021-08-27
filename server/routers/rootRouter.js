@@ -1,7 +1,9 @@
 import express from "express";
 import {
+  getReview,
   // getUser,
   home,
+  postReview,
   // postOrder,
   search,
   viewByBrand,
@@ -21,6 +23,8 @@ rootRouter.get("/", home);
 rootRouter.get("/by-brand/:id", viewByBrand);
 
 rootRouter.get("/view/:id", viewProduct);
+rootRouter.post("/view/:id/review", postReview);
+rootRouter.get("/view/:id/review", getReview);
 
 rootRouter.route("/join").post(publicOnlyMiddleware, postJoinController);
 rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);
