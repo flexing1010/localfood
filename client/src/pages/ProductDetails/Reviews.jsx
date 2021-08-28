@@ -6,12 +6,18 @@ import useModal from "../../hooks/useModal";
 import ReviewForm from "./ReviewForm";
 import { useAxios } from "../../hooks/useAxios";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../../Context";
 
 const Reviews = () => {
+  const { authState } = useContext(AuthContext);
   const [modalOpen, openModal, closeModal] = useModal();
+  // const [newReviews, setNewReviews] = useState([]);
+  const [reviewBody, setReviewBody] = useState("");
   const [reviews, setReviews] = useState([]);
   let { id } = useParams();
+
   const { response } = useAxios({
     method: "get",
     url: `/view/${id}/review`,
@@ -19,6 +25,41 @@ const Reviews = () => {
 
   const handleReviewBtn = () => {
     openModal();
+  };
+
+  const handleReview = (e) => {
+    setReviewBody(e.target.value);
+    console.log(reviewBody);
+  };
+
+  const postReview = (e) => {
+    e.preventDefault();
+    let createdAt = new Date();
+    createdAt =
+      createdAt.getFullYear() +
+      "-" +
+      (createdAt.getMonth() + 1) +
+      "-" +
+      createdAt.getDate();
+
+    closeModal();
+
+    axios
+      .post(`http://localhost:3001/view/${id}/review`, {
+        reviewBody,
+        createdAt,
+        username: authState.username,
+      })
+      .then((response) => {
+        const newReview = {
+          review_body: reviewBody,
+          createdAt,
+          username: authState.username,
+        };
+        console.log(newReview, "newreview");
+
+        setReviews([newReview, ...reviews]);
+      });
   };
 
   useEffect(() => {
@@ -58,7 +99,11 @@ const Reviews = () => {
         })}
       </div>
       <Modal open={modalOpen} close={closeModal} header="리뷰작성">
-        <ReviewForm close={closeModal} />
+        <ReviewForm
+          close={closeModal}
+          postReview={postReview}
+          handleReview={handleReview}
+        />
       </Modal>
     </div>
   );

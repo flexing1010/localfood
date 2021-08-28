@@ -246,6 +246,7 @@ export const postReview = async (req, res) => {
   try {
     const insertedReview = await insertReview(review, id);
     // await insertProductReview(insertedReview.insertId, id);
+    res.send("success");
   } catch (err) {
     console.log(err);
   }
