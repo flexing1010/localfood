@@ -13,6 +13,7 @@ import {
   insertReview,
   // insertProductReview,
   selectReviews,
+  deleteReview,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
 import { getUserInfo } from "../queries/userQuery.js";
@@ -246,7 +247,7 @@ export const postReview = async (req, res) => {
   try {
     const insertedReview = await insertReview(review, id);
     // await insertProductReview(insertedReview.insertId, id);
-    res.send("success");
+    res.json(insertedReview.insertId);
   } catch (err) {
     console.log(err);
   }
@@ -259,6 +260,17 @@ export const getReview = async (req, res) => {
     const reviews = await selectReviews(id);
     console.log(reviews);
     res.json(reviews);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteItemReview = async (req, res) => {
+  const { targetId } = req.body;
+  try {
+    await deleteReview(targetId);
+
+    res.send({ success: "삭제되었습니다" });
   } catch (err) {
     console.log(err);
   }

@@ -9,13 +9,14 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../Context";
+import DeleteItem from "../../components/Admin/DeleteItem";
 
 const Reviews = () => {
   const { authState } = useContext(AuthContext);
   const [modalOpen, openModal, closeModal] = useModal();
-  // const [newReviews, setNewReviews] = useState([]);
   const [reviewBody, setReviewBody] = useState("");
   const [reviews, setReviews] = useState([]);
+
   let { id } = useParams();
 
   const { response } = useAxios({
@@ -51,15 +52,21 @@ const Reviews = () => {
         username: authState.username,
       })
       .then((response) => {
+        // setTemporaryId(response.data);
         const newReview = {
           review_body: reviewBody,
           createdAt,
           username: authState.username,
+          id: response.data,
         };
-        console.log(newReview, "newreview");
-
         setReviews([newReview, ...reviews]);
+        console.log(newReview, "newreview");
       });
+  };
+
+  const filterReviews = (targetId) => {
+    setReviews(reviews.filter((item) => item.id !== parseInt(targetId)));
+    // console.log(itemList, "filter");
   };
 
   useEffect(() => {
@@ -80,6 +87,13 @@ const Reviews = () => {
           return (
             <div className="review-box" key={review.id}>
               <p>{review.review_body}</p>
+              <DeleteItem
+                closeModal={null}
+                filterItemList={filterReviews}
+                targetId={review.id}
+                text={"리뷰 삭제"}
+                url={`http://localhost:3001/view/${id}/review`}
+              />
               <ul className="review-box__info">
                 <li>
                   <small className="review-box__info--title">작성자</small>

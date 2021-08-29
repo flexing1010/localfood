@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const DeleteItem = ({ targetId, url, closeModal, filterItemList }) => {
-  const handleDelete = () => {
+const DeleteItem = ({ targetId, url, closeModal, filterItemList, text }) => {
+  const handleDelete = (e) => {
+    // e.parentElement.remove();
+
     if (window.confirm("상품을 삭제하시겠습니까?")) {
-      console.log(url);
       axios
         .delete(url, {
           data: {
@@ -11,14 +12,17 @@ const DeleteItem = ({ targetId, url, closeModal, filterItemList }) => {
           },
         })
         .then((res) => {
+          // e.target.parentElement.remove();
           filterItemList(targetId);
           alert(res.data.success);
         });
-      closeModal();
+      if (closeModal) {
+        closeModal();
+      }
     }
   };
 
-  return <input type="button" onClick={handleDelete} value="상품 삭제" />;
+  return <input type="button" onClick={(e) => handleDelete(e)} value={text} />;
 };
 
 export default DeleteItem;

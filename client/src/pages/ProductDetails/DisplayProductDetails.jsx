@@ -14,7 +14,7 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
       <Carousel width="85%" showStatus={false}>
         {productImgs.map((img) => {
           return (
-            <div>
+            <div key={img.id}>
               <img
                 src={`http://localhost:3001/admin/${img.img_url}`}
                 alt={img.img_url}

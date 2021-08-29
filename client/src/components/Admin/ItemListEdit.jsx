@@ -257,6 +257,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
           closeModal={closeModal}
           filterItemList={filterItemList}
           targetId={itemId}
+          text={"상품 삭제"}
           url={"http://localhost:3001/admin/item-list"}
         />
         <button>등록</button>

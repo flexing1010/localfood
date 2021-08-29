@@ -224,3 +224,14 @@ export const selectReviews = (productId) => {
     );
   });
 };
+
+export const deleteReview = (targetId) => {
+  return new Promise((resolve, reject) => {
+    db.execute("delete from review where id = ?", [targetId], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};
