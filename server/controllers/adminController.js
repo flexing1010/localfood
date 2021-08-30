@@ -2,6 +2,7 @@ import {
   deleteItem,
   deleteItemImgs,
   editItemImgs,
+  insertCategory,
   // getAllItems,
   insertItem,
   insertItemImgs,
@@ -14,11 +15,12 @@ export const postItem = async (req, res) => {
   const itemInfo = JSON.parse(req.body.itemInfo);
   const imgFiles = req.files.itemImgs;
   const coverImg = req.files.coverImg;
-
+  console.log(itemInfo, imgFiles, coverImg);
   try {
     if (itemInfo) {
       const insertedItem = await insertItem(itemInfo, coverImg[0]);
-      console.log(insertedItem.insertId);
+      console.log(insertedItem);
+      await insertCategory(parseInt(itemInfo.brand), insertedItem.insertId);
       await imgFiles.forEach((img) => {
         insertItemImgs(img, insertedItem);
       });
@@ -48,11 +50,15 @@ export const updateItem = async (req, res) => {
   const itemId = req.body.itemId;
   console.log(itemId, editImgs);
   try {
-    await updateItemInfo(itemId, editInfo, editImg[0]);
-    await deleteItemImgs(itemId);
-    await editImgs.forEach((img) => {
-      editItemImgs(img, itemId);
-    });
+    if (editImg || editImgs) {
+      await updateItemInfo(itemId, editInfo, editImg[0]);
+      await deleteItemImgs(itemId);
+      await editImgs.forEach((img) => {
+        editItemImgs(img, itemId);
+      });
+    } else {
+      await updateItemInfo(itemId, editInfo, undefined);
+    }
     const allItems = await getAllProducts();
     res.send({ allItems, success: "수정되었습니다" });
   } catch (err) {

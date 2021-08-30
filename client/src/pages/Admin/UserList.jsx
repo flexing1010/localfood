@@ -55,7 +55,7 @@ const UserList = () => {
   }, [response, allUsers]);
 
   return (
-    <section className="user-list">
+    <section className="user-list" style={{ margin: "0 auto" }}>
       <div className="user-grid">
         <Grid
           data={allUsers}
@@ -64,7 +64,7 @@ const UserList = () => {
           // bodyHeight={100}
           heightResizable={true}
           rowHeaders={["checkbox"]}
-          width={900}
+          width={1000}
           columnOptions={{ resizable: true }}
           onCheck={(e) => {
             console.log(e);

@@ -164,3 +164,74 @@ export const getOrderItems = (orderId) => {
     );
   });
 };
+
+export const getItemsByBrand = (brandId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select product_id from category_item where category_id = ?",
+      [brandId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const insertReview = (review, productId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "insert into review (review_body, username, createdAt, product_id) values (?,?,?,?)",
+      [review.reviewBody, review.username, review.createdAt, productId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+// export const insertProductReview = (reviewId, productId) => {
+//   return new Promise((resolve, reject) => {
+//     db.execute(
+//       "insert into product_review (product_id,review_id) values (?,?)",
+//       [productId, reviewId],
+//       (err, result) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         return resolve(result);
+//       }
+//     );
+//   });
+// };
+
+export const selectReviews = (productId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select * from review where product_id = ? order by id desc",
+      [productId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const deleteReview = (targetId) => {
+  return new Promise((resolve, reject) => {
+    db.execute("delete from review where id = ?", [targetId], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};

@@ -59,7 +59,7 @@ const PostItem = () => {
     console.log(values);
   }, [values]);
   return (
-    <section className="post-item">
+    <section className="post-item" style={{ margin: "0 auto" }}>
       <PostItemForm
         handleInputChange={handleInputChange}
         handleItemSubmit={handleItemSubmit}

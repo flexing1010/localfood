@@ -23,6 +23,7 @@ import UserList from "./pages/Admin/UserList";
 import ManageOrder from "./pages/Admin/ManageOrder";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
+import ByBrand from "./pages/ByBrand/ByBrand";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
               {/* 버그 authState때문에 에러가 생기는 듯 */}
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/by-brand/:id" component={ByBrand} />
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />

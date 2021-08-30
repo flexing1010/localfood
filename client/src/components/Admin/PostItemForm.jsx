@@ -26,13 +26,21 @@ const PostItemForm = ({
         </div>
         <div>
           <label htmlFor="브랜드">브랜드</label>
-          <input
-            type="text"
+          <select
             name="brand"
             id="브랜드"
             onChange={handleInputChange}
             required
-          />
+          >
+            <option value="1">1.Babolat</option>
+            <option value="2">2.Wilson</option>
+            <option value="3">3.Head</option>
+            <option value="4">4.Yonex</option>
+            <option value="5">5.Dunlop</option>
+            <option value="6">6.Prince</option>
+            <option value="7">7.TecniFibre</option>
+            <option value="8">8.ProKennex</option>
+          </select>
         </div>
         <div>
           <label htmlFor="무게">무게</label>

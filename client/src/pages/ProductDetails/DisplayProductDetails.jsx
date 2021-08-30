@@ -6,15 +6,15 @@ import { Carousel } from "react-responsive-carousel";
 import { useEffect } from "react";
 
 const DisplayProductDetails = ({ product, addCart, productImgs }) => {
-  useEffect(() => {
-    console.log(productImgs);
-  });
+  // useEffect(() => {
+  //   console.log(productImgs);
+  // });
   return (
     <div className="product__display">
       <Carousel width="85%" showStatus={false}>
         {productImgs.map((img) => {
           return (
-            <div>
+            <div key={img.id}>
               <img
                 src={`http://localhost:3001/admin/${img.img_url}`}
                 alt={img.img_url}
@@ -22,20 +22,8 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
             </div>
           );
         })}
-        {/* <div>
-          <img src={`http://localhost:3001/admin/${productImgs[0].img_url}`} />
-        </div>
-        <div>
-          <img src={`http://localhost:3001/admin/${productImgs[1].img_url}`} />
-        </div>
-        <div>
-          <img src={`http://localhost:3001/admin/${productImgs[2].img_url}`} />
-        </div> */}
       </Carousel>
-      {/* <ProductImg item={product} class={"detail__img"} /> */}
-      {/* <div className="detail__img">
-          <img src={`http://localhost:3001/admin/${product.imgUrl}`} alt="" />
-        </div> */}
+
       <div className="detail__info">
         <h2>{product.product_name}</h2>
         <h2>판매가 {product.price}원</h2>

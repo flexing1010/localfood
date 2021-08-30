@@ -1,9 +1,13 @@
 import express from "express";
 import {
+  deleteItemReview,
+  getReview,
   // getUser,
   home,
+  postReview,
   // postOrder,
   search,
+  viewByBrand,
   viewProduct,
 } from "../controllers/productController.js";
 import {
@@ -17,7 +21,12 @@ const rootRouter = express.Router();
 
 rootRouter.get("/", home);
 
+rootRouter.get("/by-brand/:id", viewByBrand);
+
 rootRouter.get("/view/:id", viewProduct);
+rootRouter.post("/view/:id/review", postReview);
+rootRouter.get("/view/:id/review", getReview);
+rootRouter.delete("/view/:id/review", deleteItemReview);
 
 rootRouter.route("/join").post(publicOnlyMiddleware, postJoinController);
 rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);
