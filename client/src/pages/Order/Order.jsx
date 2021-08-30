@@ -34,7 +34,7 @@ const Order = () => {
   }, [user, authState.id]);
 
   return (
-    <section>
+    <section style={{ margin: "0 auto" }}>
       {authorized ? (
         <OrderForm orderInfo={orderInfo} orderItems={orderItems} user={user} />
       ) : (

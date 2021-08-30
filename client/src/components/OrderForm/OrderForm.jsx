@@ -1,6 +1,8 @@
+import "./OrderForm.scss";
+
 const OrderForm = ({ orderInfo, orderItems, user }) => {
   return (
-    <div className="order-form">
+    <form className="order-form">
       <div className="customer">
         <h2 className="customer__h2">구매자정보</h2>
         <table className="customer__table">
@@ -13,17 +15,24 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
               <td className="customer__col customer__col--1">이메일</td>
               <td className="customer__col customer__col--2">{user.email}</td>
             </tr>
-            <tr></tr>
+            <tr>
+              <td className="customer__col customer__col--1">연락처</td>
+              <input
+                type="text"
+                pattern="[0-9]"
+                placeholder="'-' 없이 숫자만 입력해 주세요"
+              />
+            </tr>
           </tbody>
         </table>
       </div>
       <div className="order">
-        <h2>배송정보</h2>
+        <h2>상품정보</h2>
         {orderItems.map((item) => {
           return (
             <div className="order__info" key={item.id}>
               <div className="order__info1">{item.product_name}</div>
-              <div className="order__info2">{item.quantity} 개</div>
+              <div className="order__info2">{`${item.quantity} 개`}</div>
             </div>
           );
         })}
@@ -41,7 +50,8 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
           </tbody>
         </table>
       </div>
-    </div>
+      <button>결제하기</button>
+    </form>
   );
 };
 

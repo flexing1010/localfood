@@ -1,0 +1,9 @@
+.order-form {
+  margin: 0 auto;
+  .order {
+    .order__info {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
