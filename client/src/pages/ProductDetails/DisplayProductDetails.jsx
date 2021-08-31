@@ -11,7 +11,7 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
   // });
   return (
     <div className="product__display">
-      <Carousel width="85%" showStatus={false}>
+      <Carousel width="85%" showStatus={false} showThumbs={false}>
         {productImgs.map((img) => {
           return (
             <div key={img.id}>

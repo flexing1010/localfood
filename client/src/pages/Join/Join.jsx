@@ -1,9 +1,9 @@
 import "./Join.scss";
 import axios from "axios";
 import Input from "../../components/Input/Input";
-import Modal from "../../components/Modal/Modal";
-import DaumPostcode from "react-daum-postcode";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Modal from "../../components/Modal/Modal";
+// import DaumPostcode from "react-daum-postcode";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faIdCard,
@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import usePostcode from "../../hooks/usePostcode";
 import useModal from "../../hooks/useModal";
 import useInputChanges from "../../hooks/useInputChanges";
+import AddressInput from "../../components/AdressInput/AdressInput";
 
 const Join = () => {
   const initValues = {
@@ -29,7 +30,7 @@ const Join = () => {
 
   const { values, handleInputChange } = useInputChanges(initValues);
 
-  const [fullAddress, handleComplete] = usePostcode();
+  const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   // const [address2, setAddress2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [modalOpen, openModal, closeModal] = useModal();
@@ -48,6 +49,7 @@ const Join = () => {
         address2: values.address2,
       })
       .then((response) => {
+        console.log(fullAddress);
         console.log("success");
         history.push("/login");
       })
@@ -71,11 +73,13 @@ const Join = () => {
           inputName={"name"}
           inputPlaceholder={"이름"}
           inputType={"text"}
+          values={undefined}
           inputOnChange={handleInputChange}
         />
         <Input
           inputIcon={faIdCard}
           inputName={"username"}
+          values={undefined}
           inputPlaceholder={"아이디"}
           inputType={"text"}
           inputOnChange={handleInputChange}
@@ -83,6 +87,7 @@ const Join = () => {
         <Input
           inputIcon={faEnvelope}
           inputName={"email"}
+          values={undefined}
           inputPlaceholder={"이메일"}
           inputType={"email"}
           inputOnChange={handleInputChange}
@@ -90,6 +95,7 @@ const Join = () => {
         <Input
           inputIcon={faLock}
           inputName={"password"}
+          values={undefined}
           inputPlaceholder={"비밀번호"}
           inputType={"password"}
           inputOnChange={handleInputChange}
@@ -97,11 +103,18 @@ const Join = () => {
         <Input
           inputIcon={faLock}
           inputName={"passwordConfirm"}
+          values={undefined}
           inputPlaceholder={"비밀번호 확인"}
           inputType={"password"}
           inputOnChange={handleInputChange}
         />
-        <div className="address">
+        <AddressInput
+          handleInputChange={handleInputChange}
+          handleComplete={handleComplete}
+          fullAddress={fullAddress}
+          address2={undefined}
+        />
+        {/* <div className="address">
           <div className="address__icon">
             <FontAwesomeIcon className="fa-icon" icon={faMapMarkerAlt} />
           </div>
@@ -137,7 +150,7 @@ const Join = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <input type="submit" value="회원가입" />
       </form>
@@ -146,82 +159,3 @@ const Join = () => {
 };
 
 export default Join;
-
-// {
-//   /* <div className="custormer__input">
-//           <div className="custormer__input--icon">
-//             <FontAwesomeIcon icon={faUser} className="fa-icon" />
-//           </div>
-//           <div>
-//             <input
-//               name="name"
-//               placeholder="이름"
-//               type="text"
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-//         </div>
-//         <div className="custormer__input">
-//           <div className="custormer__input--icon">
-//             <FontAwesomeIcon icon={faIdCard} />
-//           </div>
-//           <input
-//             name="username"
-//             placeholder="닉네임"
-//             type="text"
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div className="custormer__input">
-//           <div className="custormer__input--icon">
-//             <FontAwesomeIcon icon={faEnvelope} />
-//           </div>
-
-//           <input
-//             name="email"
-//             placeholder="이메일"
-//             type="email"
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div className="custormer__input">
-//           <div className="custormer__input--icon">
-//             <FontAwesomeIcon icon={faLock} />
-//           </div>
-//           <input
-//             name="password"
-//             placeholder="비밀번호"
-//             type="password"
-//             onChange={handleInputChange}
-//             required
-//           />
-//         </div>
-//         <div className="custormer__input">
-//           <div className="custormer__input--icon">
-//             <FontAwesomeIcon icon={faLock} />
-//           </div>
-//           <input
-//             name="passwordConfirm"
-//             placeholder="비밀번호 확인"
-//             type="password"
-//             onChange={handleInputChange}
-//             required
-//           /> */
-// }
-// {
-//   /* </div> */
-// }
-
-// {
-//   /* <Postcode
-//           style={{ width: 320, height: 320 }}
-//           jsOptions={{ animated: true, hideMapBtn: true }}
-//           onSelected={(data) => {
-//             alert(JSON.stringify(data));
-//             setModal(false);
-//           }}
-//         /> */
-// }

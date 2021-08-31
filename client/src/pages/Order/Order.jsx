@@ -1,3 +1,4 @@
+import "./Order.scss";
 import { useContext, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import OrderForm from "../../components/OrderForm/OrderForm";
@@ -9,6 +10,7 @@ const Order = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [authorized, setAuthorized] = useState(true);
   const [user, setUser] = useState("");
+  const [initValues, setInitValues] = useState();
   const { authState } = useContext(AuthContext);
   let { id } = useParams();
 
@@ -22,6 +24,11 @@ const Order = () => {
       setUser(response.user);
       setOrderInfo(response.orderInfo);
       setOrderItems(response.orderItems);
+      // setInitValues({
+      //   name: user.name,
+      //   email: "",
+      //   address2: "",
+      // });
     }
   }, [response]);
 
@@ -34,9 +41,14 @@ const Order = () => {
   }, [user, authState.id]);
 
   return (
-    <section style={{ margin: "0 auto" }}>
+    <section className="order-page" style={{ margin: "0 auto" }}>
       {authorized ? (
-        <OrderForm orderInfo={orderInfo} orderItems={orderItems} user={user} />
+        <OrderForm
+          // initValues={initValues}
+          orderInfo={orderInfo}
+          orderItems={orderItems}
+          user={user}
+        />
       ) : (
         <Redirect to="/" />
       )}

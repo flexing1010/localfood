@@ -1,9 +1,21 @@
-.order-form {
-  margin: 0 auto;
-  .order {
-    .order__info {
-      display: flex;
-      flex-direction: row;
+.order-page {
+  width: 100%;
+  h2 {
+    margin-top: 1rem;
+  }
+  .order-form {
+    max-width: 450px;
+    margin: 0 auto;
+    // display: flex;
+    .order {
+      .order__info {
+        display: flex;
+      }
+    }
+    .order-checkout {
+      .checkout {
+        margin-bottom: 1rem;
+      }
     }
   }
 }
