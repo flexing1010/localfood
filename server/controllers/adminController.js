@@ -20,6 +20,7 @@ export const postItem = async (req, res) => {
     if (itemInfo) {
       const insertedItem = await insertItem(itemInfo, coverImg[0]);
       console.log(insertedItem);
+      console.log(imgFiles, "files");
       await insertCategory(parseInt(itemInfo.brand), insertedItem.insertId);
       await imgFiles.forEach((img) => {
         insertItemImgs(img, insertedItem);

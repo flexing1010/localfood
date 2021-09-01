@@ -32,6 +32,7 @@ const PostItemForm = ({
             onChange={handleInputChange}
             required
           >
+            <option></option>
             <option value="1">1.Babolat</option>
             <option value="2">2.Wilson</option>
             <option value="3">3.Head</option>

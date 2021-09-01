@@ -22,7 +22,12 @@ const AddressInput = ({
       </div>
       <div className="address__input">
         <div className="find-address">
-          <input readOnly type="text" name="address1" value={fullAddress} />
+          <input
+            readOnly
+            type="text"
+            name="address1"
+            value={fullAddress || ""}
+          />
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -47,7 +52,7 @@ const AddressInput = ({
             type="text"
             name="address2"
             placeholder="상세주소"
-            value={address2}
+            value={address2 || ""}
             onChange={handleInputChange}
           />
         </div>

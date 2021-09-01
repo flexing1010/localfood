@@ -1,44 +1,53 @@
 import AddressInput from "../AdressInput/AdressInput";
 import Input from "../Input/Input";
+import "./OrderForm.scss";
+import useInputChanges from "../../hooks/useInputChanges";
+import { useEffect } from "react";
+import usePostcode from "../../hooks/usePostcode";
+import InfoBox from "../InfoBox/InfoBox";
+import Button from "../Button/Button";
+import PaymentApi from "../PaymentApi/PaymentApi";
 import {
   faBarcode,
   faCashRegister,
   faEnvelope,
-  faIdCard,
-  faLock,
   faMobileAlt,
-  // faMapMarkerAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import "./OrderForm.scss";
-import useInputChanges from "../../hooks/useInputChanges";
-import { useEffect, useState } from "react";
-import usePostcode from "../../hooks/usePostcode";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InfoBox from "../InfoBox/InfoBox";
-import Button from "../Button/Button";
 
 const OrderForm = ({ orderInfo, orderItems, user }) => {
-  const [initValues, setInitValues] = useState("");
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   const { values, handleInputChange, setValues } = useInputChanges({});
 
-  // const handleInputChange = (e) => {
-  //   setInitValues(e.target.value);
-  // };
+  const submitOrder = (e) => {
+    e.preventDefault();
+    const data = {
+      pay_method: values.method,
+      merchant_uid: `min_${new Date().getTime()}`,
+      amount: orderInfo.grandTotal,
+      buyer_name: values.name,
+      buyer_tel: values.buyer_tel,
+      buyer_email: values.email,
+    };
+    const { IMP } = window;
+    IMP.init("imp83950599");
+
+    IMP.request_pay(data, (response) => {
+      console.log(response);
+      if (response.success) {
+        console.log(data);
+      } else {
+        console.log(response);
+      }
+    });
+    console.log(data);
+  };
 
   useEffect(() => {
-    // if (user) {
-    //   setInitValues({
-    //     name: "",
-    //     email: "",
-    //     address2: "",
-    //   });
-    // }
     setValues({
       name: user.name,
       email: user.email,
-      phoneNumber: "",
+      buyer_tel: "",
       address2: user.address2,
     });
     setFulladdress(user.address1);
@@ -46,7 +55,7 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
   }, [user]);
 
   return (
-    <form className="order-form">
+    <form className="order-form" onSubmit={submitOrder}>
       <div className="customer">
         <h2 className="customer__h2">받는사람정보</h2>
         <Input
@@ -67,10 +76,10 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
         />
         <Input
           inputIcon={faMobileAlt}
-          inputName={"phoneNumber"}
+          inputName={"buyer_tel"}
           inputPlaceholder={"연락처('-'을 제외하고 입력해주세요)"}
           inputType={"tel"}
-          values={values.phoneNumber}
+          values={values.buyer_tel}
           inputOnChange={handleInputChange}
         />
         <AddressInput
@@ -86,7 +95,7 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
           {orderItems.map((item) => {
             return (
               <InfoBox
-                key={item.id}
+                propsKey={item.id}
                 faIcon={faBarcode}
                 infoText={`${item.product_name}`}
                 additionalInfo={`${item.quantity} 개`}
@@ -100,6 +109,7 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
             faIcon={faCashRegister}
             infoText={`결제금액 ${orderInfo.grandTotal}원`}
           />
+          <PaymentApi handleInputChange={handleInputChange} />
         </div>
         <Button text={"결제하기"} />
       </div>
