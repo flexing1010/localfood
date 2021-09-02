@@ -8,6 +8,7 @@ const Input = ({
   inputType,
   inputOnChange,
   values,
+  inputPattern,
 }) => {
   return (
     <div className="customer__input">
@@ -20,7 +21,8 @@ const Input = ({
           placeholder={inputPlaceholder}
           type={inputType}
           onChange={inputOnChange}
-          value={values}
+          value={values || ""}
+          pattern={inputPattern}
           required
         />
       </div>

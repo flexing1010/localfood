@@ -57,11 +57,13 @@ const Login = () => {
           inputName={"username"}
           inputPlaceholder={"아이디"}
           inputType={"text"}
+          values={values.username}
           inputOnChange={handleInputChange}
         />
         <Input
           inputIcon={faLock}
           inputName={"password"}
+          values={values.password}
           inputPlaceholder={"비밀번호"}
           inputType={"password"}
           inputOnChange={handleInputChange}

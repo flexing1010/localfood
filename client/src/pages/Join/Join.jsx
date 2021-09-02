@@ -8,13 +8,12 @@ import {
   faEnvelope,
   faIdCard,
   faLock,
-  faMapMarkerAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import usePostcode from "../../hooks/usePostcode";
-import useModal from "../../hooks/useModal";
+
 import useInputChanges from "../../hooks/useInputChanges";
 import AddressInput from "../../components/AdressInput/AdressInput";
 
@@ -33,7 +32,7 @@ const Join = () => {
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   // const [address2, setAddress2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [modalOpen, openModal, closeModal] = useModal();
+
   let history = useHistory();
 
   const postJoin = (e) => {
@@ -73,13 +72,13 @@ const Join = () => {
           inputName={"name"}
           inputPlaceholder={"이름"}
           inputType={"text"}
-          values={undefined}
+          values={values.name}
           inputOnChange={handleInputChange}
         />
         <Input
           inputIcon={faIdCard}
           inputName={"username"}
-          values={undefined}
+          values={values.username}
           inputPlaceholder={"아이디"}
           inputType={"text"}
           inputOnChange={handleInputChange}
@@ -87,7 +86,7 @@ const Join = () => {
         <Input
           inputIcon={faEnvelope}
           inputName={"email"}
-          values={undefined}
+          values={values.email}
           inputPlaceholder={"이메일"}
           inputType={"email"}
           inputOnChange={handleInputChange}
@@ -95,7 +94,7 @@ const Join = () => {
         <Input
           inputIcon={faLock}
           inputName={"password"}
-          values={undefined}
+          values={values.password}
           inputPlaceholder={"비밀번호"}
           inputType={"password"}
           inputOnChange={handleInputChange}
@@ -103,7 +102,7 @@ const Join = () => {
         <Input
           inputIcon={faLock}
           inputName={"passwordConfirm"}
-          values={undefined}
+          values={values.passwordConfirm}
           inputPlaceholder={"비밀번호 확인"}
           inputType={"password"}
           inputOnChange={handleInputChange}
@@ -112,7 +111,7 @@ const Join = () => {
           handleInputChange={handleInputChange}
           handleComplete={handleComplete}
           fullAddress={fullAddress}
-          address2={undefined}
+          address2={values.address2}
         />
         {/* <div className="address">
           <div className="address__icon">

@@ -1,9 +1,7 @@
 import "./DisplayProductDetails.scss";
 import Button from "../../components/Button/Button";
-import ProductImg from "../../components/ProductImg/ProductImg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import { useEffect } from "react";
 
 const DisplayProductDetails = ({ product, addCart, productImgs }) => {
   // useEffect(() => {

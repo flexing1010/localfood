@@ -24,6 +24,7 @@ import ManageOrder from "./pages/Admin/ManageOrder";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
 import ByBrand from "./pages/ByBrand/ByBrand";
+import OrderResult from "./pages/Order/OrderResult";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -84,7 +85,16 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
-                <PrivateRoute path="/order/:id" component={Order} />
+                <PrivateRoute
+                  exact
+                  path="/order/:id([0-9]+)"
+                  component={Order}
+                />
+                <PrivateRoute
+                  exact
+                  path="/order/payment"
+                  component={OrderResult}
+                />
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 

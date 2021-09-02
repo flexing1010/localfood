@@ -23,33 +23,33 @@ const PaymentApi = ({ handleInputChange }) => {
         <div>
           <input
             type="radio"
-            id="card"
-            name="method"
-            value="신용카드"
+            id="카드"
+            name="pay_method"
+            value="card"
             onChange={handleInputChange}
           />
-          <label htmlFor="card">신용카드</label>
+          <label htmlFor="카드">신용카드</label>
         </div>
-        {/* <div>
+        <div>
           <input
             type="radio"
-            id="samsung"
-            name="method"
-            value="삼성페이"
+            id="삼성"
+            name="pay_method"
+            value="samsung"
             onChange={handleInputChange}
           />
-          <label htmlFor="samsung">삼성페이</label>
+          <label htmlFor="삼성">삼성페이</label>
         </div>
         <div>
           <input
             type="radio"
             id="kakaopay"
-            name="method"
-            value="카카오페이"
+            name="pay_method"
+            value="kakaopay"
             onChange={handleInputChange}
           />
           <label htmlFor="kakaopay">카카오페이</label>
-        </div> */}
+        </div>
       </div>
     </div>
   );

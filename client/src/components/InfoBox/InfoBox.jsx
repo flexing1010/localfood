@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./InfoBox.scss";
 
-const InfoBox = ({ faIcon, infoText, propsKey, additionalInfo }) => {
+const InfoBox = ({ faIcon, infoText, additionalInfo }) => {
   return (
-    <div className="info-box" key={propsKey ? propsKey : null}>
+    <div className="info-box">
       <div className="info-box__icon">
         <FontAwesomeIcon icon={faIcon} className="info-icon" />
       </div>

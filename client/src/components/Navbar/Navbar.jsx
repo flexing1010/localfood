@@ -1,15 +1,14 @@
 import "./Navbar.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext, SidebarContext } from "../../Context";
 import SearchBar from "../SearchBar/SearchBar";
 import { faBars, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../Sidebar/Sidebar";
 
 const Navbar = () => {
   const { isShowing, setIsShowing } = useContext(SidebarContext);
-  const { authState, setAuthState } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
 
   let history = useHistory();
 

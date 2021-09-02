@@ -1,3 +1,4 @@
+import queryString from "query-string";
 import AddressInput from "../AdressInput/AdressInput";
 import Input from "../Input/Input";
 import "./OrderForm.scss";
@@ -14,20 +15,26 @@ import {
   faMobileAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
 
 const OrderForm = ({ orderInfo, orderItems, user }) => {
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   const { values, handleInputChange, setValues } = useInputChanges({});
-
+  let history = useHistory();
   const submitOrder = (e) => {
     e.preventDefault();
     const data = {
-      pay_method: values.method,
+      pay_method: values.pay_method,
       merchant_uid: `min_${new Date().getTime()}`,
       amount: orderInfo.grandTotal,
       buyer_name: values.name,
       buyer_tel: values.buyer_tel,
       buyer_email: values.email,
+      buyer_addr: `${values.address1} ${values.address2}`,
+      name:
+        orderItems.length === 1
+          ? orderItems[0].product_name
+          : `${orderItems[0].product_name} 외 ${orderItems.length - 1}`,
     };
     const { IMP } = window;
     IMP.init("imp83950599");
@@ -35,7 +42,13 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
     IMP.request_pay(data, (response) => {
       console.log(response);
       if (response.success) {
-        console.log(data);
+        const query = queryString.stringify(response);
+        console.log("test", query);
+        history.push({
+          pathname: "/order/payment",
+          search: `?${query}`,
+        });
+        // history.push(`/order/payment?${query}`);
       } else {
         console.log(response);
       }
@@ -48,10 +61,11 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
       name: user.name,
       email: user.email,
       buyer_tel: "",
+      address1: fullAddress,
       address2: user.address2,
     });
     setFulladdress(user.address1);
-    console.log(user);
+    console.log(user, orderItems, orderInfo);
   }, [user]);
 
   return (
@@ -79,6 +93,7 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
           inputName={"buyer_tel"}
           inputPlaceholder={"연락처('-'을 제외하고 입력해주세요)"}
           inputType={"tel"}
+          inputPattern={"^[0-9]+$"}
           values={values.buyer_tel}
           inputOnChange={handleInputChange}
         />
@@ -95,7 +110,8 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
           {orderItems.map((item) => {
             return (
               <InfoBox
-                propsKey={item.id}
+                key={item.id}
+                // propsKey={item.id}
                 faIcon={faBarcode}
                 infoText={`${item.product_name}`}
                 additionalInfo={`${item.quantity} 개`}

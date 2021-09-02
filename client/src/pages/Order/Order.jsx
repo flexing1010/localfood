@@ -10,7 +10,7 @@ const Order = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [authorized, setAuthorized] = useState(true);
   const [user, setUser] = useState("");
-  const [initValues, setInitValues] = useState();
+
   const { authState } = useContext(AuthContext);
   let { id } = useParams();
 

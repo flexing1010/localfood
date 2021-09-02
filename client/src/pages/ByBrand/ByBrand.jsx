@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { ProductContext } from "../../Context";
 import { useParams, useRouteMatch } from "react-router-dom";
 import DisplayItem from "../../components/DisplayItem/DisplayItem";
-import { useAxios } from "../../hooks/useAxios";
 
 const ByBrand = () => {
   const { products } = useContext(ProductContext);

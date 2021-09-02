@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { SidebarContext } from "../../Context";
 
 import "./Sidebar.scss";
