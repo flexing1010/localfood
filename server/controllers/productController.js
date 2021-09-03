@@ -3,9 +3,6 @@ import {
   getCartId,
   checkDuplicateItem,
   deleteItem,
-  insertOrderItem,
-  getOrderInfo,
-  getOrderItems,
   getAllProducts,
   getAProduct,
   getProductImgs,
@@ -16,7 +13,6 @@ import {
   deleteReview,
   // getCartItemInfo,
 } from "../queries/productQuery.js";
-import { getUserInfo } from "../queries/userQuery.js";
 
 export const home = async (req, res) => {
   try {
@@ -120,7 +116,7 @@ export const getCart = async (req, res) => {
           //if items in cartId send data
 
           db.execute(
-            "select product.product_name,product.brand, product.rating, product.price, product.imgUrl, cart_item.quantity, cart_item.cart_id,cart_item.id, cart_item.product_id from product join cart_item on product.id = cart_item.product_id ",
+            "select product.product_name,product.brand, product.rating, product.price, product.imgUrl,product.stock, cart_item.quantity, cart_item.cart_id,cart_item.id, cart_item.product_id from product join cart_item on product.id = cart_item.product_id ",
             (err, result) => {
               const cartItems = result.filter(
                 (item) => item.cart_id === cartId
@@ -128,13 +124,6 @@ export const getCart = async (req, res) => {
               res.send(cartItems);
             }
           );
-
-          // let productIds = [];
-          // result.map((product) => {
-          //   productIds.push(product.product_id);
-          // });
-          // console.log(productIds);
-          // getCartItemInfo(res, productIds);
         }
       );
     }
@@ -142,8 +131,6 @@ export const getCart = async (req, res) => {
     console.log(err);
   }
 };
-
-// export const updateQuantity = async (req, res) => {};
 
 export const deleteCartItem = async (req, res) => {
   const cartItemId = req.body.targetId;
@@ -156,97 +143,16 @@ export const deleteCartItem = async (req, res) => {
   }
 };
 
-// export const getUser = async (req, res) => {
-//   const { username } = req.query;
-//   try {
-//     let user = await getUserInfo(username);
-//     user = user[0];
-//     if (user.password) {
-//       delete user.password;
-//     }
-//     if (user) {
-//       res.json(user);
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-export const postOrder = async (req, res) => {
-  const { user_id, grandTotal, orderItems } = req.body;
-  let createdAt = new Date();
-
-  createdAt =
-    createdAt.getFullYear() +
-    "-" +
-    (createdAt.getMonth() + 1) +
-    "-" +
-    createdAt.getDate();
-
-  try {
-    db.execute(
-      "insert into orders (createdAt, grandTotal, user_id) Values(?,?,?)",
-      [createdAt, grandTotal, user_id],
-      async (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          await orderItems.forEach((item) => {
-            insertOrderItem(
-              result.insertId,
-              item.product_id,
-              item.quantity,
-              item.price,
-              item.product_name
-            );
-          });
-          res.send({ orderId: result.insertId });
-        }
-      }
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const viewOrder = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    let orderInfo = await getOrderInfo(id, undefined);
-    orderInfo = orderInfo[0];
-    let orderItems = await getOrderItems(orderInfo.id);
-    let user = await getUserInfo(undefined, orderInfo.user_id);
-    user = user[0];
-
-    if (user.password) {
-      delete user.password;
-    }
-    console.log(orderInfo, orderItems, user);
-    if (orderInfo && orderItems) {
-      res.send({ orderInfo, orderItems, user });
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const viewByBrand = async (req, res) => {
   const { id } = req.params;
   const brandItemsId = await getItemsByBrand(id);
-  console.log(brandItemsId);
-  // brandItemsId.map((brandItem) => {
-  //   getAProduct(brandItem.product_id);
-  // });
 };
 
 export const postReview = async (req, res) => {
   const { id } = req.params;
   const review = req.body;
-  console.log(review);
   try {
     const insertedReview = await insertReview(review, id);
-    // await insertProductReview(insertedReview.insertId, id);
     res.json(insertedReview.insertId);
   } catch (err) {
     console.log(err);

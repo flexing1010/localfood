@@ -3,12 +3,14 @@ import queryString from "query-string";
 import { useEffect } from "react";
 import "./OrderResult.scss";
 import Button from "../../components/Button/Button";
+import axios from "axios";
 
 const OrderResult = () => {
   let location = useLocation();
-  const { search } = location;
+  const { search, state } = location;
   const query = queryString.parse(search);
-  const { merchant_uid, paid_amount, name } = query;
+  const { merchant_uid, paid_amount, name, buyer_addr, buyer_tel, pay_method } =
+    query;
 
   const getPaymentMethod = () => {
     const { pay_method } = query;
@@ -19,9 +21,7 @@ const OrderResult = () => {
 
   const paymentMethod = getPaymentMethod();
 
-  useEffect(() => {
-    console.log("result", query);
-  });
+  // useEffect(() => {});
   return (
     <section className="order-result">
       <p>결제가 완료되었습니다</p>

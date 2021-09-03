@@ -26,6 +26,7 @@ const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
                   <div className="info-title">수량</div>
                   <input
                     min={1}
+                    max={item.stock}
                     value={item.quantity}
                     name={`quantity_id_${item.id}`}
                     // onChange={changeQuantity}

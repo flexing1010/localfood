@@ -16,8 +16,9 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-const OrderForm = ({ orderInfo, orderItems, user }) => {
+const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   const { values, handleInputChange, setValues } = useInputChanges({});
   let history = useHistory();
@@ -30,7 +31,7 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
       buyer_name: values.name,
       buyer_tel: values.buyer_tel,
       buyer_email: values.email,
-      buyer_addr: `${values.address1} ${values.address2}`,
+      buyer_addr: `${fullAddress} ${values.address2}`,
       name:
         orderItems.length === 1
           ? orderItems[0].product_name
@@ -41,12 +42,26 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
 
     IMP.request_pay(data, (response) => {
       console.log(response);
-      if (response.success) {
+      if (response.success === true) {
         const query = queryString.stringify(response);
+
+        axios.post("http://localhost:3001/order/result", {
+          user_id: transactionInfo.user_id,
+          order_id: transactionInfo.order_id,
+          buyer_addr: response.buyer_addr,
+          buyer_tel: response.buyer_tel,
+          pay_method: response.pay_method,
+          merchant_uid: response.merchant_uid,
+          status: 0,
+        });
         console.log("test", query);
         history.push({
           pathname: "/order/payment",
           search: `?${query}`,
+          state: {
+            user_id: transactionInfo.user_id,
+            order_id: transactionInfo.order_id,
+          },
         });
         // history.push(`/order/payment?${query}`);
       } else {
@@ -57,11 +72,12 @@ const OrderForm = ({ orderInfo, orderItems, user }) => {
   };
 
   useEffect(() => {
+    console.log(fullAddress);
     setValues({
       name: user.name,
       email: user.email,
       buyer_tel: "",
-      address1: fullAddress,
+      // address1: fullAddress,
       address2: user.address2,
     });
     setFulladdress(user.address1);

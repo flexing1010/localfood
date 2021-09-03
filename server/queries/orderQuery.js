@@ -1,0 +1,65 @@
+import { db } from "../db.js";
+
+export const insertTransaction = (transactionInfo) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Insert into transaction (user_id,order_id,buyer_addr,buyer_tel,pay_method,status,merchant_uid) values (?,?,?,?,?,?,?)",
+      [
+        transactionInfo.user_id,
+        parseInt(transactionInfo.order_id),
+        transactionInfo.buyer_addr,
+        transactionInfo.buyer_tel,
+        transactionInfo.pay_method,
+        transactionInfo.status,
+        transactionInfo.merchant_uid,
+      ],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const selectOrderItemQuantity = (orderId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select product_id,quantity From order_item where order_id = ?",
+      [orderId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const joinQuantityInfo = () => {
+  return new Promise((resolve, reject) => {
+    db.execute("Select stock From product where id = 21", (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};
+
+// export const updateStock = (updateInfo) =>{
+//     return new Promise((resolve, reject) => {
+//         db.execute(
+//           "Update product set stock = ? where id = ?",
+//           [updateInfo.],
+//           (err, result) => {
+//             if (err) {
+//               return reject(err);
+//             }
+//             return resolve(result);
+//           }
+//         );
+//       });
+// }

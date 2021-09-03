@@ -60,6 +60,7 @@ const Cart = () => {
             setErrorMessage(res.data.errorMessage);
           }
           setCartItems(res.data);
+          console.log(cartItems);
         });
     }
     // eslint-disable-next-line

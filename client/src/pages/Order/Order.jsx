@@ -9,6 +9,10 @@ const Order = () => {
   const [orderInfo, setOrderInfo] = useState("");
   const [orderItems, setOrderItems] = useState([]);
   const [authorized, setAuthorized] = useState(true);
+  const [transactionInfo, setTransactionInfo] = useState({
+    user_id: "",
+    order_id: "",
+  });
   const [user, setUser] = useState("");
 
   const { authState } = useContext(AuthContext);
@@ -24,27 +28,27 @@ const Order = () => {
       setUser(response.user);
       setOrderInfo(response.orderInfo);
       setOrderItems(response.orderItems);
-      // setInitValues({
-      //   name: user.name,
-      //   email: "",
-      //   address2: "",
-      // });
     }
   }, [response]);
 
   useEffect(() => {
     if (user) {
+      setTransactionInfo({
+        user_id: user.id,
+        order_id: id,
+      });
       if (authState.id !== user.id) {
         setAuthorized(false);
       }
     }
-  }, [user, authState.id]);
+  }, [user, authState.id, id]);
 
   return (
     <section className="order-page" style={{ margin: "0 auto" }}>
       {authorized ? (
         <OrderForm
           // initValues={initValues}
+          transactionInfo={transactionInfo}
           orderInfo={orderInfo}
           orderItems={orderItems}
           user={user}
