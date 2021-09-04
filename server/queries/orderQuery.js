@@ -38,28 +38,28 @@ export const selectOrderItemQuantity = (orderId) => {
   });
 };
 
-export const joinQuantityInfo = () => {
+// export const joinQuantityInfo = () => {
+//   return new Promise((resolve, reject) => {
+//     db.execute("Select stock From product where id = 21", (err, result) => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       return resolve(result);
+//     });
+//   });
+// };
+
+export const updateStock = (updatedItem) => {
   return new Promise((resolve, reject) => {
-    db.execute("Select stock From product where id = 21", (err, result) => {
-      if (err) {
-        return reject(err);
+    db.execute(
+      "Update product set stock = ? where id = ?",
+      [updatedItem.stock, updatedItem.product_id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
       }
-      return resolve(result);
-    });
+    );
   });
 };
-
-// export const updateStock = (updateInfo) =>{
-//     return new Promise((resolve, reject) => {
-//         db.execute(
-//           "Update product set stock = ? where id = ?",
-//           [updateInfo.],
-//           (err, result) => {
-//             if (err) {
-//               return reject(err);
-//             }
-//             return resolve(result);
-//           }
-//         );
-//       });
-// }

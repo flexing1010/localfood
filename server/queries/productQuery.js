@@ -106,12 +106,13 @@ export const insertOrderItem = (
   product_id,
   quantity,
   price,
-  product_name
+  product_name,
+  stock
 ) => {
   return new Promise((resolve, reject) => {
     db.execute(
-      "Insert into order_item (order_id, product_id, quantity, price, product_name) values(?,?,?,?,?)",
-      [order_id, product_id, quantity, price, product_name],
+      "Insert into order_item (order_id, product_id, quantity, price, product_name,stock) values(?,?,?,?,?,?)",
+      [order_id, product_id, quantity, price, product_name, stock],
       (err, result) => {
         if (err) {
           return reject(err);

@@ -15,7 +15,10 @@ const ProductDetails = () => {
   let { id } = useParams();
 
   const addCart = () => {
-    console.log(authState);
+    if (product.stock === 0) {
+      return alert("품절된 상품입니다");
+    }
+
     if (authState) {
       axios
         .post("http://localhost:3001/cart", {
@@ -39,7 +42,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (response) {
-      console.log(response);
+      console.log(product);
       setProduct(response.product[0]);
       setProductImgs(response.productImgs);
     }

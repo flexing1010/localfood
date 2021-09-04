@@ -22,7 +22,11 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   const { values, handleInputChange, setValues } = useInputChanges({});
   let history = useHistory();
+
   const submitOrder = (e) => {
+    orderItems.forEach((item) => {
+      item.stock = item.stock - item.quantity;
+    });
     e.preventDefault();
     const data = {
       pay_method: values.pay_method,
@@ -53,17 +57,16 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
           pay_method: response.pay_method,
           merchant_uid: response.merchant_uid,
           status: 0,
+          orderItems,
         });
         console.log("test", query);
         history.push({
           pathname: "/order/payment",
           search: `?${query}`,
-          state: {
-            user_id: transactionInfo.user_id,
-            order_id: transactionInfo.order_id,
-          },
+          // state: {
+          //   orderItems,
+          // },
         });
-        // history.push(`/order/payment?${query}`);
       } else {
         console.log(response);
       }
@@ -72,7 +75,8 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
   };
 
   useEffect(() => {
-    console.log(fullAddress);
+    console.log("gg", orderItems);
+
     setValues({
       name: user.name,
       email: user.email,

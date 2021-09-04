@@ -1,8 +1,8 @@
 import { db } from "../db.js";
 import {
   insertTransaction,
-  joinQuantityInfo,
   selectOrderItemQuantity,
+  updateStock,
 } from "../queries/orderQuery.js";
 import {
   getOrderInfo,
@@ -36,7 +36,8 @@ export const postOrder = async (req, res) => {
               item.product_id,
               item.quantity,
               item.price,
-              item.product_name
+              item.product_name,
+              item.stock
             );
           });
           res.send({ orderId: result.insertId });
@@ -52,8 +53,6 @@ export const viewOrder = async (req, res) => {
   const { id } = req.params;
 
   try {
-    let test = await joinQuantityInfo();
-    console.log("Test", test);
     let orderInfo = await getOrderInfo(id, undefined);
     orderInfo = orderInfo[0];
     let orderItems = await getOrderItems(orderInfo.id);
@@ -75,10 +74,16 @@ export const viewOrder = async (req, res) => {
 
 export const postTransaction = async (req, res) => {
   const transactionInfo = req.body;
-  const orderId = parseInt(transactionInfo.order_id);
+  console.log("checkfororderitem", transactionInfo);
+  const updatedItems = transactionInfo.orderItems;
+  //   const orderId = parseInt(transactionInfo.order_id);
   try {
     await insertTransaction(transactionInfo);
-    let quantity = await selectOrderItemQuantity(orderId);
+    updatedItems.forEach(async (item) => {
+      await updateStock(item);
+      console.log("updated");
+    });
+    // let quantity = await selectOrderItemQuantity(orderId);
     console.log("success");
   } catch (err) {
     console.log(err);
