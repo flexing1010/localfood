@@ -1,5 +1,9 @@
 const ManageOrder = () => {
-  return <div>ManageOrder</div>;
+  return (
+    <section className="manage-order" style={{ margin: "0 auto" }}>
+      ManageOrder
+    </section>
+  );
 };
 
 export default ManageOrder;

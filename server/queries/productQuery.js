@@ -107,12 +107,27 @@ export const insertOrderItem = (
   quantity,
   price,
   product_name,
-  stock
+  stock,
+  imgUrl
 ) => {
   return new Promise((resolve, reject) => {
     db.execute(
-      "Insert into order_item (order_id, product_id, quantity, price, product_name,stock) values(?,?,?,?,?,?)",
-      [order_id, product_id, quantity, price, product_name, stock],
+      "Insert into order_item (order_id, product_id, quantity, price, product_name,stock,imgUrl) values(?,?,?,?,?,?,?)",
+      [order_id, product_id, quantity, price, product_name, stock, imgUrl],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const joinOrderTransaction = () => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select orders.grandTotal, orders.user_id, transaction.order_id, transaction.buyer_addr, transaction.pay_method, transaction.status, transaction.orderedAt,transaction.merchant_uid From orders Inner Join transaction On orders.id = transaction.order_id ORDER BY orderedAt DESC",
       (err, result) => {
         if (err) {
           return reject(err);
@@ -127,7 +142,7 @@ export const getOrderInfo = (orderId, userId) => {
   return new Promise((resolve, reject) => {
     if (orderId && !userId) {
       db.execute(
-        "select * from orders where id = ?",
+        "select * from orders where id = ? ORDER BY createdAt DESC",
         [orderId],
         (err, result) => {
           if (err) {
@@ -138,7 +153,7 @@ export const getOrderInfo = (orderId, userId) => {
       );
     } else {
       db.execute(
-        "select * from orders where user_id = ?",
+        "select * from orders where user_id = ? ORDER BY createdAt DESC",
         [userId],
         (err, result) => {
           if (err) {

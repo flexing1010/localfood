@@ -2,7 +2,10 @@ import { db } from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUserInfo } from "../queries/userQuery.js";
-import { getOrderInfo, getOrderItems } from "../queries/productQuery.js";
+import {
+  getOrderItems,
+  joinOrderTransaction,
+} from "../queries/productQuery.js";
 
 // import { Router } from "express";
 const { sign } = jwt;
@@ -99,13 +102,18 @@ export const viewMypage = async (req, res) => {
       delete user.password;
     }
 
-    let orders = await getOrderInfo(undefined, id);
+    // let orders = await getOrderInfo(undefined, id);
+    let orders = await joinOrderTransaction();
+    orders = orders.filter((order) => order.user_id === parseInt(id));
+
     let orderItems = await Promise.all(
       orders.map((order) => {
-        return getOrderItems(order.id);
+        return getOrderItems(order.order_id);
       })
     );
-    // let orerItems = await getOrderItems();
+
     res.send({ user, orders, orderItems });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };

@@ -67,6 +67,7 @@ const Cart = () => {
   }, [authState]);
 
   useEffect(() => {
+    console.log(cartItems);
     if (!errorMessage) {
       const init = cartItems.reduce((a, c) => a + c.quantity * c.price, 0);
       setGrandTotal(init);

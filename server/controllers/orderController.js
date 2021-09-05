@@ -37,7 +37,8 @@ export const postOrder = async (req, res) => {
               item.quantity,
               item.price,
               item.product_name,
-              item.stock
+              item.stock,
+              item.imgUrl
             );
           });
           res.send({ orderId: result.insertId });

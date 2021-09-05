@@ -2,7 +2,7 @@ import "./MyPage.scss";
 
 import { useContext, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import DisplayMyPage from "../../components/DisplayMyPage/DisplayMyPage";
+import DisplayMyPage from "./DisplayMyPage";
 import { useAxios } from "../../hooks/useAxios.js";
 import { AuthContext } from "../../Context";
 
