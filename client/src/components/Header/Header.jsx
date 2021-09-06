@@ -67,6 +67,9 @@ const Header = () => {
             </li>
           ) : (
             <li className="logout-btn">
+              <div className="logout-btn__username">
+                <strong>{authState.username}</strong>님
+              </div>
               <button onClick={logout}>
                 <span className="header-link">로그아웃</span>
               </button>

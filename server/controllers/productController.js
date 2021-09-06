@@ -64,7 +64,10 @@ export const postCart = async (req, res) => {
   try {
     //setCartId
     let cartId = await getCartId(user_id);
-    cartId = cartId[0].id;
+
+    if (cartId[0] !== 0) {
+      cartId = cartId[0].id;
+    }
     //Check if item is duplicate
     let isDuplicate = await checkDuplicateItem(cartId, productId);
     isDuplicate = Object.values(isDuplicate[0])[0];

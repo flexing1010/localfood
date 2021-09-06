@@ -18,8 +18,9 @@ const ProductDetails = () => {
     if (product.stock === 0) {
       return alert("품절된 상품입니다");
     }
-
-    if (authState) {
+    if (!localStorage.getItem("accessToken") || authState.status === false) {
+      return alert("장바구니를 사용하려면 로그인 하셔야 합니다");
+    } else {
       axios
         .post("http://localhost:3001/cart", {
           user_id: authState.id,

@@ -174,3 +174,18 @@ export const deleteItem = (targetId) => {
     );
   });
 };
+
+export const updateIsAdmin = (newInfo) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Update user set isAdmin = ? where username = ?",
+      [parseInt(newInfo.isAdmin), newInfo.username],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

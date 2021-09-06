@@ -4,7 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext, SidebarContext } from "../../Context";
 import SearchBar from "../SearchBar/SearchBar";
-import { faBars, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faShoppingCart,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const { isShowing, setIsShowing } = useContext(SidebarContext);
@@ -42,8 +46,8 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <div onClick={toMyPage} className="username">
-                  {authState.username}
+                <div onClick={toMyPage} className="user-icon">
+                  <FontAwesomeIcon icon={faUser} />
                 </div>
               </li>
             </>

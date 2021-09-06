@@ -49,7 +49,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!localStorage.getItem("accessToken") || authState.status === false) {
       alert("장바구니를 사용하려면 로그인 해주십시오");
       history.push("/login");
     } else {

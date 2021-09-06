@@ -1,3 +1,4 @@
+import "./Login.scss";
 import axios from "axios";
 import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
@@ -6,6 +7,7 @@ import Input from "../../components/Input/Input";
 import { faIdCard, faLock } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useInputChanges from "../../hooks/useInputChanges";
+import Button from "../../components/Button/Button";
 
 const Login = () => {
   const initValues = {
@@ -48,6 +50,10 @@ const Login = () => {
       });
   };
 
+  const toJoin = () => {
+    history.push("/join");
+  };
+
   return (
     <div className="form-container">
       {errorMessage && <span>{errorMessage}</span>}
@@ -68,9 +74,13 @@ const Login = () => {
           inputType={"password"}
           inputOnChange={handleInputChange}
         />
-
-        <input type="submit" value="로그인" />
+        <Button text={"로그인"} />
+        {/* <input type="submit" value="로그인" />
+         */}
       </form>
+      <button className="login-to-join" onClick={toJoin}>
+        회원가입
+      </button>
     </div>
   );
 };

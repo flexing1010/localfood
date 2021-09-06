@@ -49,7 +49,7 @@ const Join = () => {
       })
       .then((response) => {
         console.log(fullAddress);
-        console.log("success");
+        alert("가입이 완료 되었습니다!");
         history.push("/login");
       })
       .catch((err) => {

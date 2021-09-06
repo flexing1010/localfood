@@ -31,6 +31,12 @@
       .my-order__header {
         .my-order__header--top {
           display: flex;
+          justify-content: space-between;
+          h3 {
+            &:first-child {
+              color: #346aff;
+            }
+          }
         }
         .my-order__header--bottom {
           margin-bottom: 1rem;

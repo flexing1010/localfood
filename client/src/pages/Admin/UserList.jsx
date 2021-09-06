@@ -2,21 +2,27 @@ import "./UserList.scss";
 import "tui-grid/dist/tui-grid.css";
 import Grid from "@toast-ui/react-grid";
 import { useAxios } from "../../hooks/useAxios.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 const UserList = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [checkedRows, setCheckedRows] = useState([]);
+  const [instance, setInstance] = useState("");
+  const gridRef = useRef();
+
+  const handleAdminChange = (e) => {
+    // const instance = gridRef.current.getInstance();
+    // const checkedRows = instance.getCheckedRows();
+    // instance.getCheckedRows()
+    // const name = gridRef.current.getInstance().getValue(e.rowKey, "name");
+  };
 
   const { response } = useAxios({
     method: "get",
     url: `/admin/user-list`,
   });
 
-  // const data = [
-  //   { name: "Editor" },
-  //   { name: "Grid" },
-  //   { name: "Chart" },
-  // ];
   const columns = [
     { name: "name", header: "이름", sortable: true },
 
@@ -26,15 +32,17 @@ const UserList = () => {
       name: "isAdmin",
       header: "권한",
       // formatter: "listItemText",
-
       editor: {
         type: "select",
         options: {
           listItems: [
-            { text: "0", value: "0" },
-            { text: "1", value: "1" },
+            { text: "0", value: 0 },
+            { text: "1", value: 1 },
           ],
         },
+      },
+      onAfterChange: (ev) => {
+        instance.check(ev.rowKey);
       },
       width: 40,
     },
@@ -45,19 +53,39 @@ const UserList = () => {
   useEffect(() => {
     if (response) {
       setAllUsers(response);
-      console.log(allUsers);
     }
-
-    // let data = {}
-    // allUsers.forEach(user=>{
-    //   data[user.key] = user.
-    // })
   }, [response, allUsers]);
+
+  const handleClick = async () => {
+    if (instance.getCheckedRows().length < 1) {
+      alert("주문 상품을 선택 해주세요.");
+      return;
+    } else {
+      await axios
+        .patch(
+          "http://localhost:3001/admin/user-list",
+          instance.getCheckedRows()
+        )
+        .then((res) => {
+          alert("업데이트 됐습니다");
+          instance.uncheckAll();
+        });
+    }
+  };
+
+  useEffect(() => {
+    // const instance = gridRef.current.getInstance();
+    if (gridRef) {
+      setInstance(gridRef.current.getInstance());
+    }
+    console.log(instance);
+  }, [instance]);
 
   return (
     <section className="user-list" style={{ margin: "0 auto" }}>
       <div className="user-grid">
         <Grid
+          ref={gridRef}
           data={allUsers}
           columns={columns}
           // rowHeight={25}
@@ -66,14 +94,14 @@ const UserList = () => {
           rowHeaders={["checkbox"]}
           width={1000}
           columnOptions={{ resizable: true }}
-          onCheck={(e) => {
-            console.log(e);
-          }}
-          onChange={(e) => {
-            console.log(e);
+          onCheck={() => {
+            // setCheckedRows(instance.getCheckedRows());
+            instance.getCheckedRows();
+            console.log(instance.getCheckedRows());
           }}
         />
       </div>
+      <button onClick={handleClick}>테스트</button>
     </section>
   );
 };

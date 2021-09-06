@@ -3,6 +3,7 @@ import {
   deleteAdminItem,
   getAllUser,
   postItem,
+  patchIsAdmin,
   updateItem,
 } from "../controllers/adminController.js";
 import { itemImgUpload } from "../middlewares.js";
@@ -29,6 +30,6 @@ adminRouter
   )
   .delete(deleteAdminItem);
 
-adminRouter.route("/user-list").get(getAllUser);
+adminRouter.route("/user-list").get(getAllUser).patch(patchIsAdmin);
 
 export default adminRouter;
