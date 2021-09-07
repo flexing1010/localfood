@@ -189,3 +189,45 @@ export const updateIsAdmin = (newInfo) => {
     );
   });
 };
+
+export const selectTransaction = () => {
+  return new Promise((resolve, reject) => {
+    db.execute("select * from transaction", (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+  });
+};
+
+export const selectTransactionItem = (orderId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select product_id,order_id, quantity,price,product_name from order_item where order_id=?",
+      [orderId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+// export const patchStatus =
+export const updateStatus = (newInfo) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Update transaction Set status = ? where id = ?",
+      [parseInt(newInfo.status), newInfo.id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

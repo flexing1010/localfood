@@ -3,15 +3,18 @@ import { db } from "../db.js";
 export const insertTransaction = (transactionInfo) => {
   return new Promise((resolve, reject) => {
     db.execute(
-      "Insert into transaction (user_id,order_id,buyer_addr,buyer_tel,pay_method,status,merchant_uid) values (?,?,?,?,?,?,?)",
+      "Insert into transaction (user_id,order_id,buyer_addr,buyer_tel,buyer_name,pay_method,status,merchant_uid,name,amount) values (?,?,?,?,?,?,?,?,?,?)",
       [
         transactionInfo.user_id,
         parseInt(transactionInfo.order_id),
         transactionInfo.buyer_addr,
         transactionInfo.buyer_tel,
+        transactionInfo.buyer_name,
         transactionInfo.pay_method,
         transactionInfo.status,
         transactionInfo.merchant_uid,
+        transactionInfo.name,
+        transactionInfo.amount,
       ],
       (err, result) => {
         if (err) {

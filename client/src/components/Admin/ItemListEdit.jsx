@@ -30,8 +30,8 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
     formData.append("imgUrl", coverImg[0]);
     formData.append("editInfo", JSON.stringify(values));
     formData.append("itemId", itemId);
-    console.log(coverImg);
-    console.log(itemImgs);
+    // console.log(coverImg);
+    // console.log(itemImgs);
     axios
       .patch("http://localhost:3001/admin/item-list", formData)
       .then((res) => {
@@ -72,7 +72,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
       ...values,
       [name]: value,
     });
-    console.log(values);
+    // console.log(values);
   };
 
   return (

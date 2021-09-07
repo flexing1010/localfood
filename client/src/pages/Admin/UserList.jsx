@@ -7,16 +7,8 @@ import axios from "axios";
 
 const UserList = () => {
   const [allUsers, setAllUsers] = useState([]);
-  const [checkedRows, setCheckedRows] = useState([]);
   const [instance, setInstance] = useState("");
   const gridRef = useRef();
-
-  const handleAdminChange = (e) => {
-    // const instance = gridRef.current.getInstance();
-    // const checkedRows = instance.getCheckedRows();
-    // instance.getCheckedRows()
-    // const name = gridRef.current.getInstance().getValue(e.rowKey, "name");
-  };
 
   const { response } = useAxios({
     method: "get",
@@ -50,12 +42,6 @@ const UserList = () => {
     { name: "address2", header: "상세주소" },
   ];
 
-  useEffect(() => {
-    if (response) {
-      setAllUsers(response);
-    }
-  }, [response, allUsers]);
-
   const handleClick = async () => {
     if (instance.getCheckedRows().length < 1) {
       alert("주문 상품을 선택 해주세요.");
@@ -74,11 +60,16 @@ const UserList = () => {
   };
 
   useEffect(() => {
+    if (response) {
+      setAllUsers(response);
+    }
+  }, [response, allUsers]);
+
+  useEffect(() => {
     // const instance = gridRef.current.getInstance();
     if (gridRef) {
       setInstance(gridRef.current.getInstance());
     }
-    console.log(instance);
   }, [instance]);
 
   return (
@@ -95,9 +86,7 @@ const UserList = () => {
           width={1000}
           columnOptions={{ resizable: true }}
           onCheck={() => {
-            // setCheckedRows(instance.getCheckedRows());
             instance.getCheckedRows();
-            console.log(instance.getCheckedRows());
           }}
         />
       </div>

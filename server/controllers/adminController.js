@@ -6,8 +6,11 @@ import {
   // getAllItems,
   insertItem,
   insertItemImgs,
+  selectTransaction,
+  selectTransactionItem,
   updateIsAdmin,
   updateItemInfo,
+  updateStatus,
 } from "../queries/adminQuery.js";
 import { getAllProducts } from "../queries/productQuery.js";
 import { getAlluserInfo } from "../queries/userQuery.js";
@@ -100,6 +103,38 @@ export const patchIsAdmin = async (req, res) => {
       await updateIsAdmin(item);
     });
     console.log("successss");
+    res.send();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getOrderInfoForAdmin = async (req, res) => {
+  try {
+    const transaction = await selectTransaction();
+    const transactionItem = await await Promise.all(
+      transaction.map((item) => {
+        return selectTransactionItem(item.order_id);
+      })
+    );
+
+    res.send({ transaction, transactionItem });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const patchStatus = async (req, res) => {
+  const newStatusInfo = req.body;
+  const filteredArray = newStatusInfo.map((item) => {
+    return (({ id, status }) => ({ id, status }))(item);
+  });
+  try {
+    filteredArray.forEach(async (item) => {
+      await updateStatus(item);
+    });
+    // const transaction = await selectTransaction();
+    // res.send({ transaction });
     res.send();
   } catch (err) {
     console.log(err);

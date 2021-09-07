@@ -52,12 +52,15 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
         axios.post("http://localhost:3001/order/result", {
           user_id: transactionInfo.user_id,
           order_id: transactionInfo.order_id,
+          buyer_name: response.buyer_name,
+          name: response.name,
           buyer_addr: response.buyer_addr,
           buyer_tel: response.buyer_tel,
           pay_method: response.pay_method,
           merchant_uid: response.merchant_uid,
           status: 0,
           orderItems,
+          amount: orderInfo.grandTotal,
         });
         console.log("test", query);
         history.push({
@@ -75,8 +78,6 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
   };
 
   useEffect(() => {
-    console.log("gg", orderItems);
-
     setValues({
       name: user.name,
       email: user.email,

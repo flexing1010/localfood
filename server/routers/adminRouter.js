@@ -5,6 +5,9 @@ import {
   postItem,
   patchIsAdmin,
   updateItem,
+  getOrderInfoForAdmin,
+  patchStatus,
+  // getTransactionItem,
 } from "../controllers/adminController.js";
 import { itemImgUpload } from "../middlewares.js";
 
@@ -31,5 +34,8 @@ adminRouter
   .delete(deleteAdminItem);
 
 adminRouter.route("/user-list").get(getAllUser).patch(patchIsAdmin);
+
+adminRouter.route("/manage-order").get(getOrderInfoForAdmin).patch(patchStatus);
+// adminRouter.route("/manage-order/edit").get(getTransactionItem);
 
 export default adminRouter;
