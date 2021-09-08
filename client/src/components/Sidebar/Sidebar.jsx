@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { SidebarContext } from "../../Context";
 
 import "./Sidebar.scss";
@@ -21,8 +21,18 @@ const Sidebar = () => {
         <li onClick={() => handleBrandClick(4)}>Yonex</li>
         <li onClick={() => handleBrandClick(5)}>Dunlop</li>
         <li onClick={() => handleBrandClick(6)}>Prince</li>
-        <li onClick={() => handleBrandClick(7)}>TecniFibre</li>
-        <li onClick={() => handleBrandClick(8)}>ProKennex</li>
+        <li>
+          <Link to="/announcement">
+            <small>공지사항</small>
+          </Link>
+        </li>
+        <li>
+          {/* <Link>
+            <small>상품QnA</small>
+          </Link> */}
+        </li>
+        {/* <li onClick={() => handleBrandClick(7)}>TecniFibre</li>
+        <li onClick={() => handleBrandClick(8)}>ProKennex</li> */}
       </ul>
     </div>
   );

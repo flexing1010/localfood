@@ -19,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className="main-header">
       <div className="top-nav">
         <ul>
           <li className="title">
