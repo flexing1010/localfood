@@ -1,0 +1,56 @@
+@import "../../variables.scss";
+
+.view-post {
+  width: 95%;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 0rem 1rem 1rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-width: 700px;
+  .view-post__header {
+    list-style-type: none;
+    margin: 0 auto;
+    width: 95%;
+    max-width: 550px;
+    margin-bottom: 1rem;
+    padding: 1rem 1rem 1rem 0;
+    .view-post__header--title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5rem;
+      cursor: pointer;
+    }
+    .view-post__header--info {
+      display: flex;
+      .info-head {
+        color: rgba(0, 0, 0, 0.4);
+      }
+      div {
+        .post-owner {
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.6);
+        }
+        margin-right: 2rem;
+      }
+    }
+  }
+
+  .view-post__body {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    padding-bottom: 1rem;
+    .post-body {
+      //   margin-left: 2.7rem;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .view-post {
+    .view-post__body {
+      .post-body {
+        margin-left: 3.5rem;
+      }
+    }
+  }
+}

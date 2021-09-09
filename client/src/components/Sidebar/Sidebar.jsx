@@ -22,14 +22,14 @@ const Sidebar = () => {
         <li onClick={() => handleBrandClick(5)}>Dunlop</li>
         <li onClick={() => handleBrandClick(6)}>Prince</li>
         <li>
-          <Link to="/announcement">
+          <Link to="/board/announcement">
             <small>공지사항</small>
           </Link>
         </li>
         <li>
-          {/* <Link>
+          <Link to="/board/qna">
             <small>상품QnA</small>
-          </Link> */}
+          </Link>
         </li>
         {/* <li onClick={() => handleBrandClick(7)}>TecniFibre</li>
         <li onClick={() => handleBrandClick(8)}>ProKennex</li> */}

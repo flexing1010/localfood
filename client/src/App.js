@@ -26,6 +26,8 @@ import Header from "./components/Header/Header";
 import ByBrand from "./pages/ByBrand/ByBrand";
 import OrderResult from "./pages/Order/OrderResult";
 import Announcement from "./pages/Announcement/Announcement";
+import ViewPost from "./components/ViewPost/ViewPost";
+import QnA from "./pages/QnA/QnA";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -86,8 +88,14 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
-                <Route path="/announcement" component={Announcement} />
-                <Route path="/cart" component={Cart} />
+                {/* <Route path="/cart" component={Cart} /> */}
+                <Route
+                  exact
+                  path="/board/announcement"
+                  component={Announcement}
+                />
+                <Route exact path="/board/qna" component={QnA} />
+                <Route exact path="/board/view-post/:id" component={ViewPost} />
 
                 <PrivateRoute
                   exact

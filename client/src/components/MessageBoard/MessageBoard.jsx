@@ -1,18 +1,24 @@
 import "./MessageBoard.scss";
 import Paginator from "react-hooks-paginator";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import { useAxios } from "../../hooks/useAxios";
 
-const MessageBoard = ({ messageList }) => {
+const MessageBoard = ({ messageList, historyUrl }) => {
   const pageLimit = 5;
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+  let history = useHistory();
 
   useEffect(() => {
-    setData(messageList);
+    if (messageList) {
+      setData(messageList);
+    }
   }, [messageList]);
   useEffect(() => {
+    console.log(messageList);
     setCurrentData(data.slice(offset, offset + pageLimit));
   }, [offset, data]);
 
@@ -20,11 +26,16 @@ const MessageBoard = ({ messageList }) => {
     <ul className="noticeboard__post-container">
       {currentData.map((data) => (
         <li className="noticeboard__post">
-          <h2 className="noticeboard__post--title">{data.title}</h2>
+          <h2
+            onClick={() => history.push(`${historyUrl}${data.id}`)}
+            className="noticeboard__post--title"
+          >
+            {data.title}
+          </h2>
           <div className="noticeboard__post--info">
             <div className="info-head">
               작성자
-              <span className="post-owner"> {data.id}</span>
+              <span className="post-owner"> {data.username}</span>
             </div>
             <span className="info-head">{` 작성일 ${new Date().getFullYear()}`}</span>
           </div>
