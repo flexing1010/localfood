@@ -28,6 +28,7 @@ import OrderResult from "./pages/Order/OrderResult";
 import Announcement from "./pages/Announcement/Announcement";
 import ViewPost from "./components/ViewPost/ViewPost";
 import QnA from "./pages/QnA/QnA";
+import CreatePost from "./components/CreatePost/CreatePost";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
                   component={Announcement}
                 />
                 <Route exact path="/board/qna" component={QnA} />
+                <Route exact path="/board/create-post" component={CreatePost} />
                 <Route exact path="/board/view-post/:id" component={ViewPost} />
 
                 <PrivateRoute
