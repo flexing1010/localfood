@@ -3,7 +3,7 @@
 .view-post {
   width: 95%;
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 3rem auto 0 auto;
   padding: 0rem 1rem 1rem 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-width: 700px;
@@ -18,7 +18,6 @@
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
       line-height: 1.5rem;
-      cursor: pointer;
     }
     .view-post__header--info {
       display: flex;

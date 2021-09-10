@@ -10,7 +10,11 @@ import {
   viewByBrand,
   viewProduct,
 } from "../controllers/productController.js";
-import { getAnnouncement, getPost } from "../controllers/rootController.js";
+import {
+  getAnnouncement,
+  getPost,
+  getQnA,
+} from "../controllers/rootController.js";
 import {
   postJoinController,
   postLoginController,
@@ -35,6 +39,7 @@ rootRouter.route("/auth").get(validateToken, getAuth);
 rootRouter.get("/search", search);
 rootRouter.get("/board/view-post/:id", getPost);
 rootRouter.get("/board/announcement", getAnnouncement);
+rootRouter.get("/board/qna", getQnA);
 // rootRouter.route("/order").get(getUser).post(postOrder);
 
 export default rootRouter;

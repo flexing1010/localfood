@@ -29,3 +29,18 @@ export const selectPost = (postId) => {
     );
   });
 };
+
+export const selectQnA = () => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select * From message_board where board_category = ? ",
+      [1],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
