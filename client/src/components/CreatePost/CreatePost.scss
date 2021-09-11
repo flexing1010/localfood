@@ -1,5 +1,24 @@
 .create-post {
   margin: 0 auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .create-title {
+      width: 90%;
+      // margin-left: 1.9rem;
+      // margin: 0 auto;
+      margin-bottom: 2rem;
+      .title {
+        font-size: 1.2rem;
+        width: 100%;
+        padding: 0.5rem;
+      }
+    }
+  }
+
   .post-wrapper {
     width: 95%;
     max-width: 800px;
@@ -20,7 +39,7 @@
     display: flex;
     justify-content: center;
     .button-component {
-      width: 90%;
+      width: 100px;
       //   margin: 0 auto;
     }
   }

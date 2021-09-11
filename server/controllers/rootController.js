@@ -1,4 +1,5 @@
 import {
+  insertPost,
   selectAnnouncement,
   selectPost,
   selectQnA,
@@ -21,4 +22,13 @@ export const getPost = async (req, res) => {
   console.log(id);
   const post = await selectPost(id);
   res.json(post);
+};
+
+export const createPost = async (req, res) => {
+  const postInfo = req.body;
+  try {
+    await insertPost(postInfo);
+  } catch (err) {
+    console.log(err);
+  }
 };

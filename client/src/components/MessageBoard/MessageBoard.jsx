@@ -30,7 +30,7 @@ const MessageBoard = ({ messageList, historyUrl }) => {
   return (
     <ul className="noticeboard__post-container">
       {currentData.map((data) => (
-        <li className="noticeboard__post">
+        <li className="noticeboard__post" key={data.id}>
           <h2
             onClick={() => history.push(`${historyUrl}${data.id}`)}
             className="noticeboard__post--title"

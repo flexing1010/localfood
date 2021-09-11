@@ -11,6 +11,7 @@ import {
   viewProduct,
 } from "../controllers/productController.js";
 import {
+  createPost,
   getAnnouncement,
   getPost,
   getQnA,
@@ -40,6 +41,8 @@ rootRouter.get("/search", search);
 rootRouter.get("/board/view-post/:id", getPost);
 rootRouter.get("/board/announcement", getAnnouncement);
 rootRouter.get("/board/qna", getQnA);
+rootRouter.post("/board/create-post", createPost);
+
 // rootRouter.route("/order").get(getUser).post(postOrder);
 
 export default rootRouter;
