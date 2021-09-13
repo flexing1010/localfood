@@ -231,3 +231,18 @@ export const updateStatus = (newInfo) => {
     );
   });
 };
+
+export const deletePost = (postId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Delete From message_board where id = ?",
+      [postId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

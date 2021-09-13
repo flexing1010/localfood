@@ -12,6 +12,8 @@ import {
 } from "../controllers/productController.js";
 import {
   createPost,
+  deletePostReq,
+  editPost,
   getAnnouncement,
   getPost,
   getQnA,
@@ -38,7 +40,11 @@ rootRouter.route("/join").post(publicOnlyMiddleware, postJoinController);
 rootRouter.route("/login").post(publicOnlyMiddleware, postLoginController);
 rootRouter.route("/auth").get(validateToken, getAuth);
 rootRouter.get("/search", search);
+
+//board route
 rootRouter.get("/board/view-post/:id", getPost);
+rootRouter.patch("/board/view-post/:id/edit", editPost);
+rootRouter.delete("/board/view-post/:id/delete", deletePostReq);
 rootRouter.get("/board/announcement", getAnnouncement);
 rootRouter.get("/board/qna", getQnA);
 rootRouter.post("/board/create-post", createPost);

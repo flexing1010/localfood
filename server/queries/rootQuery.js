@@ -64,3 +64,18 @@ export const insertPost = (postInfo) => {
     );
   });
 };
+
+export const updatePost = (newPost) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Update message_board set body = ? where username = ?",
+      [newPost.content, newPost.username],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};

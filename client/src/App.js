@@ -29,6 +29,7 @@ import Announcement from "./pages/Announcement/Announcement";
 import ViewPost from "./components/ViewPost/ViewPost";
 import QnA from "./pages/QnA/QnA";
 import CreatePost from "./components/CreatePost/CreatePost";
+import EditPost from "./components/EditPost/EditPost";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -110,6 +111,11 @@ function App() {
                   component={OrderResult}
                 />
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
+                <PrivateRoute
+                  exact
+                  path="/board/view-post/:id/edit"
+                  component={EditPost}
+                />
                 <Route path="/productdetails/:id" component={ProductDetails} />
 
                 <NonMembersOnlyRoute path="/join" component={Join} />

@@ -4,7 +4,6 @@ import { EditorState, convertToRaw } from "draft-js";
 import "@nick4fake/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
-
 import { useContext, useEffect, useState } from "react";
 import Button from "../Button/Button";
 import axios from "axios";
@@ -35,9 +34,11 @@ const CreatePost = () => {
   useEffect(() => {
     // console.log(postTitle);
     // setContent(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
-    setContent(
-      JSON.stringify(draftToHtml(convertToRaw(editorState.getCurrentContent())))
-    );
+    setContent(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+    // setContent(
+    //   JSON.stringify(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    // );
+    console.log(content, "aa");
     // console.log(content);
   }, [editorState]);
   return (
@@ -53,6 +54,12 @@ const CreatePost = () => {
             }}
           />
         </div>
+        {authState.isAdmin ? (
+          <select name="board_category" id="board_category">
+            <option value="0">공지사항</option>
+            <option value="0">상품QnA</option>
+          </select>
+        ) : null}
         <Editor
           editorState={editorState}
           toolbarClassName="post-toolbar"

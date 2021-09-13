@@ -1,7 +1,14 @@
 .announcement {
+  margin: 0 auto;
   header {
     text-align: center;
     margin: 2rem;
   }
-  margin: 0 auto;
+
+  .write-a-post-button {
+    margin: 1rem auto 0 auto;
+    .button-component {
+      width: 430px;
+    }
+  }
 }

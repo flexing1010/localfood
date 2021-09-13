@@ -1,21 +1,19 @@
 import "./MessageBoard.scss";
 import Paginator from "react-hooks-paginator";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useAxios } from "../../hooks/useAxios";
 import Button from "../Button/Button";
+import { AuthContext } from "../../Context";
 
 const MessageBoard = ({ messageList, historyUrl }) => {
   const pageLimit = 5;
+  const { authState } = useContext(AuthContext);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
   let history = useHistory();
-
-  const createPostBtn = () => {
-    history.push("/board/create-post");
-  };
 
   useEffect(() => {
     if (messageList) {
@@ -54,9 +52,9 @@ const MessageBoard = ({ messageList, historyUrl }) => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      <div className="write-a-post-button">
+      {/* <div className="write-a-post-button">
         <Button text={"글쓰기"} handleBtnClick={createPostBtn} />
-      </div>
+      </div> */}
     </ul>
   );
 };
