@@ -7,6 +7,9 @@
   padding: 0rem 1rem 1rem 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-width: 700px;
+  .view-post__header--col1 {
+    width: 49%;
+  }
   .view-post__header {
     display: flex;
     justify-content: space-between;
@@ -15,8 +18,9 @@
     width: 98%;
     max-width: 650px;
     margin-bottom: 1rem;
-    padding: 1rem 1rem 1rem 0;
+    padding: 1rem 0rem 1rem 0;
     .view-post__header--title {
+      word-wrap: break-word;
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
       line-height: 1.5rem;
@@ -41,11 +45,7 @@
       background-color: whitesmoke;
       font-size: 1rem;
       padding: 0.5rem 1rem;
-      // color: #346aff;
-
       font-weight: 600;
-      // width: 418px;
-
       border: 1px solid #ccc;
       cursor: pointer;
     }

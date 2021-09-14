@@ -4,6 +4,9 @@
 
   .my-info {
     margin-bottom: 2rem;
+    .my-info__name {
+      margin-bottom: 2rem;
+    }
     .my-info__data {
       display: flex;
       gap: 1rem;
@@ -92,7 +95,7 @@
       }
       .order-info--h3 {
         margin-bottom: 0.8rem;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.7);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.2);
       }
       .order-info__addr {
         display: flex;

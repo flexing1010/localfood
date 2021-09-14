@@ -1,16 +1,15 @@
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import "./OrderResult.scss";
 import Button from "../../components/Button/Button";
-import axios from "axios";
+// import axios from "axios";
 
 const OrderResult = () => {
   let location = useLocation();
   const { search, state } = location;
   const query = queryString.parse(search);
-  const { merchant_uid, paid_amount, name, buyer_addr, buyer_tel, pay_method } =
-    query;
+  const { merchant_uid, paid_amount, name } = query;
 
   const getPaymentMethod = () => {
     const { pay_method } = query;

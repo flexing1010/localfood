@@ -22,9 +22,31 @@
       }
     }
   }
+
+  .brand-list {
+    display: flex;
+    flex-direction: column;
+    .brand-list-row {
+      width: 70%;
+      margin: 1rem auto;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      // flex-direction: column;
+    }
+    li {
+      width: 100%;
+      list-style-type: none;
+      img {
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
 }
 
-@media (max-width: $breakpoint-mobile) {
+@media (max-width: $breakpoint-pc) {
   .home {
     .carousel-root {
       width: 100%;
@@ -33,5 +55,54 @@
         height: 20%;
       }
     }
+
+    .brand-list {
+      display: flex;
+      flex-direction: column;
+      .brand-list-row {
+        width: unset;
+        // margin: 1rem auto;
+        display: flex;
+        flex-direction: column;
+        // justify-content: space-between;
+        margin: unset;
+        margin: 0 auto;
+        // flex-direction: column;
+        // align-items: stretch;
+      }
+      li {
+        list-style-type: none;
+
+        img {
+          cursor: pointer;
+          border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
   }
 }
+
+// @media (min-width: $breakpoint-tablet) {
+//   .brand-list {
+//     display: flex;
+//     flex-direction: column;
+//     .brand-list-row {
+//       width: unset;
+//       // margin: 1rem auto;
+//       display: flex;
+//       flex-direction: column;
+//       // justify-content: space-between;
+//       margin: unset;
+//       margin: 0 auto;
+//       // flex-direction: column;
+//       // align-items: stretch;
+//     }
+//     li {
+//       list-style-type: none;
+//       img {
+//         cursor: pointer;
+//         border: 1px solid rgba(0, 0, 0, 0.3);
+//       }
+//     }
+//   }
+// }

@@ -30,6 +30,7 @@ import ViewPost from "./components/ViewPost/ViewPost";
 import QnA from "./pages/QnA/QnA";
 import CreatePost from "./components/CreatePost/CreatePost";
 import EditPost from "./components/EditPost/EditPost";
+import AllProducts from "./pages/AllProducts/AllProducts";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
               {/* 버그 authState때문에 에러가 생기는 듯 */}
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/all-products" component={AllProducts} />
                 <Route exact path="/by-brand/:id" component={ByBrand} />
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
@@ -97,7 +99,7 @@ function App() {
                   component={Announcement}
                 />
                 <Route exact path="/board/qna" component={QnA} />
-                <Route exact path="/board/create-post" component={CreatePost} />
+
                 <Route exact path="/board/view-post/:id" component={ViewPost} />
 
                 <PrivateRoute
@@ -111,6 +113,11 @@ function App() {
                   component={OrderResult}
                 />
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
+                <PrivateRoute
+                  exact
+                  path="/board/create-post"
+                  component={CreatePost}
+                />
                 <PrivateRoute
                   exact
                   path="/board/view-post/:id/edit"

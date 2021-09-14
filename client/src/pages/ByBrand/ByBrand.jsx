@@ -15,16 +15,10 @@ const ByBrand = () => {
   // });
 
   useEffect(() => {
-    console.log(match.params);
-    // if (response) {
-    //   console.log(response);
-    //   setItemByBrand(itemByBrand);
-    // }
     setItemByBrand(products.filter((brandItem) => brandItem.brand === id));
-    console.log(itemByBrand);
   }, [products, match.params]);
   return (
-    <section style={{ width: "100%" }}>
+    <section style={{ width: "100%", margin: "0 auto" }}>
       <DisplayItem items={itemByBrand} />
     </section>
   );

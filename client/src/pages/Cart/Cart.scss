@@ -4,6 +4,9 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1000px;
+  .cart-is-empty {
+    text-align: center;
+  }
   .cart-items {
     display: flex;
     flex-direction: column;

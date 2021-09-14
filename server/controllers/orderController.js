@@ -5,6 +5,8 @@ import {
   updateStock,
 } from "../queries/orderQuery.js";
 import {
+  emptyCartItems,
+  getCartId,
   getOrderInfo,
   getOrderItems,
   insertOrderItem,
@@ -84,6 +86,9 @@ export const postTransaction = async (req, res) => {
       await updateStock(item);
       console.log("updated");
     });
+    const cartId = await getCartId(transactionInfo.user_id);
+    console.log(cartId[0].id, "aa", typeof cartId[0].id);
+    await emptyCartItems(cartId[0].id);
     // let quantity = await selectOrderItemQuantity(orderId);
     console.log("success");
   } catch (err) {

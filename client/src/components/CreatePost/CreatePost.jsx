@@ -2,22 +2,24 @@ import "./CreatePost.scss";
 import { Editor } from "@nick4fake/react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import "@nick4fake/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
 import { useContext, useEffect, useState } from "react";
 import Button from "../Button/Button";
 import axios from "axios";
 import { AuthContext } from "../../Context";
-import draftToHtml from "draftjs-to-html";
 
 const CreatePost = () => {
   const { authState } = useContext(AuthContext);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [content, setContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
+  const [boardCategory, setBoardCategory] = useState(0);
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     // console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+  };
+
+  const handleBoardCategory = (e) => {
+    setBoardCategory(parseInt(e.target.value));
   };
 
   const submitPost = (e) => {
@@ -27,7 +29,7 @@ const CreatePost = () => {
       content,
       postTitle,
       username: authState.username,
-      board_category: 1,
+      board_category: authState.isAdmin ? boardCategory : 1,
     });
   };
 
@@ -55,9 +57,13 @@ const CreatePost = () => {
           />
         </div>
         {authState.isAdmin ? (
-          <select name="board_category" id="board_category">
+          <select
+            name="board_category"
+            id="board_category"
+            onChange={handleBoardCategory}
+          >
             <option value="0">공지사항</option>
-            <option value="0">상품QnA</option>
+            <option value="1">상품QnA</option>
           </select>
         ) : null}
         <Editor

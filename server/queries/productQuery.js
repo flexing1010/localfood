@@ -211,21 +211,6 @@ export const insertReview = (review, productId) => {
   });
 };
 
-// export const insertProductReview = (reviewId, productId) => {
-//   return new Promise((resolve, reject) => {
-//     db.execute(
-//       "insert into product_review (product_id,review_id) values (?,?)",
-//       [productId, reviewId],
-//       (err, result) => {
-//         if (err) {
-//           return reject(err);
-//         }
-//         return resolve(result);
-//       }
-//     );
-//   });
-// };
-
 export const selectReviews = (productId) => {
   return new Promise((resolve, reject) => {
     db.execute(
@@ -249,5 +234,20 @@ export const deleteReview = (targetId) => {
       }
       return resolve(result);
     });
+  });
+};
+
+export const emptyCartItems = (cartId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "delete from cart_item where cart_id = ?",
+      [cartId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
   });
 };

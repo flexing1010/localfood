@@ -41,17 +41,6 @@ export const selectOrderItemQuantity = (orderId) => {
   });
 };
 
-// export const joinQuantityInfo = () => {
-//   return new Promise((resolve, reject) => {
-//     db.execute("Select stock From product where id = 21", (err, result) => {
-//       if (err) {
-//         return reject(err);
-//       }
-//       return resolve(result);
-//     });
-//   });
-// };
-
 export const updateStock = (updatedItem) => {
   return new Promise((resolve, reject) => {
     db.execute(

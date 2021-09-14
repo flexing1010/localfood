@@ -62,7 +62,7 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
           orderItems,
           amount: orderInfo.grandTotal,
         });
-        console.log("test", query);
+
         history.push({
           pathname: "/order/payment",
           search: `?${query}`,

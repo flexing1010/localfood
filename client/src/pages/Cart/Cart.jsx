@@ -89,7 +89,9 @@ const Cart = () => {
   return (
     <section className="cart">
       {errorMessage || cartItems.length === 0 ? (
-        <span>장바구니에 담긴 상품이 없습니다</span>
+        <div className="cart-is-empty">
+          <span>장바구니에 담긴 상품이 없습니다</span>
+        </div>
       ) : null}
       <ul className="cart-items">
         {!errorMessage && (
@@ -103,19 +105,21 @@ const Cart = () => {
       </ul>
       <div className="cart_bottom">
         <div className="empty-div"></div>
-        <div className="order-summary">
-          <div className="total">
-            <span>합계</span>
-            <span>
-              {errorMessage || cartItems.length === 0
-                ? null
-                : `${grandTotal.toLocaleString()}원`}
-            </span>
+        {errorMessage || cartItems.length === 0 ? null : (
+          <div className="order-summary">
+            <div className="total">
+              <span>합계</span>
+              <span>
+                {errorMessage || cartItems.length === 0
+                  ? null
+                  : `${grandTotal.toLocaleString()}원`}
+              </span>
+            </div>
+            <div className="cart__orderBtn">
+              <Button handleBtnClick={toOrderPage} text={"주문하기"} />
+            </div>
           </div>
-          <div className="cart__orderBtn">
-            <Button handleBtnClick={toOrderPage} text={"주문하기"} />
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );

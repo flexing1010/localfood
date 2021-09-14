@@ -113,45 +113,8 @@ const Join = () => {
           fullAddress={fullAddress}
           address2={values.address2}
         />
-        {/* <div className="address">
-          <div className="address__icon">
-            <FontAwesomeIcon className="fa-icon" icon={faMapMarkerAlt} />
-          </div>
-          <div className="address__input">
-            <div className="find-address">
-              <input readOnly type="text" name="address1" value={fullAddress} />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  openModal();
-                }}
-              >
-                주소찾기
-              </button>
-              <Modal open={modalOpen} close={closeModal} header="주소찾기">
-                <DaumPostcode
-                  // autoClose={true}
-                  onComplete={(e) => {
-                    handleComplete(e);
-                    closeModal();
-                  }}
-                  style={{ height: 500 }}
-                />
-              </Modal>
-            </div>
-            <div className="detail-address">
-              <input
-                type="text"
-                name="address2"
-                placeholder="상세주소"
-                // value={address2}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-        </div> */}
 
-        <input type="submit" value="회원가입" />
+        <input className="join-btn" type="submit" value="회원가입" />
       </form>
     </div>
   );
