@@ -12,7 +12,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div id="sidebar" className={isShowing ? "show-sidebar" : ""}>
+    <div className={isShowing === false ? "hide-sidebar sidebar" : "sidebar"}>
       <ul>
         <li onClick={() => history.push("/all-products")}>전체보기</li>
         <li onClick={() => handleBrandClick(1)}>Babolat</li>

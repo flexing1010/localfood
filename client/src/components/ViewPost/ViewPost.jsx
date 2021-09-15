@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { convertFromRaw, EditorState } from "draft-js";
 import { AuthContext } from "../../Context";
 import axios from "axios";
+import QnAComment from "../../pages/QnA/QnAComment";
 
 const ViewPost = () => {
   const [post, setPost] = useState({});
@@ -54,37 +55,40 @@ const ViewPost = () => {
 
   return (
     <div className="view-post">
-      <header className="view-post__header">
-        <div className="view-post__header--col1">
-          <h2 className="view-post__header--title">{post.title}</h2>
-          <div className="view-post__header--info">
-            <div className="info-head">
-              작성자
-              <span className="post-owner"> {post.username}</span>
+      <div className="post">
+        <header className="view-post__header">
+          <div className="view-post__header--col1">
+            <h2 className="view-post__header--title">{post.title}</h2>
+            <div className="view-post__header--info">
+              <div className="info-head">
+                작성자
+                <span className="post-owner"> {post.username}</span>
+              </div>
+              <span className="info-head">{` 작성일 ${new Date().getFullYear()}`}</span>
             </div>
-            <span className="info-head">{` 작성일 ${new Date().getFullYear()}`}</span>
           </div>
+          <div className="view-post__header--col2">
+            {post.username === authState.username && (
+              <div className="view-post__header--btns">
+                <button className="post-delete-btn" onClick={deletePost}>
+                  삭제하기
+                </button>
+                <button className="post-edit-btn" onClick={toEditPost}>
+                  수정하기
+                </button>
+              </div>
+            )}
+          </div>
+        </header>
+        <div className="view-post__body">
+          <Editor
+            editorState={body}
+            readOnly={true}
+            toolbarClassName={"readonly-toolbar"}
+          />
         </div>
-        <div className="view-post__header--col2">
-          {post.username === authState.username && (
-            <div className="view-post__header--btns">
-              <button className="post-delete-btn" onClick={deletePost}>
-                삭제하기
-              </button>
-              <button className="post-edit-btn" onClick={toEditPost}>
-                수정하기
-              </button>
-            </div>
-          )}
-        </div>
-      </header>
-      <div className="view-post__body">
-        <Editor
-          editorState={body}
-          readOnly={true}
-          toolbarClassName={"readonly-toolbar"}
-        />
       </div>
+      {post.board_category !== 0 && <QnAComment />}
     </div>
   );
 };

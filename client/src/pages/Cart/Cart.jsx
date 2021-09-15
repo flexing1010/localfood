@@ -15,6 +15,10 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [grandTotal, setGrandTotal] = useState("");
 
+  // const getBrandName = () =>{
+
+  // }
+
   const handleDelete = (url, product) => {
     const exist = cartItems.find((item) => item.id === product.id);
     if (exist) {
@@ -42,14 +46,14 @@ const Cart = () => {
         )
       );
     } else {
-      console.log("Bb");
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
     console.log(exist, cartItems);
   };
 
+  // authState.status === false
   useEffect(() => {
-    if (!localStorage.getItem("accessToken") || authState.status === false) {
+    if (!localStorage.getItem("accessToken")) {
       alert("장바구니를 사용하려면 로그인 해주십시오");
       history.push("/login");
     } else {
@@ -67,7 +71,6 @@ const Cart = () => {
   }, [authState]);
 
   useEffect(() => {
-    console.log(cartItems);
     if (!errorMessage) {
       const init = cartItems.reduce((a, c) => a + c.quantity * c.price, 0);
       setGrandTotal(init);

@@ -1,7 +1,10 @@
 import { deletePost } from "../queries/adminQuery.js";
 import {
+  deleteComment,
+  insertComment,
   insertPost,
   selectAnnouncement,
+  selectComments,
   selectPost,
   selectQnA,
   updatePost,
@@ -50,6 +53,39 @@ export const deletePostReq = async (req, res) => {
   try {
     await deletePost(id);
     res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const createComment = async (req, res) => {
+  const { id } = req.params;
+  const comment = req.body;
+  try {
+    const insertedComment = await insertComment(comment, id);
+    res.json(insertedComment.insertId);
+  } catch (err) {
+    console.log(err);
+  }
+  console.log("hi", id);
+};
+
+export const getComment = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const comments = await selectComments(id);
+    res.json(comments);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteQnAComment = async (req, res) => {
+  const { targetId } = req.body;
+  try {
+    await deleteComment(targetId);
+
+    res.send({ success: "삭제되었습니다" });
   } catch (err) {
     console.log(err);
   }

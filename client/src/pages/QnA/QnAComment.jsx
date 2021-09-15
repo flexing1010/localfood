@@ -1,39 +1,38 @@
-import "./Reviews.scss";
-
+import "./QnAComment.scss";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import DeleteItem from "../../components/Admin/DeleteItem";
 import Button from "../../components/Button/Button";
 import Modal from "../../components/Modal/Modal";
-import useModal from "../../hooks/useModal";
-import ReviewForm from "./ReviewForm";
-import { useAxios } from "../../hooks/useAxios";
-import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { AuthContext } from "../../Context";
-import DeleteItem from "../../components/Admin/DeleteItem";
+import { useAxios } from "../../hooks/useAxios";
+import useModal from "../../hooks/useModal";
+import ReviewForm from "../ProductDetails/ReviewForm";
+// import Reviews from "../ProductDetails/Reviews";
 
-const Reviews = () => {
+const QnAComment = () => {
   const { authState } = useContext(AuthContext);
   const [modalOpen, openModal, closeModal] = useModal();
-  const [reviewBody, setReviewBody] = useState("");
-  const [reviews, setReviews] = useState([]);
+  const [commentBody, setCommentBody] = useState("");
+  const [comments, setComments] = useState([]);
 
   let { id } = useParams();
 
   const { response } = useAxios({
     method: "get",
-    url: `/view/${id}/review`,
+    url: `/board/view-post/${id}/comment`,
   });
 
-  const handleReviewBtn = () => {
+  const handleCommentBtn = () => {
     openModal();
   };
 
-  const handleReview = (e) => {
-    setReviewBody(e.target.value);
-    console.log(reviewBody);
+  const handleCommentBody = (e) => {
+    setCommentBody(e.target.value);
   };
 
-  const postReview = (e) => {
+  const postComment = (e) => {
     e.preventDefault();
     let createdAt = new Date();
     createdAt =
@@ -46,64 +45,65 @@ const Reviews = () => {
     closeModal();
 
     axios
-      .post(`http://localhost:3001/view/${id}/review`, {
-        reviewBody,
+      .post(`http://localhost:3001/board/view-post/${id}/comment`, {
+        commentBody,
         createdAt,
         username: authState.username,
       })
       .then((response) => {
         // setTemporaryId(response.data);
         const newReview = {
-          review_body: reviewBody,
+          comment_body: commentBody,
           createdAt,
           username: authState.username,
           id: response.data,
         };
-        setReviews([newReview, ...reviews]);
-        console.log(newReview, "newreview");
+        setComments([newReview, ...comments]);
+        // console.log(newReview, "newreview");
       });
   };
 
   const filterReviews = (targetId) => {
-    setReviews(reviews.filter((item) => item.id !== parseInt(targetId)));
+    setComments(comments.filter((item) => item.id !== parseInt(targetId)));
     // console.log(itemList, "filter");
   };
 
   useEffect(() => {
     if (response) {
-      setReviews(response);
+      setComments(response);
+      console.log(comments);
     }
   }, [response]);
 
   return (
-    <div className="reviews-container">
-      <div className="reviews__top">
-        <h2>상품후기</h2>
-        <Button text="리뷰작성" handleBtnClick={handleReviewBtn} />
+    <div className="comment-container">
+      <div className="comments__top">
+        <h2>리뷰작성</h2>
+        <Button text="리뷰작성" handleBtnClick={handleCommentBtn} />
       </div>
-      <div className="reviews">
-        {reviews.map((review) => {
+      <div className="comments">
+        {comments.map((comment) => {
           return (
-            <div className="review-box" key={review.id}>
-              <p>{review.review_body}</p>
+            <div className="comment-box" key={comment.id}>
+              <p>{comment.comment_body}</p>
               <DeleteItem
                 closeModal={null}
                 filterItemList={filterReviews}
-                targetId={review.id}
+                targetId={comment.id}
                 text={"리뷰 삭제"}
-                url={`http://localhost:3001/view/${id}/review`}
+                url={`http://localhost:3001/board/view-post/${id}/comment`}
               />
               <ul className="review-box__info">
                 <li>
                   <small className="review-box__info--title">작성자</small>
                   <span className="review-box__info--value">
-                    {review.username}
+                    {comment.username}
                   </span>
                 </li>
                 <li>
                   <small className="review-box__info--title">작성일</small>
                   <span className="review-box__info--value">
-                    {review.createdAt}
+                    {comment.createdAt}
                   </span>
                 </li>
               </ul>
@@ -111,15 +111,15 @@ const Reviews = () => {
           );
         })}
       </div>
-      <Modal open={modalOpen} close={closeModal} header="리뷰작성">
+      <Modal open={modalOpen} close={closeModal} header="댓글작성">
         <ReviewForm
           close={closeModal}
-          postReview={postReview}
-          handleReview={handleReview}
+          postReview={postComment}
+          handleReview={handleCommentBody}
         />
       </Modal>
     </div>
   );
 };
 
-export default Reviews;
+export default QnAComment;

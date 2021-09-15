@@ -1,8 +1,22 @@
 import "./DisplayCart.scss";
 
 import ProductImg from "../ProductImg/ProductImg";
+import { useEffect } from "react";
 
 const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
+  const getBrandName = (BrnadNumber) => {
+    if (BrnadNumber === "1") return "바볼랏";
+    if (BrnadNumber === "2") return "윌슨";
+    if (BrnadNumber === "3") return "헤드";
+    if (BrnadNumber === "4") return "요넥스";
+    if (BrnadNumber === "5") return "던롭";
+    if (BrnadNumber === "6") return "테크니파이버";
+  };
+
+  const getTotal = (quantity, unitPrice) => {
+    return quantity * unitPrice;
+  };
+
   return (
     <>
       {cartItems.map((item) => {
@@ -13,7 +27,7 @@ const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
 
               <div className="cart__description">
                 <strong className="item-name">{item.product_name}</strong>
-                <span>{item.brand}</span>
+                <span>{getBrandName(item.brand)}</span>
                 {/* <div className="rating">
                   <span>평점</span>
                   <span>{item.rating}</span>
@@ -41,7 +55,15 @@ const DisplayCart = ({ cartItems, handleQuantity, handleDelete }) => {
                 <div className="item__total">
                   <span className="info-title">합계</span>
                   <span id={item.id}>
-                    {item.quantity * parseInt(item.price)}
+                    {getTotal(item.quantity, item.price).toLocaleString(
+                      "ko-KR",
+                      {
+                        style: "currency",
+                        currency: "KRW",
+                      }
+                    )}
+
+                    {/* {item.quantity * parseInt(item.price)} */}
                   </span>
                 </div>
                 <div

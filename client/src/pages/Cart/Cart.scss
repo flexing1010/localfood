@@ -3,7 +3,7 @@
 .cart {
   margin: 0 auto;
   width: 100%;
-  max-width: 1000px;
+  max-width: 800px;
   .cart-is-empty {
     text-align: center;
   }
@@ -28,10 +28,13 @@
         }
       }
       .cart__description {
+        width: 40%;
         display: flex;
         flex-direction: column;
         input {
-          width: 35px;
+          width: 40px;
+          // height: 30px;
+          font-size: 1.1rem;
         }
       }
     }
@@ -71,8 +74,11 @@
   }
 }
 
-@media (max-width: $breakpoint-mobile) {
-}
+// @media (min-width: $breakpoint-pc) {
+//   .cart{
+
+//   }
+// }
 
 // .cart {
 //   width: 85%;

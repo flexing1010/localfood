@@ -4,4 +4,5 @@ export const AuthContext = createContext("");
 
 export const ProductContext = createContext([]);
 
-export const SidebarContext = createContext("");
+// export const SidebarContext = createContext("");
+export const SidebarContext = createContext(false);

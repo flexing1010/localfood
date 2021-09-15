@@ -1,6 +1,6 @@
 import "./Navbar.scss";
-import { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthContext, SidebarContext } from "../../Context";
 import SearchBar from "../SearchBar/SearchBar";
@@ -12,9 +12,9 @@ import {
 
 const Navbar = () => {
   const { isShowing, setIsShowing } = useContext(SidebarContext);
-  const { authState } = useContext(AuthContext);
-
+  const location = useLocation();
   let history = useHistory();
+  const { authState } = useContext(AuthContext);
 
   const toMyPage = () => {
     history.push({
@@ -25,8 +25,26 @@ const Navbar = () => {
 
   const handleSidebar = () => {
     setIsShowing(!isShowing);
-    console.log(isShowing);
+    // console.log(isShowing);
   };
+
+  // useEffect(() => {
+  //   setIsShowing(false);
+
+  // }, [location.pathname]);
+
+  useEffect(() => {
+    const unlisten = history.listen((location) => {
+      setIsShowing(false);
+    });
+    return function cleanup() {
+      unlisten();
+    };
+  }, [history, setIsShowing]);
+
+  // useEffect(() => {
+  //   console.log(typeof isShowing);
+  // }, [isShowing]);
 
   return (
     <div className="nav-container">

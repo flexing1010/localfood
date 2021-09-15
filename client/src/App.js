@@ -37,7 +37,7 @@ function App() {
   // const cancelToken = axios.CancelToken
   // const source = cancelToken.source
   const [products, setProducts] = useState([]);
-  const [isShowing, setIsShowing] = useState("false");
+  const [isShowing, setIsShowing] = useState(false);
   const [authState, setAuthState] = useState({
     username: "",
     id: 0,

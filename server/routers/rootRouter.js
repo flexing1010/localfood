@@ -11,10 +11,13 @@ import {
   viewProduct,
 } from "../controllers/productController.js";
 import {
+  createComment,
   createPost,
   deletePostReq,
+  deleteQnAComment,
   editPost,
   getAnnouncement,
+  getComment,
   getPost,
   getQnA,
 } from "../controllers/rootController.js";
@@ -48,6 +51,9 @@ rootRouter.delete("/board/view-post/:id/delete", deletePostReq);
 rootRouter.get("/board/announcement", getAnnouncement);
 rootRouter.get("/board/qna", getQnA);
 rootRouter.post("/board/create-post", createPost);
+rootRouter.post("/board/view-post/:id/comment", createComment);
+rootRouter.get("/board/view-post/:id/comment", getComment);
+rootRouter.delete("/board/view-post/:id/comment", deleteQnAComment);
 
 // rootRouter.route("/order").get(getUser).post(postOrder);
 

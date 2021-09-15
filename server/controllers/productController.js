@@ -164,10 +164,10 @@ export const postReview = async (req, res) => {
 
 export const getReview = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   try {
     const reviews = await selectReviews(id);
-    console.log(reviews);
+
     res.json(reviews);
   } catch (err) {
     console.log(err);

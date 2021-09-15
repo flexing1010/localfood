@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import Button from "../Button/Button";
 import axios from "axios";
 import { AuthContext } from "../../Context";
+import { useHistory } from "react-router";
 
 const CreatePost = () => {
   const { authState } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const CreatePost = () => {
   const [content, setContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [boardCategory, setBoardCategory] = useState(0);
+  let history = useHistory();
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     // console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
@@ -31,6 +33,7 @@ const CreatePost = () => {
       username: authState.username,
       board_category: authState.isAdmin ? boardCategory : 1,
     });
+    history.goBack();
   };
 
   useEffect(() => {

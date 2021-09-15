@@ -79,3 +79,48 @@ export const updatePost = (newPost) => {
     );
   });
 };
+
+export const insertComment = (comment, boardId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "insert into comment (comment_body, username, createdAt, message_board_id) values (?,?,?,?)",
+      [comment.commentBody, comment.username, comment.createdAt, boardId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const selectComments = (boardId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "Select * from comment where message_board_id = ? order by id desc",
+      [boardId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const deleteComment = (targetId) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "delete from comment where id = ?",
+      [targetId],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
