@@ -1,3 +1,4 @@
+import "./DeleteItem.scss";
 import axios from "axios";
 
 const DeleteItem = ({ targetId, url, closeModal, filterItemList, text }) => {
@@ -22,7 +23,14 @@ const DeleteItem = ({ targetId, url, closeModal, filterItemList, text }) => {
     }
   };
 
-  return <input type="button" onClick={(e) => handleDelete(e)} value={text} />;
+  return (
+    <input
+      className="deleteBtn"
+      type="button"
+      onClick={(e) => handleDelete(e)}
+      value={text}
+    />
+  );
 };
 
 export default DeleteItem;

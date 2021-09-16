@@ -32,7 +32,7 @@ const QnA = () => {
   return (
     <main className="qna">
       <header>
-        <h1>질의응답</h1>
+        <h1>QnA</h1>
       </header>
       <MessageBoard messageList={qnaPost} historyUrl={`/board/view-post/`} />
       <div className="write-a-post-button">
