@@ -80,7 +80,7 @@ const ViewPost = () => {
             )}
           </div>
         </header>
-        <div className="view-post__body">
+        <div className="view-post__body font-face-BBTreeL">
           <Editor
             editorState={body}
             readOnly={true}

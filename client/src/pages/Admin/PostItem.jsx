@@ -42,6 +42,7 @@ const PostItem = () => {
       )
       .then((res) => {
         setProducts(res.data);
+        alert("등록이 완료되었습니다");
       });
     e.target.reset();
     setFiles("");

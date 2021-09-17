@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: "BBTreeG_B";
+  src: url("./fonts/BBTree/BBTreeGB.eot");
+  src: url("./fonts/BBTree/BBTreeGB.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/BBTree/BBTreeGB.woff2") format("woff2"),
+    url("./fonts/BBTree/BBTreeGB.woff") format("woff"),
+    url("./fonts/BBTree/BBTreeGB.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BBTreeG_R";
+  src: url("./fonts/BBTree/BBTreeGR.eot");
+  src: url("./fonts/BBTree/BBTreeGR.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/BBTree/BBTreeGR.woff2") format("woff2"),
+    url("./fonts/BBTree/BBTreeGR.woff") format("woff"),
+    url("./fonts/BBTree/BBTreeGR.ttf") format("truetype"),
+    url("./fonts/BBTree/BBTreeGR.svg#BBTreeGR") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BBTreeG_L";
+  src: url("./fonts/BBTree/BBTreeGL.eot");
+  src: url("./fonts/BBTree/BBTreeGL.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/BBTree/BBTreeGL.woff2") format("woff2"),
+    url("./fonts/BBTree/BBTreeGL.woff") format("woff"),
+    url("./fonts/BBTree/BBTreeGL.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

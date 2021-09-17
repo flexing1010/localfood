@@ -225,16 +225,20 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
           <div className="img-preview">
             <img src={previewImg} alt="" />
           </div>
+          <label htmlFor="imgUrl">커버 이미지(1장)</label>
           <input
             type="file"
             name="imgUrl"
+            className="imgUrl-label"
             accept="image/*"
             onChange={(e) => {
               setPreviewImg(window.URL.createObjectURL(e.target.files[0]));
               handleCoverImgEdit(e);
             }}
           />
+          <label htmlFor="editedImgs">상품 이미지(총 3장)</label>
           <input
+            className="editedImgs"
             type="file"
             name="editedImgs"
             accept="image/*"
@@ -247,7 +251,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
         <textarea
           name="description"
           id="설명"
-          cols="30"
+          cols="50"
           rows="10"
           value={values.description || ""}
           onChange={(e) => inputChange(e)}

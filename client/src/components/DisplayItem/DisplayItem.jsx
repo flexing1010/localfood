@@ -22,7 +22,7 @@ const DisplayItem = ({ items }) => {
               <small>{item.restaurant}</small>
               {/* <small>{item.rating}</small> */}
               <span>{item.price}원</span>
-              <span className="item__descriptions-desc">
+              <span className="item__descriptions-desc font-face-BBTreeR">
                 {item.description}
               </span>
             </div>
