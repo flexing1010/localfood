@@ -1,7 +1,17 @@
 import "./DeleteItem.scss";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Context";
 
-const DeleteItem = ({ targetId, url, closeModal, filterItemList, text }) => {
+const DeleteItem = ({
+  targetId,
+  url,
+  closeModal,
+  filterItemList,
+  text,
+  owner,
+}) => {
+  const { authState } = useContext(AuthContext);
   const handleDelete = (e) => {
     // e.parentElement.remove();
 
@@ -24,12 +34,16 @@ const DeleteItem = ({ targetId, url, closeModal, filterItemList, text }) => {
   };
 
   return (
-    <input
-      className="deleteBtn"
-      type="button"
-      onClick={(e) => handleDelete(e)}
-      value={text}
-    />
+    <>
+      {owner === authState.username ? (
+        <input
+          className="deleteBtn"
+          type="button"
+          onClick={(e) => handleDelete(e)}
+          value={text}
+        />
+      ) : null}
+    </>
   );
 };
 

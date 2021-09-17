@@ -32,6 +32,15 @@
         color: black;
         transition: 0.2s ease-in-out;
       }
+      a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.5);
+        &:hover {
+          cursor: pointer;
+          color: black;
+          transition: 0.2s ease-in-out;
+        }
+      }
     }
   }
 }

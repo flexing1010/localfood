@@ -90,6 +90,7 @@ const QnAComment = () => {
                 closeModal={null}
                 filterItemList={filterReviews}
                 targetId={comment.id}
+                owner={comment.username}
                 text={"리뷰 삭제"}
                 url={`http://localhost:3001/board/view-post/${id}/comment`}
               />

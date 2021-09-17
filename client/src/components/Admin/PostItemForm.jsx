@@ -154,6 +154,7 @@ const PostItemForm = ({
           type="file"
           name="coverImg"
           accept="image/*"
+          className="cover-img-input"
           onChange={handleCoverImg}
           required
         />
