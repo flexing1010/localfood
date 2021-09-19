@@ -6,12 +6,14 @@
   flex-wrap: wrap;
   width: 95%;
   max-width: 1250px;
-  gap: 1px;
+
+  gap: 1rem;
   //   background-color: black;
   .item {
     margin: 0 auto;
     width: 48%;
     max-width: 600px;
+    padding: 1rem;
     list-style-type: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 5px;
@@ -31,6 +33,7 @@
       .item__descriptions-desc {
         color: #757575;
         margin-top: 1rem;
+        line-height: 1.3rem;
       }
     }
   }

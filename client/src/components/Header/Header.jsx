@@ -75,7 +75,7 @@ const Header = () => {
                 </strong>
               </div>
               <button onClick={logout}>
-                <span className="header-link">로그아웃</span>
+                <span className="header-link log-out">로그아웃</span>
               </button>
             </li>
           )}

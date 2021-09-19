@@ -13,10 +13,10 @@
   }
 
   .cart__description {
-    width: 20%;
     .item-name {
-      font-size: 2rem;
-      letter-spacing: 0.5rem;
+      // width: 100%;
+      font-size: 1.3rem;
+      letter-spacing: 0.1rem;
     }
     display: flex;
     gap: 0.35rem;
@@ -60,14 +60,13 @@
   .cart_item {
     .cart__description {
       .item-name {
-        font-size: 2.5rem;
-        letter-spacing: 0.5rem;
+        font-size: 1.7rem;
       }
       .item__total,
       .item__quantity,
       .item__price {
         display: flex;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
     }
   }

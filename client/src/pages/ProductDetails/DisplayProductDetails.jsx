@@ -34,11 +34,11 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
             </tr>
             <tr>
               <th>무게</th>
-              <td>{product.weight}</td>
+              <td>{`${product.weight}g`}</td>
             </tr>
             <tr>
               <th>헤드사이즈</th>
-              <td>{product.head_size}</td>
+              <td>{`${product.head_size}in`}</td>
             </tr>
             <tr>
               <th>스트링패턴</th>
@@ -50,11 +50,11 @@ const DisplayProductDetails = ({ product, addCart, productImgs }) => {
             </tr>
             <tr>
               <th>길이</th>
-              <td>{product.length}</td>
+              <td>{`${product.length}in`}</td>
             </tr>
             <tr>
               <th>그립사이즈</th>
-              <td>{product.grip_size}</td>
+              <td>{`${product.grip_size}"`}</td>
             </tr>
           </tbody>
         </table>
