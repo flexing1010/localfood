@@ -53,7 +53,7 @@ export const search = async (req, res) => {
       } else if (result.length === 0) {
         return res.send({ errorMessage: "일치하는 검색결과가 없습니다" });
       }
-      console.log(result);
+
       res.json(result);
     }
   );
