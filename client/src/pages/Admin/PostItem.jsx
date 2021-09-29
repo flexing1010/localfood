@@ -37,6 +37,7 @@ const PostItem = () => {
     axios
       .post(
         "https://tennis365-api.herokuapp.com/admin/post-item",
+        // "http://localhost:3001/admin/post-item",
 
         formData
       )
@@ -57,7 +58,7 @@ const PostItem = () => {
   };
 
   useEffect(() => {
-    console.log(values);
+    // console.log(values);
   }, [values]);
   return (
     <section className="post-item" style={{ margin: "0 auto" }}>

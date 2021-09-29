@@ -29,8 +29,8 @@ const Join = () => {
 
   const { values, handleInputChange } = useInputChanges(initValues);
 
-  const [fullAddress, setFulladdress, handleComplete] = usePostcode();
-  // const [address2, setAddress2] = useState("");
+  //setFullAddress is needed even though it's not used
+  const [fullAddress, setFullAddress, handleComplete] = usePostcode();
   const [errorMessage, setErrorMessage] = useState("");
 
   let history = useHistory();
@@ -48,7 +48,6 @@ const Join = () => {
         address2: values.address2,
       })
       .then((response) => {
-        console.log(fullAddress);
         alert("가입이 완료 되었습니다!");
         history.push("/login");
       })

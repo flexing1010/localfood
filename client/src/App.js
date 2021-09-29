@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Home from "./pages/Home/Home";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import Navbar from "./components/Navbar/Navbar";
+// import Navbar from "./components/Navbar/Navbar";
 import Search from "./pages/Search/Search";
 import Footer from "./components/Footer/Footer.jsx";
 import Login from "./pages/Login/Login";
@@ -31,6 +31,7 @@ import QnA from "./pages/QnA/QnA";
 import CreatePost from "./components/CreatePost/CreatePost";
 import EditPost from "./components/EditPost/EditPost";
 import AllProducts from "./pages/AllProducts/AllProducts";
+import MobilePayment from "./components/MobilePayment/MobilePayment";
 // import { useHistory } from "react-router-dom";
 
 function App() {
@@ -106,12 +107,7 @@ function App() {
 
                 <PrivateRoute
                   exact
-                  path="/order/:id([0-9]+)"
-                  component={Order}
-                />
-                <PrivateRoute
-                  exact
-                  path="/order/payment"
+                  path="/order/payment/:id"
                   component={OrderResult}
                 />
                 <PrivateRoute exact path="/user/:id" component={MyPage} />
@@ -140,6 +136,17 @@ function App() {
                 <AdminOnlyRoute
                   path="/admin/manage-order"
                   component={ManageOrder}
+                />
+
+                <PrivateRoute
+                  exact
+                  path="/order/:id([0-9]+)"
+                  component={Order}
+                />
+                <PrivateRoute
+                  exact
+                  path="/order/payment/:id([0-9]+)/mobile"
+                  component={MobilePayment}
                 />
               </Switch>
             </div>

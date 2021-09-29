@@ -33,6 +33,7 @@ export const createPost = async (req, res) => {
   const postInfo = req.body;
   try {
     await insertPost(postInfo);
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
   }
@@ -67,7 +68,6 @@ export const createComment = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  console.log("hi", id);
 };
 
 export const getComment = async (req, res) => {

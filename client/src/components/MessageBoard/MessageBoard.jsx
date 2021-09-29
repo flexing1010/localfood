@@ -1,14 +1,10 @@
 import "./MessageBoard.scss";
 import Paginator from "react-hooks-paginator";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { useAxios } from "../../hooks/useAxios";
-import Button from "../Button/Button";
-import { AuthContext } from "../../Context";
 
 const MessageBoard = ({ messageList, historyUrl }) => {
   const pageLimit = 5;
-  const { authState } = useContext(AuthContext);
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
@@ -21,7 +17,7 @@ const MessageBoard = ({ messageList, historyUrl }) => {
     }
   }, [messageList]);
   useEffect(() => {
-    console.log(messageList);
+    // console.log(messageList);
     setCurrentData(data.slice(offset, offset + pageLimit));
   }, [offset, data]);
 
@@ -40,7 +36,7 @@ const MessageBoard = ({ messageList, historyUrl }) => {
               작성자
               <span className="post-owner"> {data.username}</span>
             </div>
-            <span className="info-head">{` 작성일 ${new Date().getFullYear()}`}</span>
+            <span className="info-head">{` 작성일 ${data.createdAt}`}</span>
           </div>
         </li>
       ))}

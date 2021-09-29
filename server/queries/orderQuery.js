@@ -1,21 +1,36 @@
 import { db } from "../db.js";
 
-export const insertTransaction = (transactionInfo) => {
+export const insertTransaction = (transactionInfo, impData) => {
   return new Promise((resolve, reject) => {
     db.execute(
       "Insert into transaction (user_id,order_id,buyer_addr,buyer_tel,buyer_name,pay_method,status,merchant_uid,name,amount) values (?,?,?,?,?,?,?,?,?,?)",
       [
         transactionInfo.user_id,
         parseInt(transactionInfo.order_id),
-        transactionInfo.buyer_addr,
-        transactionInfo.buyer_tel,
-        transactionInfo.buyer_name,
-        transactionInfo.pay_method,
+        impData.buyer_addr,
+        impData.buyer_tel,
+        impData.buyer_name,
+        impData.pay_method,
         transactionInfo.status,
-        transactionInfo.merchant_uid,
-        transactionInfo.name,
-        transactionInfo.amount,
+        impData.merchant_uid,
+        impData.name,
+        impData.amount,
       ],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      }
+    );
+  });
+};
+
+export const selectTransaction = (merchant_uid) => {
+  return new Promise((resolve, reject) => {
+    db.execute(
+      "select * from transaction where merchant_uid = ?",
+      [merchant_uid],
       (err, result) => {
         if (err) {
           return reject(err);

@@ -72,7 +72,6 @@ const ManageOrder = () => {
       },
       onAfterChange: (ev) => {
         instance.check(ev.rowKey);
-        console.log(ev);
       },
       width: 100,
     },
@@ -102,7 +101,6 @@ const ManageOrder = () => {
   };
 
   useEffect(() => {
-    console.log(allTransaction);
     if (response) {
       let items = response.transactionItem;
       setAlltransaction(response.transaction);
@@ -135,7 +133,6 @@ const ManageOrder = () => {
           }}
           onClick={(e) => {
             if (e.columnName === "merchant_uid") {
-              console.log(e);
               setTargetId(instance.getValue(e.rowKey, "id"));
               openModal();
             }

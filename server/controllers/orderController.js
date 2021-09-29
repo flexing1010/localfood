@@ -2,6 +2,7 @@ import { db } from "../db.js";
 import {
   insertTransaction,
   selectOrderItemQuantity,
+  selectTransaction,
   updateStock,
 } from "../queries/orderQuery.js";
 import {
@@ -12,6 +13,7 @@ import {
   insertOrderItem,
 } from "../queries/productQuery.js";
 import { getUserInfo } from "../queries/userQuery.js";
+import axios from "axios";
 
 export const postOrder = async (req, res) => {
   const { user_id, grandTotal, orderItems } = req.body;
@@ -66,7 +68,6 @@ export const viewOrder = async (req, res) => {
     if (user.password) {
       delete user.password;
     }
-    console.log(orderInfo, orderItems, user);
     if (orderInfo && orderItems) {
       res.send({ orderInfo, orderItems, user });
     }
@@ -77,20 +78,76 @@ export const viewOrder = async (req, res) => {
 
 export const postTransaction = async (req, res) => {
   const transactionInfo = req.body;
-  console.log("checkfororderitem", transactionInfo);
   const updatedItems = transactionInfo.orderItems;
   //   const orderId = parseInt(transactionInfo.order_id);
   try {
-    await insertTransaction(transactionInfo);
-    updatedItems.forEach(async (item) => {
-      await updateStock(item);
-      console.log("updated");
+    const { imp_uid, merchant_uid } = req.body;
+
+    const getToken = await axios({
+      url: "https://api.iamport.kr/users/getToken",
+      method: "post", // POST method
+      headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
+      data: {
+        imp_key: "3207874947066307", // REST API 키
+        imp_secret:
+          "XC7NolPMCUwpF1l6NnLpILbx7928HZ2FCas1vhN7ckxSlTY9hKyZwKwETyMByPgbZIcv0ZDcjb4E43Nm", // REST API Secret
+      },
     });
-    const cartId = await getCartId(transactionInfo.user_id);
-    console.log(cartId[0].id, "aa", typeof cartId[0].id);
-    await emptyCartItems(cartId[0].id);
+    const { access_token } = getToken.data.response;
+
+    const getPaymentData = await axios({
+      url: `https://api.iamport.kr/payments/${imp_uid}`, // imp_uid 전달
+      method: "get", // GET method
+      headers: { Authorization: access_token }, // 인증 토큰 Authorization header에 추가
+    });
+    const paymentData = getPaymentData.data.response; // 조회한 결제 정보
+
+    const { amount, status } = paymentData;
+    if (amount === transactionInfo.amount && status === "paid") {
+      // await insertTransaction(transactionInfo);
+      await insertTransaction(transactionInfo, paymentData);
+      updatedItems.forEach(async (item) => {
+        await updateStock(item);
+        console.log("updated");
+      });
+      const cartId = await getCartId(transactionInfo.user_id);
+
+      await emptyCartItems(cartId[0].id);
+
+      console.log("success");
+      res.sendStatus(200);
+    } else {
+      // 결제 금액 불일치. 위/변조 된 결제
+      throw { status: "forgery", message: "결제실패" };
+    }
+
     // let quantity = await selectOrderItemQuantity(orderId);
-    console.log("success");
+    // console.log("success");
+    // res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+};
+
+export const getOrder = async (req, res) => {
+  const orderId = req.params.id;
+
+  try {
+    const orderInfo = await getOrderInfo(orderId, undefined);
+    const orderItems = await getOrderItems(orderId);
+
+    res.send({ orderInfo, orderItems });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getTransaction = async (req, res) => {
+  const merchant_uid = req.params.id;
+  try {
+    const transaction = await selectTransaction(merchant_uid);
+    res.send({ transaction });
   } catch (err) {
     console.log(err);
   }

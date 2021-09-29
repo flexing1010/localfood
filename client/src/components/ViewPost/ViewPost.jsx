@@ -1,7 +1,6 @@
 import "./ViewPost.scss";
 import { useHistory, useParams } from "react-router";
-import { useAxios } from "../../hooks/useAxios";
-
+// import { useAxios } from "../../hooks/useAxios";
 import { Editor } from "@nick4fake/react-draft-wysiwyg";
 import { useContext, useEffect, useState } from "react";
 import { convertFromRaw, EditorState } from "draft-js";
@@ -16,10 +15,10 @@ const ViewPost = () => {
   const { authState } = useContext(AuthContext);
   let history = useHistory();
 
-  const { response } = useAxios({
-    method: "get",
-    url: `/board/view-post/${id}`,
-  });
+  // const { response } = useAxios({
+  //   method: "get",
+  //   url: `/board/view-post/${id}`,
+  // });
 
   const toEditPost = () => {
     history.push(`/board/view-post/${id}/edit`);
@@ -29,7 +28,8 @@ const ViewPost = () => {
     if (window.confirm("글을 삭제하시겠습니까?")) {
       axios
         .delete(
-          `https://tennis365-api.herokuapp.com/board/view-post/${id}/delete`,
+          `http://localhost:3001/board/view-post/${id}/delete`,
+          // `https://tennis365-api.herokuapp.com/board/view-post/${id}/delete`,
           {
             data: {
               id,
@@ -38,23 +38,51 @@ const ViewPost = () => {
         )
         .then((res) => {
           if (res.status === 200) {
-            history.push("/board/qna");
+            // history.push("/board/qna");
+            history.goBack();
           }
         });
     }
   };
 
   useEffect(() => {
-    if (response) {
-      setBody(
-        EditorState.createWithContent(
-          convertFromRaw(JSON.parse(response[0].body))
-        )
-      );
-      setPost(response[0]);
-      console.log(post);
-    }
-  }, [response]);
+    axios
+      // .get(`http://localhost:3001/order/result/${id}`)
+      .get(`https://tennis365-api.herokuapp.com/board/view-post/${id}`)
+      .then((response) => {
+        // console.log(response);
+        if (response.status === 200) {
+          setBody(
+            EditorState.createWithContent(
+              convertFromRaw(JSON.parse(response.data[0].body))
+            )
+          );
+          setPost(response.data[0]);
+        }
+      });
+
+    // if (response) {
+    //   if (response.status === 200) {
+    //     setBody(
+    //       EditorState.createWithContent(
+    //         convertFromRaw(JSON.parse(response[0].body))
+    //       )
+    //     );
+    //     setPost(response[0]);
+    //   }
+    // }
+  }, [id]);
+
+  // useEffect(() => {
+  //   if (response) {
+  //     setBody(
+  //       EditorState.createWithContent(
+  //         convertFromRaw(JSON.parse(response[0].body))
+  //       )
+  //     );
+  //     setPost(response[0]);
+  //   }
+  // }, [window.reactTimestamp]);
 
   return (
     <div className="view-post">
@@ -67,11 +95,12 @@ const ViewPost = () => {
                 작성자
                 <span className="post-owner"> {post.username}</span>
               </div>
-              <span className="info-head">{` 작성일 ${new Date().getFullYear()}`}</span>
+              <span className="info-head">{` 작성일 ${post.createdAt}`}</span>
             </div>
           </div>
           <div className="view-post__header--col2">
-            {post.username === authState.username && (
+            {(post.username === authState.username ||
+              authState.isAdmin === 1) && (
               <div className="view-post__header--btns">
                 <button className="post-delete-btn" onClick={deletePost}>
                   삭제하기

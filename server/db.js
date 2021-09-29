@@ -11,12 +11,20 @@ import mysql from "mysql2";
 // });
 export const db = mysql.createPool({
   connectionLimit: 10,
-  host: "us-cdbr-east-04.cleardb.com",
-  user: "b969ac16770254",
-  password: "5c3c14e8",
-  database: "heroku_00c18c8deb3899e",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   dateStrings: true,
 });
+// export const db = mysql.createPool({
+//   connectionLimit: 10,
+//   host: "us-cdbr-east-04.cleardb.com",
+//   user: "b969ac16770254",
+//   password: "5c3c14e8",
+//   database: "heroku_00c18c8deb3899e",
+//   dateStrings: true,
+// });
 
 //b969ac16770254:5c3c14e8@us-cdbr-east-04.cleardb.com/heroku_00c18c8deb3899e?reconnect=true
 

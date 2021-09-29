@@ -49,20 +49,27 @@ export const postItem = async (req, res) => {
 export const updateItem = async (req, res) => {
   const editImg = req.files.imgUrl;
   const editImgs = req.files.editedImgs;
-
   const editInfo = JSON.parse(req.body.editInfo);
   const itemId = req.body.itemId;
 
   try {
-    if (editImg || editImgs) {
+    if (editImg && editImgs) {
       await updateItemInfo(itemId, editInfo, editImg[0]);
       await deleteItemImgs(itemId);
       await editImgs.forEach((img) => {
         editItemImgs(img, itemId);
       });
-    } else {
-      await updateItemInfo(itemId, editInfo, undefined);
+    } else if (editImg) {
+      await updateItemInfo(itemId, editInfo, editImg[0]);
+      // await deleteItemImgs(itemId);
+    } else if (editImgs) {
+      await deleteItemImgs(itemId);
+      await editImgs.forEach((img) => {
+        editItemImgs(img, itemId);
+      });
     }
+    await updateItemInfo(itemId, editInfo, undefined);
+
     const allItems = await getAllProducts();
     res.send({ allItems, success: "수정되었습니다" });
   } catch (err) {
@@ -110,7 +117,7 @@ export const patchIsAdmin = async (req, res) => {
 export const getOrderInfoForAdmin = async (req, res) => {
   try {
     const transaction = await selectTransaction();
-    const transactionItem = await await Promise.all(
+    const transactionItem = await Promise.all(
       transaction.map((item) => {
         return selectTransactionItem(item.order_id);
       })

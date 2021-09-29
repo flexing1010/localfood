@@ -34,7 +34,6 @@ export const postJoinController = async (req, res) => {
       } else {
         // create cart for a newly joined user
         db.execute("Insert into cart (user_id) values(?)", [result.insertId]);
-        console.log(result.insertId);
         res.send("Values Inserted");
       }
     }
@@ -64,9 +63,6 @@ export const postLoginController = async (req, res) => {
         return res.status(401).json({ errorMessage: "잘못된 비밀번호 입니다" });
       }
 
-      // let cartId = await getUserCart(user.id);
-      // cartId = cartId[0].id;
-      console.log(user.isAdmin, user.id);
       //Create accessToken
       const accessToken = sign(
         {
@@ -74,8 +70,19 @@ export const postLoginController = async (req, res) => {
           id: user.id,
           isAdmin: user.isAdmin,
         },
-        "xlSWyC0Jw2"
+        process.env.JWT_SECRET
+        // {
+        //   expiresIn: 300,
+        // }
       );
+      // const accessToken = sign(
+      //   {
+      //     username: user.username,
+      //     id: user.id,
+      //     isAdmin: user.isAdmin,
+      //   },
+      //   "xlSWyC0Jw2"
+      // );
 
       res.send({
         token: accessToken,

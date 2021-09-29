@@ -1,5 +1,7 @@
 import { db } from "../db.js";
 
+// const isHeroku = process.env.NODE_ENV === "production";
+
 export const insertItem = (itemInfo, coverImg) => {
   return new Promise((resolve, reject) => {
     db.execute(
@@ -16,7 +18,8 @@ export const insertItem = (itemInfo, coverImg) => {
         itemInfo.price,
         itemInfo.stock,
         itemInfo.description,
-        coverImg.filename,
+        coverImg.location,
+        // coverImg.filename,
       ],
       (err, result) => {
         if (err) {
@@ -47,7 +50,7 @@ export const insertItemImgs = (imgFile, insertedItem) => {
   return new Promise((resolve, reject) => {
     db.execute(
       "Insert Into images (img_url,product_id) values(?,?)",
-      [imgFile.filename, insertedItem.insertId],
+      [imgFile.location, insertedItem.insertId],
       (err, result) => {
         if (err) {
           return reject(err);
@@ -58,11 +61,12 @@ export const insertItemImgs = (imgFile, insertedItem) => {
   });
 };
 
+// [imgFile.filename, itemId],
 export const editItemImgs = (imgFile, itemId) => {
   return new Promise((resolve, reject) => {
     db.execute(
       "Insert Into images (img_url,product_id) values(?,?)",
-      [imgFile.filename, itemId],
+      [imgFile.location, itemId],
       (err, result) => {
         if (err) {
           return reject(err);
@@ -84,6 +88,7 @@ export const getAllItems = () => {
   });
 };
 
+// newImg.filename,
 export const updateItemInfo = (itemId, newItemInfo, newImg) => {
   return new Promise((resolve, reject) => {
     if (newImg) {
@@ -101,7 +106,7 @@ export const updateItemInfo = (itemId, newItemInfo, newImg) => {
           newItemInfo.price,
           newItemInfo.stock,
           newItemInfo.description,
-          newImg.filename,
+          newImg.location,
           itemId,
         ],
         (err, result) => {

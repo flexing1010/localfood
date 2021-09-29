@@ -1,4 +1,4 @@
-import queryString from "query-string";
+// import queryString from "query-string";
 import AddressInput from "../AdressInput/AdressInput";
 import Input from "../Input/Input";
 import "./OrderForm.scss";
@@ -21,6 +21,7 @@ import axios from "axios";
 const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
   const [fullAddress, setFulladdress, handleComplete] = usePostcode();
   const { values, handleInputChange, setValues } = useInputChanges({});
+
   let history = useHistory();
 
   const submitOrder = (e) => {
@@ -40,41 +41,61 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
         orderItems.length === 1
           ? orderItems[0].product_name
           : `${orderItems[0].product_name} 외 ${orderItems.length - 1}`,
+      m_redirect_url: `https://sleepy-austin-0254fa.netlify.app/order/payment/${transactionInfo.order_id}/mobile`,
     };
+
     const { IMP } = window;
     IMP.init("imp83950599");
 
     IMP.request_pay(data, (response) => {
-      console.log(response);
       if (response.success === true) {
-        const query = queryString.stringify(response);
+        // const query = queryString.stringify(response);
 
-        axios.post("https://tennis365-api.herokuapp.com/order/result", {
-          user_id: transactionInfo.user_id,
-          order_id: transactionInfo.order_id,
-          buyer_name: response.buyer_name,
-          name: response.name,
-          buyer_addr: response.buyer_addr,
-          buyer_tel: response.buyer_tel,
-          pay_method: response.pay_method,
-          merchant_uid: response.merchant_uid,
-          status: 0,
-          orderItems,
-          amount: orderInfo.grandTotal,
-        });
+        axios
+          // .post("http://localhost:3001/order/result", {
+          .post("https://tennis365-api.herokuapp.com/order/result", {
+            user_id: transactionInfo.user_id,
+            order_id: transactionInfo.order_id,
+            // buyer_name: data.buyer_name,
+            // name: data.name,
+            // buyer_addr: data.buyer_addr,
+            // buyer_tel: data.buyer_tel,
+            // pay_method: data.pay_method,
+            merchant_uid: data.merchant_uid,
+            imp_uid: response.imp_uid,
+            status: 0,
+            orderItems,
+            amount: orderInfo.grandTotal,
+            // user_id: transactionInfo.user_id,
+            // order_id: transactionInfo.order_id,
+            // buyer_name: response.buyer_name,
+            // name: response.name,
+            // buyer_addr: response.buyer_addr,
+            // buyer_tel: response.buyer_tel,
+            // pay_method: response.pay_method,
+            // merchant_uid: response.merchant_uid,
+            // status: 0,
+            // orderItems,
+            // amount: orderInfo.grandTotal,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              history.push({
+                pathname: `/order/payment/${response.merchant_uid}`,
+              });
+            }
+          });
 
-        history.push({
-          pathname: "/order/payment",
-          search: `?${query}`,
-          // state: {
-          //   orderItems,
-          // },
-        });
+        // history.push({
+        //   pathname: "/order/payment",
+        //   search: `?${query}`,
+
+        // });
       } else {
-        console.log(response);
+        // console.log(response);
       }
     });
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -82,11 +103,11 @@ const OrderForm = ({ orderInfo, orderItems, user, transactionInfo }) => {
       name: user.name,
       email: user.email,
       buyer_tel: "",
-      // address1: fullAddress,
       address2: user.address2,
     });
     setFulladdress(user.address1);
-    console.log(user, orderItems, orderInfo);
+    // console.log(user, orderItems, orderInfo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

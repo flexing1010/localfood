@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../../Context";
 import axios from "axios";
 import DeleteItem from "./DeleteItem";
+// import DeleteItem from "./DeleteItem";
 
 const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
   const { products, setProducts } = useContext(ProductContext);
@@ -14,11 +15,9 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
 
   const handleCoverImgEdit = (e) => {
     setCoverImg(e.target.files);
-    console.log(coverImg);
   };
   const handleItemImgsEdit = (e) => {
     setItemImgs(e.target.files);
-    console.log(itemImgs);
   };
 
   const requestUpdate = (e) => {
@@ -33,9 +32,11 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
     // console.log(coverImg);
     // console.log(itemImgs);
     axios
+      // .patch("http://localhost:3001/admin/item-list", formData)
       .patch("https://tennis365-api.herokuapp.com/admin/item-list", formData)
       .then((res) => {
         setProducts(res.data.allItems);
+
         alert(res.data.success);
       });
   };
@@ -44,6 +45,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
     if (itemId) {
       setTargetItem(products.find((item) => item.id === parseInt(itemId)));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   useEffect(() => {
@@ -64,7 +66,8 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
       });
     }
     setPreviewImg(
-      `https://tennis365-api.herokuapp.com/admin/${targetItem.imgUrl}`
+      targetItem.imgUrl
+      // `https://tennis365-api.herokuapp.com/admin/${targetItem.imgUrl}`
     );
   }, [targetItem]);
 
@@ -253,8 +256,8 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
         <textarea
           name="description"
           id="설명"
-          cols="50"
-          rows="10"
+          // cols="20"
+          rows="7"
           value={values.description || ""}
           onChange={(e) => inputChange(e)}
           required
@@ -264,6 +267,7 @@ const ItemListEdit = ({ itemId, closeModal, filterItemList }) => {
           filterItemList={filterItemList}
           targetId={itemId}
           text={"상품 삭제"}
+          // url={"http://localhost:3001/admin/item-list"}
           url={"https://tennis365-api.herokuapp.com/admin/item-list"}
         />
         <button>등록</button>
