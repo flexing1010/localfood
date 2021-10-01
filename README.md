@@ -6,7 +6,7 @@
 
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
-#### BackEnd Frame Work & DB
+#### BackEnd Framework & DB
 
 <img src="https://img.shields.io/badge/Node-v14.16.0-green.svg" /> <img src="https://img.shields.io/badge/express-v4.17.1-red.svg" />
 <img src="https://img.shields.io/badge/mysql-v5.7.10-red.svg" />
@@ -20,21 +20,24 @@
 <img src="https://img.shields.io/badge/mysql2-v2.2.5-green.svg" />
 <img src="https://img.shields.io/badge/nodemon-v2.0.4-green.svg" />
 
-#### FrontEnd Frame Work
+#### FrontEnd Framework
 
 <img src="https://img.shields.io/badge/react-v17.0.2-green.svg" />
 
 #### FrontEnd Library
 
-<img src="https://img.shields.io/badge/tui_grid-v4.14.0-blue.svg" />
-<img src="https://img.shields.io/badge/tui_pagination-v3.4.0-blue.svg" /> <img src="https://img.shields.io/badge/react_responsive_carousel-v3.2.21-blue.svg" />
-<img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/react_daum_postcode-v2.0.6-blue.svg" />
-<img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/axios-v0.21.1-blue.svg" />
+<img src="https://img.shields.io/badge/tui_grid-v4.14.0-blue.svg" /> <img src="https://img.shields.io/badge/tui_pagination-v3.4.0-blue.svg" /> <img src="https://img.shields.io/badge/react_responsive_carousel-v3.2.21-blue.svg" /> <img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/react_daum_postcode-v2.0.6-blue.svg" /> <img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/axios-v0.21.1-blue.svg" /> <img src="https://img.shields.io/badge/iamport_payment-v1.1.8-blue.svg" />
 
 ## What is Tennis365?
 
 Tennis365는 react와 nodejs를 활용한 간단한 테니스 라켓 쇼핑몰 사이트 입니다.
 일반 사용자 페이지와 관리자 페이지로 나뉘어져 있으며 실제 쇼핑몰 사이트 처럼 구현을 했습니다.
+
+### <span id='top'>바로가기</span>
+
+- <a href="#erd">ERD 및 테이블 설명</span>
+- <a href="#main-features">주요 기능</span>
+<!-- - <a href="#screen">스크린샷</span> -->
 
 ## <span id="erd">ERD 및 테이블 설명</span>
 
@@ -146,6 +149,10 @@ category_id와 product_id를 매칭
 5) buyer_name -> 구매자 이름
 6) pay_method -> 결제 방법
 7) status -> 주문 상황
+    0: 신규주문
+    1: 발송대기
+    2: 배송중
+    3: 배송완료
 8) merchant_uid -> 결제 고유 uid(아임포트 결제시 반환되는 uid)
 9) name -> 상품명
 10) amount -> 결제금액
@@ -172,3 +179,34 @@ category_id와 product_id를 매칭
 4) createdAt -> 댓글 작성일
 5) message_board_id -> 댓글이 귀속된 게시글 id (message_board 테이블과 매핑)
 ```
+
+### <a href="#top">맨 위로</a>
+
+## <span id="main-features">주요기능</span>
+
+#### <span id="features">기능</span>
+
+- <a href="">로그인 프로세스 </a>
+- <a href="">회원가입 프로세스 </a> REACT DAUM POSTCODE(다음 우편찾기 라이브러리)]
+- <a href="">장바구니에 담기 프로세스 </a>
+- <a href="">주문하기 프로세스 </a> [REACT DAUM POSTCODE(다음 우편찾기 라이브러리)]
+- <a href="">결제 프로세스 </a> [I'MPORT(아임포트 결제 API)]
+- <a href="">관리자 -> 상품crud 프로세스 </a> [MULTER(파일업로드 라이브러리)]
+- <a href="">관리자 -> 주문목록 프로세스</a> [TOAST GRID(그리드 라이브러리)]
+- <a href="">관리자 -> 유저목록 프로세스 </a> [TOAST GRID(그리드 라이브러리)]
+- <a href="">게시판 </a> [REACT DRAFT WYSIWYG(에디터 라이브러리)]
+- <a href="">댓글, 답글 프로세스</a>
+- <a href="">서버, 프론트 개발환경</a>
+  [ MYSQL2(DB 라이브러리)]
+
+#### <span id="library">Open Api 및 라이브러리 적용</span>
+
+- <a href="https://www.iamport.kr/">IAMPORT(결제 API)</a>
+- <a href="https://ui.toast.com/tui-grid/">TOAST GRID(그리드 라이브러리)</a>
+- <a href="https://jpuri.github.io/react-draft-wysiwyg/#/">REACT DRAFT WYSIWYG(에디터 라이브러리)</a>
+- <a href="https://www.npmjs.com/package/react-hooks-paginator">REACT HOOKS PAGINATOR(페이징 라이브러리)</a>
+- <a href="http://postcode.map.daum.net/guide">REACT DAUM POSTCODE(다음 우편찾기 라이브러리)</a>
+- <a href="https://www.npmjs.com/package/multer">MULTER(파일업로드 라이브러리)</a>
+- <a href="https://www.npmjs.com/package/mysql2">MYSQL2(DB 라이브러리)</a>
+
+### <a href="#top">맨 위로</a>
