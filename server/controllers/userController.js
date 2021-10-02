@@ -75,14 +75,6 @@ export const postLoginController = async (req, res) => {
         //   expiresIn: 300,
         // }
       );
-      // const accessToken = sign(
-      //   {
-      //     username: user.username,
-      //     id: user.id,
-      //     isAdmin: user.isAdmin,
-      //   },
-      //   "xlSWyC0Jw2"
-      // );
 
       res.send({
         token: accessToken,
