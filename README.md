@@ -210,3 +210,17 @@ category_id와 product_id를 매칭
 - <a href="https://www.npmjs.com/package/mysql2">MYSQL2(DB 라이브러리)</a>
 
 ### <a href="#top">맨 위로</a>
+
+<br />
+
+## 스크린샷
+
+### 메인화면
+
+![365-main1](https://user-images.githubusercontent.com/79352105/136037615-333a6fa2-502b-4e31-80a8-49039bdadb11.gif)
+
+### 메인화면(모바일)
+
+![365-main(mobile)](https://user-images.githubusercontent.com/79352105/136038050-3496d8c0-8325-43ae-b9ed-439261050cfb.gif)
+
+### <a href="#top">맨 위로</a>

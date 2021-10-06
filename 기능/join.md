@@ -36,3 +36,7 @@
 - 암호화한 비밀번호를 포함한 모든 회원가입 정보를 DB에 저장한다.
 - 중복된 아이디나 이메일이 있다면(1062 unique값 중복 에러) 에러메시지를 보낸다.
 - 성공적으로 DB에 저장됐다면 해당 사용자의 id값을 가진 cart를 생성한다.
+
+<br />
+
+![365-join](https://user-images.githubusercontent.com/79352105/136034462-59762dbf-c661-43bb-adbf-6be83ace1dfc.gif)

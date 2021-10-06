@@ -61,7 +61,6 @@ export const updateItem = async (req, res) => {
       });
     } else if (editImg) {
       await updateItemInfo(itemId, editInfo, editImg[0]);
-      // await deleteItemImgs(itemId);
     } else if (editImgs) {
       await deleteItemImgs(itemId);
       await editImgs.forEach((img) => {

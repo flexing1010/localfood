@@ -61,3 +61,7 @@ client-side
 - 주문페이지에서 결제하기 버튼을 누르면 PG사의 결제창에 연결된다.
 - 결제를 성공적으로 마치면 서버 API에 결제 정보를 post request로 보내 내용을 저장한다.
 - 저장이 완료 되면 결제완료 페이지로 이동
+
+<br />
+
+![365-transaction](https://user-images.githubusercontent.com/79352105/136044282-5f28f452-9e80-4f51-a834-4dd39776115d.gif)

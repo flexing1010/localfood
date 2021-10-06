@@ -47,3 +47,5 @@ try {
 - DB에 사용자 정보가 없다면 에러 메시지와 함께 status code 400을 프론트엔드에 보낸다.
 - 아이디가 있다면 bcrypt.compare를 통해 프로트로 부터 받은 비밀번호와 user에 저장된 비밀번호를 비교한다.
 - 일치하지 않으면 401코드와 에러메시지를 보내고, 일치한다면 jwt로 accessToken을 생성하고 사용자 정보와 함께 프론트에 전달한다.
+
+![365-login](https://user-images.githubusercontent.com/79352105/136027457-bd897f70-a101-4145-bdd5-3c3be5f4b749.gif)

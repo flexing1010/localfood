@@ -2,6 +2,8 @@
 
 ### 상품등록
 
+![365-add_product](https://user-images.githubusercontent.com/79352105/136040800-cda56fee-a563-427a-94a1-44bd18eb4389.gif)
+
 ```
 client-side
 
@@ -74,6 +76,8 @@ export const postItem = async (req, res) => {
 <br />
 
 ### 상품수정
+
+![365-edit_product](https://user-images.githubusercontent.com/79352105/136041405-c3f206ff-1481-4f10-bb27-1b3ed1c2737e.gif)
 
 ```
 client-side

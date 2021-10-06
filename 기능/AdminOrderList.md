@@ -1,4 +1,6 @@
-##주문관리 프로세스 ###주문관리
+## 주문관리 프로세스
+
+### 주문관리
 
 - 토스트 그리드 라이브러리를 사용하여 주문정보들을 표시
 - 주문번호를 클릭하면 자세한 정보가 모달창에 표시
@@ -42,3 +44,5 @@ export const patchStatus = async (req, res) => {
   }
 };
 ```
+
+![365-update_order](https://user-images.githubusercontent.com/79352105/136044703-50f6f59d-7ad4-4b19-9e0f-f47adb3b83d8.gif)

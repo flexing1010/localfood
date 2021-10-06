@@ -74,3 +74,7 @@ server-side
 - 해당 user_id를 가진 사용자에게 귀속된 cart id를 찾는다.
 - 장바구니에 중복된 상품이 있는지 확인한 후 있다면 에러 메시지를 보낸다.
 - 중복된 상품이 없다면 장바구니-상품 테이블에 상품정보를 저장한다.
+
+<br />
+
+![365-cart1](https://user-images.githubusercontent.com/79352105/136036488-6df01898-3014-480a-ba59-edc5142eb5f8.gif)
