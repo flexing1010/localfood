@@ -8,7 +8,7 @@
 
 #### BackEnd Framework & DB
 
-<img src="https://img.shields.io/badge/Node-v14.16.0-green.svg" /> <img src="https://img.shields.io/badge/express-v4.17.1-red.svg" />
+<img src="https://img.shields.io/badge/Node-v14.16.0-red.svg" /> <img src="https://img.shields.io/badge/express-v4.17.1-red.svg" />
 <img src="https://img.shields.io/badge/mysql-v5.7.10-red.svg" />
 
 #### BackEnd Library
@@ -28,10 +28,15 @@
 
 <img src="https://img.shields.io/badge/tui_grid-v4.14.0-blue.svg" /> <img src="https://img.shields.io/badge/tui_pagination-v3.4.0-blue.svg" /> <img src="https://img.shields.io/badge/react_responsive_carousel-v3.2.21-blue.svg" /> <img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/react_daum_postcode-v2.0.6-blue.svg" /> <img src="https://img.shields.io/badge/react_draft_wysiwyg-v1.14.7-blue.svg" /> <img src="https://img.shields.io/badge/axios-v0.21.1-blue.svg" /> <img src="https://img.shields.io/badge/iamport_payment-v1.1.8-blue.svg" />
 
+#### etc.
+
+![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+
 ## What is Tennis365?
 
-Tennis365는 react와 nodejs를 활용한 간단한 테니스 라켓 쇼핑몰 사이트 입니다.
-일반 사용자 페이지와 관리자 페이지로 나뉘어져 있으며 실제 쇼핑몰 사이트 처럼 구현을 했습니다.
+Tennis365는 React와 Node.js를 활용하여 테니스 라켓 쇼핑몰을 구현한 사이트입니다. 프로젝트의 기획, 개발, 배포까지 풀 사이클로 개발하였습니다.
 
 ### <span id='top'>바로가기</span>
 

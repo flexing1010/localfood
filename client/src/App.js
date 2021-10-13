@@ -6,7 +6,6 @@ import axios from "axios";
 
 import Home from "./pages/Home/Home";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
-// import Navbar from "./components/Navbar/Navbar";
 import Search from "./pages/Search/Search";
 import Footer from "./components/Footer/Footer.jsx";
 import Login from "./pages/Login/Login";
@@ -32,11 +31,8 @@ import CreatePost from "./components/CreatePost/CreatePost";
 import EditPost from "./components/EditPost/EditPost";
 import AllProducts from "./pages/AllProducts/AllProducts";
 import MobilePayment from "./components/MobilePayment/MobilePayment";
-// import { useHistory } from "react-router-dom";
 
 function App() {
-  // const cancelToken = axios.CancelToken
-  // const source = cancelToken.source
   const [products, setProducts] = useState([]);
   const [isShowing, setIsShowing] = useState(false);
   const [authState, setAuthState] = useState({
@@ -52,8 +48,6 @@ function App() {
     },
   });
 
-  //  let history = useHistory();
-
   useEffect(() => {
     axios
       .all([getAuth, axios.get("https://tennis365-api.herokuapp.com/")])
@@ -66,7 +60,6 @@ function App() {
             id: res[0].data.id,
             isAdmin: res[0].data.isAdmin,
             status: true,
-            // cartId: res[0].data.cartId,
           });
           // console.log(authState.isAdmin);
         }
@@ -86,8 +79,6 @@ function App() {
               <Sidebar />
             </SidebarContext.Provider>
             <div className="body-wrapper">
-              {/* <Navbar /> */}
-              {/* 버그 authState때문에 에러가 생기는 듯 */}
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/all-products" component={AllProducts} />
@@ -95,7 +86,6 @@ function App() {
                 <Route path="/details" component={ProductDetails} />
                 <Route path="/search" component={Search} />
                 <Route path="/cart" component={Cart} />
-                {/* <Route path="/cart" component={Cart} /> */}
                 <Route
                   exact
                   path="/board/announcement"
