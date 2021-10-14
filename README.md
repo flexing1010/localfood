@@ -222,10 +222,10 @@ category_id와 product_id를 매칭
 
 ### 메인화면
 
-![365-main1](https://user-images.githubusercontent.com/79352105/136037615-333a6fa2-502b-4e31-80a8-49039bdadb11.gif)
+![365-main1](https://user-images.githubusercontent.com/79352105/137310442-78b7bbfb-9742-4b59-ab25-050041e23169.gif)
 
 ### 메인화면(모바일)
 
-![365-main(mobile)](https://user-images.githubusercontent.com/79352105/136038050-3496d8c0-8325-43ae-b9ed-439261050cfb.gif)
+![365-main(mobile)](https://user-images.githubusercontent.com/79352105/137310446-8c019311-a6d8-488b-ac14-0ade3ce51cd4.gif)
 
 ### <a href="#top">맨 위로</a>
