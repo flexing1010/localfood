@@ -71,7 +71,7 @@ export const postItem = async (req, res) => {
 };
 ```
 
-- 프론트엔드로부터 받은 이미지 파일정보를 multer 미들웨어를 통해 처리하고 나머지 정보들과 함께 DB에 저장한다.
+- 프론트엔드로부터 받은 이미지 파일정보를 multer 미들웨어를 통해 처리하고 나머지 정보들과 함께 DB에 저장한다(실제 이미지 파일은 multer s3를 통해 Amazon S3에 저장한다).
 
 <br />
 
