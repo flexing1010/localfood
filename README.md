@@ -55,7 +55,7 @@ Tennis365는 React와 Node.js를 활용하여 테니스 라켓 쇼핑몰을 구�
 1) name -> 사용자 이름
 2) username -> 사용자 아이디
 3) email -> 사용자 이메일
-4) password -> 비밀번호(bcrypt로 암호화되어 삽입)
+4) password -> 비밀번호(bcrypt로 해시(Hash)되어 삽입)
 5) address1 -> 사용자 주소
 6) address2 -> 상세 주소
 7) isAdmin ->  일반 사용자 = 0, 관리자 = 1 (회원가입시 default 0)
