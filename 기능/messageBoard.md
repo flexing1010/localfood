@@ -4,7 +4,7 @@
 
 - react draft wysiwyg 에디터를 사용하여 글을 작성할 수 있게 구현
 - 관리자라면 작성글이 공지사항글인지 QnA글인지 선택할 수 있다(일반 사용자는 QnA글로 고정)
--
+- 게시글의 작성자는 username(아이디)로 판별
 
 ```
 client-side
